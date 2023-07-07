@@ -1,0 +1,252 @@
+Starting the program for GAV =  org.apache.struts:struts-core:1.3.9
+Slimit the program for GAV =  0.2
+
+--------------------------------------------------------------------------------
+JAR Extractor created
+Directory packages/struts-core-1.3.9-sources already exists. Skipping extraction of pom_jar/struts-core-1.3.9-sources.jar.
+
+--------------------------------------------------------------------------------
+Retrieving .java files from  packages/struts-core-1.3.9-sources/
+Collecting Java files from directory =  packages/struts-core-1.3.9-sources/. This may take a while. Limit size = 0.2
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/Globals.java may take a lot time. (Size = 0.008 MB)
+                     0.008 MB parsed in 0.007 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/mock/TestMockBase.java may take a lot time. (Size = 0.017 MB)
+                     0.017 MB parsed in 0.075 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/mock/MockServletConfig.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.005 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/mock/MockEnumeration.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.002 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/mock/MockActionServlet.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.004 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/mock/MockMultipartRequestHandler.java may take a lot time. (Size = 0.004 MB)
+                     0.004 MB parsed in 0.008 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/mock/MockAction.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.0 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/mock/MockPageContext.java may take a lot time. (Size = 0.019 MB)
+                     0.019 MB parsed in 0.3 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/mock/MockPrincipal.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.008 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/mock/MockHttpSession.java may take a lot time. (Size = 0.004 MB)
+                     0.004 MB parsed in 0.015 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/mock/MockFormBean.java may take a lot time. (Size = 0.005 MB)
+                     0.005 MB parsed in 0.021 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/mock/MockHttpServletResponse.java may take a lot time. (Size = 0.005 MB)
+                     0.005 MB parsed in 0.025 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/mock/MockHttpServletRequest.java may take a lot time. (Size = 0.011 MB)
+                     0.011 MB parsed in 0.134 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/mock/MockServletContext.java may take a lot time. (Size = 0.005 MB)
+                     0.005 MB parsed in 0.026 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/action/ActionForward.java may take a lot time. (Size = 0.005 MB)
+                     0.005 MB parsed in 0.004 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/action/ActionMessage.java may take a lot time. (Size = 0.006 MB)
+                     0.006 MB parsed in 0.01 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/action/ActionErrors.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.001 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/action/RequestProcessor.java may take a lot time. (Size = 0.041 MB)
+                     0.041 MB parsed in 0.189 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/action/ActionRedirect.java may take a lot time. (Size = 0.012 MB)
+                     0.012 MB parsed in 0.031 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/action/ActionFormBean.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.001 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/action/Action.java may take a lot time. (Size = 0.021 MB)
+                     0.021 MB parsed in 0.043 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/action/ActionMessages.java may take a lot time. (Size = 0.014 MB)
+                     0.014 MB parsed in 0.048 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/action/ExceptionHandler.java may take a lot time. (Size = 0.012 MB)
+                     0.012 MB parsed in 0.024 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/action/ActionMapping.java may take a lot time. (Size = 0.004 MB)
+                     0.004 MB parsed in 0.006 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/action/InvalidCancelException.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/action/DynaActionForm.java may take a lot time. (Size = 0.024 MB)
+                     0.024 MB parsed in 0.104 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/action/PlugIn.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.001 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/action/SessionActionMapping.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/action/ActionServlet.java may take a lot time. (Size = 0.071 MB)
+                     0.071 MB parsed in 0.432 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/action/ActionServletWrapper.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.003 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/action/RedirectingActionForward.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.001 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/action/DynaActionFormClass.java may take a lot time. (Size = 0.01 MB)
+                     0.01 MB parsed in 0.034 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/action/RequestActionMapping.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/action/ForwardingActionForward.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.001 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/action/ActionForm.java may take a lot time. (Size = 0.009 MB)
+                     0.009 MB parsed in 0.007 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/ComposableRequestProcessor.java may take a lot time. (Size = 0.015 MB)
+                     0.015 MB parsed in 0.036 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/Constants.java may take a lot time. (Size = 0.005 MB)
+                     0.005 MB parsed in 0.003 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/contexts/ActionContextBase.java may take a lot time. (Size = 0.017 MB)
+                     0.017 MB parsed in 0.11 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/contexts/ServletActionContext.java may take a lot time. (Size = 0.008 MB)
+                     0.008 MB parsed in 0.032 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/contexts/ActionContext.java may take a lot time. (Size = 0.014 MB)
+                     0.014 MB parsed in 0.023 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/contexts/MockActionContext.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.005 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/contexts/ContextWrapper.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.009 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/contexts/WebActionContext.java may take a lot time. (Size = 0.006 MB)
+                     0.006 MB parsed in 0.012 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/AbstractSelectForward.java may take a lot time. (Size = 0.004 MB)
+                     0.004 MB parsed in 0.005 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/ActionCommand.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/AbstractExecuteAction.java may take a lot time. (Size = 0.004 MB)
+                     0.004 MB parsed in 0.004 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/AbstractSetOriginalURI.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.002 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/AbstractSelectAction.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.004 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/AbstractRequestNoCache.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.002 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/AbstractSelectModule.java may take a lot time. (Size = 0.004 MB)
+                     0.004 MB parsed in 0.004 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/AbstractValidateActionForm.java may take a lot time. (Size = 0.005 MB)
+                     0.005 MB parsed in 0.008 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/AbstractPerformInclude.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.003 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/InvalidPathException.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.001 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/AbstractPerformForward.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.002 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/ExceptionCatcher.java may take a lot time. (Size = 0.007 MB)
+                     0.007 MB parsed in 0.013 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/ExecuteForwardCommand.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.002 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/CreateActionForm.java may take a lot time. (Size = 0.004 MB)
+                     0.004 MB parsed in 0.006 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/AbstractExceptionHandler.java may take a lot time. (Size = 0.005 MB)
+                     0.005 MB parsed in 0.008 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/AbstractPopulateActionForm.java may take a lot time. (Size = 0.006 MB)
+                     0.006 MB parsed in 0.009 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/ExecuteCommand.java may take a lot time. (Size = 0.005 MB)
+                     0.005 MB parsed in 0.009 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/AbstractSelectInput.java may take a lot time. (Size = 0.004 MB)
+                     0.004 MB parsed in 0.007 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/SelectInclude.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.003 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/AbstractAuthorizeAction.java may take a lot time. (Size = 0.005 MB)
+                     0.005 MB parsed in 0.006 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/AbstractSetContentType.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.002 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/ActionCommandBase.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.002 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/AbstractSelectLocale.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.004 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/RemoveCachedMessages.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.003 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/AbstractCreateAction.java may take a lot time. (Size = 0.004 MB)
+                     0.004 MB parsed in 0.008 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/UnauthorizedActionException.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.001 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/servlet/RequestNoCache.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.002 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/servlet/SelectAction.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.008 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/servlet/SelectLocale.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.004 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/servlet/SetContentType.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.002 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/servlet/ExceptionHandler.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.005 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/servlet/AuthorizeAction.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.004 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/servlet/SetOriginalURI.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.002 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/servlet/SelectModule.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.005 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/servlet/ValidateActionForm.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.004 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/servlet/PopulateActionForm.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.004 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/servlet/SelectForward.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.002 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/servlet/SelectInput.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.002 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/servlet/PerformForward.java may take a lot time. (Size = 0.006 MB)
+                     0.006 MB parsed in 0.017 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/servlet/ExecuteAction.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.002 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/servlet/CreateAction.java may take a lot time. (Size = 0.004 MB)
+                     0.004 MB parsed in 0.007 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/servlet/PerformInclude.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.004 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/generic/WrappingLookupCommand.java may take a lot time. (Size = 0.009 MB)
+                     0.009 MB parsed in 0.026 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/generic/CopyFormToContext.java may take a lot time. (Size = 0.01 MB)
+                     0.01 MB parsed in 0.016 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/chain/commands/util/ClassUtils.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.003 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/util/ImageButtonBean.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.005 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/util/RequestUtils.java may take a lot time. (Size = 0.042 MB)
+                     0.042 MB parsed in 0.17 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/util/IteratorAdapter.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.003 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/util/WildcardHelper.java may take a lot time. (Size = 0.015 MB)
+                     0.015 MB parsed in 0.046 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/util/ResponseUtils.java may take a lot time. (Size = 0.006 MB)
+                     0.006 MB parsed in 0.015 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/util/PropertyMessageResources.java may take a lot time. (Size = 0.016 MB)
+                     0.016 MB parsed in 0.033 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/util/PropertyMessageResourcesFactory.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.002 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/util/ModuleException.java may take a lot time. (Size = 0.004 MB)
+                     0.004 MB parsed in 0.007 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/util/MessageResources.java may take a lot time. (Size = 0.018 MB)
+                     0.018 MB parsed in 0.061 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/util/TokenProcessor.java may take a lot time. (Size = 0.007 MB)
+                     0.007 MB parsed in 0.014 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/util/LabelValueBean.java may take a lot time. (Size = 0.005 MB)
+                     0.005 MB parsed in 0.013 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/util/ModuleUtils.java may take a lot time. (Size = 0.009 MB)
+                     0.009 MB parsed in 0.025 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/util/MessageResourcesFactory.java may take a lot time. (Size = 0.006 MB)
+                     0.006 MB parsed in 0.007 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/util/ServletContextWriter.java may take a lot time. (Size = 0.009 MB)
+                     0.009 MB parsed in 0.057 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/config/FormPropertyConfig.java may take a lot time. (Size = 0.014 MB)
+                     0.014 MB parsed in 0.042 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/config/FormBeanConfig.java may take a lot time. (Size = 0.021 MB)
+                     0.021 MB parsed in 0.081 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/config/ControllerConfig.java may take a lot time. (Size = 0.011 MB)
+                     0.011 MB parsed in 0.047 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/config/ConfigHelperInterface.java may take a lot time. (Size = 0.007 MB)
+                     0.007 MB parsed in 0.008 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/config/PlugInConfig.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.004 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/config/ActionConfigMatcher.java may take a lot time. (Size = 0.01 MB)
+                     0.01 MB parsed in 0.044 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/config/ActionConfig.java may take a lot time. (Size = 0.039 MB)
+                     0.039 MB parsed in 0.223 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/config/ForwardConfig.java may take a lot time. (Size = 0.016 MB)
+                     0.016 MB parsed in 0.047 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/config/ModuleConfigFactory.java may take a lot time. (Size = 0.004 MB)
+                     0.004 MB parsed in 0.006 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/config/MessageResourcesConfig.java may take a lot time. (Size = 0.004 MB)
+                     0.004 MB parsed in 0.011 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/config/BaseConfig.java may take a lot time. (Size = 0.005 MB)
+                     0.005 MB parsed in 0.008 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/config/ConfigHelper.java may take a lot time. (Size = 0.017 MB)
+                     0.017 MB parsed in 0.087 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/config/ExceptionConfig.java may take a lot time. (Size = 0.013 MB)
+                     0.013 MB parsed in 0.04 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/config/ModuleConfig.java may take a lot time. (Size = 0.011 MB)
+                     0.011 MB parsed in 0.016 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/config/ConfigRuleSet.java may take a lot time. (Size = 0.016 MB)
+                     0.016 MB parsed in 0.051 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/config/impl/DefaultModuleConfigFactory.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.002 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/config/impl/ModuleConfigImpl.java may take a lot time. (Size = 0.024 MB)
+                     0.024 MB parsed in 0.125 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/validator/FieldChecks.java may take a lot time. (Size = 0.05 MB)
+                     0.05 MB parsed in 0.302 sec
+     Current file =  packages/struts-core-1.3.9-sources/org/apache/struts/validator/ValidatorPlugIn.java may take a lot time. (Size = 0.008 MB)
+                     0.008 MB parsed in 0.021 sec

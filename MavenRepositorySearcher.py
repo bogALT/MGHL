@@ -133,7 +133,7 @@ class MavenRepositorySearcher:
             versions.sort()
 
         #print("Versions found = ",len(versions))
-        print("MVN----> ", versions)
+        #print("MVN----> ", versions)
         return versions[versions.index(v)-1]
 
     def read_xml(self, data):

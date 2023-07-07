@@ -5,10 +5,10 @@ cd.go.plugin:go-plugin-api
 ch.qos.reload4j:reload4j
 co.elastic.apm:apm-agent-api
 co.elastic.apm:apm-agent-attach-cli
-com.alibaba.nacos:nacos-api            // ok
+com.alibaba.nacos:nacos-api
 com.alibaba.nacos:nacos-client
 com.alibaba.nacos:nacos-common
-com.alibaba:fastjson                   // GH bad credentials Error
+com.alibaba:fastjson
 com.atlassian.connect:atlassian-connect-spring-boot-core
 com.bmuschko:gradle-vagrant-plugin
 com.bstek.ureport:ureport2-console

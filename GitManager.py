@@ -18,7 +18,7 @@ class GitManager:
         self.github_api_url = "https://api.github.com"
         l = Login()
         self.api_username = l.get_username()
-        self.access_token = "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"
+        self.access_token = "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"
 
     def query_github(self, repo_path):
         try:
@@ -168,7 +168,7 @@ class GitManager:
             #print(f"Adding Release: {release.tag_name} to the versions array")
             versions.append(release.tag_name)
         versions.sort()
-        print("GH-----", versions)
+        #print("GH-----", versions)
 
         return versions
 

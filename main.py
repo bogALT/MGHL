@@ -126,18 +126,16 @@ def start(gav=None, slimit=None):
     title = f"Comparing {oDir_precedent} and {oDir}:"
     text = f"Changed files: {num_different_files}" + "\n" + \
            f"Examined files: {num_files_examined}"
+    print(text)
     page.add_content(title, text)
     outputs.append(text)
-
-    #print(f"Changed files: {num_different_files}")
-    #print(f"Examined files: {num_files_examined}")
 
     # XML Reader -> return github url contained in the POM file
     xr = XMLReader()
     pom_file_name = "pom_jar/" + pom_file_name
     urls = xr.get_github_url(pom_file_name)
     if len(urls) > 0:
-        print("Possible urls = ", urls)
+        #print("Possible urls = ", urls)
 
         # create github manager object
         separator()
