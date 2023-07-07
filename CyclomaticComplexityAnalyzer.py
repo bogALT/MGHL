@@ -7,10 +7,6 @@ class CyclomaticComplexityAnalyzer:
     '''
 
     def __init__(self, oDir):
-        '''
-        Init the code directory to be analyzed
-        :param oDir: directory containing java files
-        '''
         self.code_directory = oDir
         print("Init cyclomatic complexity analyzer")
 
@@ -33,13 +29,8 @@ class CyclomaticComplexityAnalyzer:
         avg_ccn_for_file = 0
         for jf in jfs:
             analyzed_files = lizard.analyze_file(jf)
-            avg_ccn_for_file += analyzed_files.CCN
+            avg_ccn_for_file += round(analyzed_files.CCN, 2)
             #print(f"Whole file: {os.path.basename(jf)} has CCN = {analyzed_files.CCN}, and his methods:")
-            '''
-            index = 1
-            for f in analyzed_files.function_list:
-                print(f"    {str(index)}. Function {f.name} has CCN = {f.cyclomatic_complexity}")
-                index += 1
-            '''
 
-        return {avg_ccn_for_file / len(jfs)}
+        avg_ccn = round(avg_ccn_for_file / len(jfs),2)
+        return avg_ccn

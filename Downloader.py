@@ -43,7 +43,7 @@ class Downlaoder:
 
         gid = g.replace(".", "/")
         ret_url = self.base + gid + "/" + a + "/" + v + "/" + a + "-" + v + "." + ext
-        print(f"g = {g}, \na= {a}, \nv = {v}, \ngid = {gid}, \nurl = {ret_url}")
+        #print(f"g = {g}, \na= {a}, \nv = {v}, \ngid = {gid}, \nurl = {ret_url}")
         return self.base + gid + "/" + a + "/" + v + "/" + a + "-" + v + "." + ext
 
 # -----------------------------------------------------------------------------
@@ -57,7 +57,7 @@ class Downlaoder:
         filename = url.split("/")[-1]
         try:
             response = requests.get(url, allow_redirects=True)
-            open(filename, "wb").write(response.content)    # overwritting file in case it exists
+            open("pom_jar/"+filename, "wb").write(response.content)    # overwritting file in case it exists
         except BaseException as be:
             print(f"Something went wrong while downloading: {url} and the following exception was raised: {be}. Exiting!"
                   f"This operation is mandatory, exiting!")

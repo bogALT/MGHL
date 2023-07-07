@@ -44,5 +44,5 @@ class HTMLPage:
         self.page_content = self.page_content.replace("</body>", f"{content}\n</body>")
 
     def save_to_file(self, filename):
-        with open(filename, "w") as file:
+        with open("HTML_Reports/"+filename, "w") as file:
             file.write(self.page_content)

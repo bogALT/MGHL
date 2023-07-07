@@ -1,0 +1,287 @@
+Starting the program for GAV =  org.apache.sshd:sshd-sftp:2.9.0
+Slimit the program for GAV =  0.3
+
+--------------------------------------------------------------------------------
+JAR Extractor created
+Directory packages/pom_jar/sshd-sftp-2.9.0-sources already exists. Skipping extraction of pom_jar/sshd-sftp-2.9.0-sources.jar.
+
+--------------------------------------------------------------------------------
+Retrieving .java files from  packages/pom_jar/sshd-sftp-2.9.0-sources/
+Collecting Java files from directory =  packages/pom_jar/sshd-sftp-2.9.0-sources/. This may take a while
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/SftpModuleProperties.java may take a lot time. (Size = 0.01 MB)
+                     0.01 MB parsed in 0.019 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/FullAccessSftpClient.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.003 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/SftpClientFactory.java may take a lot time. (Size = 0.007 MB)
+                     0.007 MB parsed in 0.021 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/SftpClientHolder.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/SimpleSftpClient.java may take a lot time. (Size = 0.008 MB)
+                     0.008 MB parsed in 0.02 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/RawSftpClient.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.002 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/SftpClient.java may take a lot time. (Size = 0.035 MB)
+                     0.035 MB parsed in 0.619 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/SftpErrorDataHandler.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.002 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/SftpVersionSelector.java may take a lot time. (Size = 0.008 MB)
+                     0.008 MB parsed in 0.023 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/fs/SftpPosixFileAttributeView.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.01 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/fs/SftpFileStore.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.009 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/fs/SftpFileSystemClientSessionInitializer.java may take a lot time. (Size = 0.005 MB)
+                     0.005 MB parsed in 0.006 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/fs/SftpPosixFileAttributes.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.011 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/fs/SftpAclFileAttributeView.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.005 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/fs/SftpPathIterator.java may take a lot time. (Size = 0.004 MB)
+                     0.004 MB parsed in 0.015 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/fs/SftpPathDirectoryScanner.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.008 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/fs/SftpPath.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.003 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/fs/SftpFileSystemInitializationContext.java may take a lot time. (Size = 0.004 MB)
+                     0.004 MB parsed in 0.016 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/fs/SftpDirectoryStream.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.008 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java may take a lot time. (Size = 0.055 MB)
+                     0.055 MB parsed in 0.719 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/fs/SftpClientDirectoryScanner.java may take a lot time. (Size = 0.008 MB)
+                     0.008 MB parsed in 0.033 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/fs/SftpFileSystem.java may take a lot time. (Size = 0.022 MB)
+                     0.022 MB parsed in 0.351 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/CheckFileHandleExtension.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.002 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/FilenameTranslationControlExtension.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/BuiltinSftpClientExtensions.java may take a lot time. (Size = 0.009 MB)
+                     0.009 MB parsed in 0.045 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/CopyFileExtension.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/MD5FileExtension.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/SftpClientExtension.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/SpaceAvailableExtension.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/CopyDataExtension.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/MD5HandleExtension.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/CheckFileNameExtension.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/SftpClientExtensionFactory.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.002 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/openssh/OpenSSHStatPathExtension.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/openssh/OpenSSHLimitsExtension.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/openssh/OpenSSHStatExtensionInfo.java may take a lot time. (Size = 0.005 MB)
+                     0.005 MB parsed in 0.022 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/openssh/OpenSSHLimitsExtensionInfo.java may take a lot time. (Size = 0.005 MB)
+                     0.005 MB parsed in 0.016 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/openssh/OpenSSHStatHandleExtension.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/openssh/OpenSSHPosixRenameExtension.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/openssh/OpenSSHFsyncExtension.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/openssh/helpers/OpenSSHStatHandleExtensionImpl.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.002 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/openssh/helpers/OpenSSHFsyncExtensionImpl.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.003 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/openssh/helpers/OpenSSHStatPathExtensionImpl.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.002 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/openssh/helpers/OpenSSHLimitsExtensionImpl.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.003 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/openssh/helpers/AbstractOpenSSHStatCommandExtension.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.004 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/openssh/helpers/OpenSSHPosixRenameExtensionImpl.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.003 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/helpers/CheckFileNameExtensionImpl.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.003 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/helpers/AbstractMD5HashExtension.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.024 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/helpers/CopyFileExtensionImpl.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.004 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/helpers/CopyDataExtensionImpl.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.005 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/helpers/MD5FileExtensionImpl.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.002 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/helpers/AbstractSftpClientExtension.java may take a lot time. (Size = 0.009 MB)
+                     0.009 MB parsed in 0.041 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/helpers/FilenameTranslationControlExtensionImpl.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.006 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/helpers/CheckFileHandleExtensionImpl.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.003 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/helpers/AbstractCheckFileExtension.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.008 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/helpers/SpaceAvailableExtensionImpl.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.004 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/extensions/helpers/MD5HandleExtensionImpl.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.002 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/impl/SftpAckData.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.002 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/impl/AbstractSftpFileAttributeView.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.007 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/impl/SimpleSftpClientImpl.java may take a lot time. (Size = 0.005 MB)
+                     0.005 MB parsed in 0.018 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/impl/SftpDirEntryIterator.java may take a lot time. (Size = 0.007 MB)
+                     0.007 MB parsed in 0.023 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java may take a lot time. (Size = 0.049 MB)
+                     0.049 MB parsed in 0.751 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/impl/SftpIterableDirEntry.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.005 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/impl/DefaultSftpClient.java may take a lot time. (Size = 0.024 MB)
+                     0.024 MB parsed in 0.187 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/impl/SftpPathImpl.java may take a lot time. (Size = 0.006 MB)
+                     0.006 MB parsed in 0.009 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/impl/SftpRemotePathChannel.java may take a lot time. (Size = 0.019 MB)
+                     0.019 MB parsed in 0.167 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/impl/StfpIterableDirHandle.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.004 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/impl/SftpInputStreamAsync.java may take a lot time. (Size = 0.013 MB)
+                     0.013 MB parsed in 0.097 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/impl/DefaultSftpClientFactory.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.008 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/impl/DefaultCloseableHandle.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.004 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/client/impl/SftpOutputStreamAsync.java may take a lot time. (Size = 0.009 MB)
+                     0.009 MB parsed in 0.039 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/common/SftpConstants.java may take a lot time. (Size = 0.016 MB)
+                     0.016 MB parsed in 0.046 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/common/SftpUniversalOwnerAndGroup.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.004 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/common/SftpHelper.java may take a lot time. (Size = 0.056 MB)
+                     0.056 MB parsed in 0.52 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/common/SftpException.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.004 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/common/extensions/ParserUtils.java may take a lot time. (Size = 0.008 MB)
+                     0.008 MB parsed in 0.022 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/common/extensions/FilenameCharsetParser.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.01 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/common/extensions/VendorIdParser.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.005 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/common/extensions/ExtensionParser.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.002 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/common/extensions/AbstractParser.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/common/extensions/NewlineParser.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.01 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/common/extensions/AclSupportedParser.java may take a lot time. (Size = 0.007 MB)
+                     0.007 MB parsed in 0.033 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/common/extensions/SupportedParser.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.007 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/common/extensions/Supported2Parser.java may take a lot time. (Size = 0.004 MB)
+                     0.004 MB parsed in 0.009 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/common/extensions/VersionsParser.java may take a lot time. (Size = 0.004 MB)
+                     0.004 MB parsed in 0.011 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/common/extensions/SpaceAvailableExtensionInfo.java may take a lot time. (Size = 0.004 MB)
+                     0.004 MB parsed in 0.015 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/common/extensions/openssh/HardLinkExtensionParser.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/common/extensions/openssh/PosixRenameExtensionParser.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/common/extensions/openssh/LSetStatExtensionParser.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/common/extensions/openssh/FstatVfsExtensionParser.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/common/extensions/openssh/AbstractOpenSSHExtensionParser.java may take a lot time. (Size = 0.004 MB)
+                     0.004 MB parsed in 0.012 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/common/extensions/openssh/StatVfsExtensionParser.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/common/extensions/openssh/LimitsExtensionParser.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/common/extensions/openssh/FsyncExtensionParser.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/SftpErrorDataChannelReceiverProvider.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/SftpEventListener.java may take a lot time. (Size = 0.021 MB)
+                     0.021 MB parsed in 0.037 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/SftpFileSystemAccessorProvider.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/FileHandle.java may take a lot time. (Size = 0.011 MB)
+                     0.011 MB parsed in 0.074 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/SftpUnsupportedAttributePolicyProvider.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/SftpSubsystemConfigurator.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/DirectoryHandle.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.012 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/SftpSubsystemFactory.java may take a lot time. (Size = 0.006 MB)
+                     0.006 MB parsed in 0.045 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/AbstractSftpEventListenerManager.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.004 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/AbstractSftpEventListenerAdapter.java may take a lot time. (Size = 0.012 MB)
+                     0.012 MB parsed in 0.123 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/DefaultGroupPrincipal.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/UnixDateFormat.java may take a lot time. (Size = 0.003 MB)
+                     0.003 MB parsed in 0.008 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/SftpErrorStatusDataHandler.java may take a lot time. (Size = 0.004 MB)
+                     0.004 MB parsed in 0.003 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/UnsupportedAttributePolicy.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/SftpFileSystemAccessor.java may take a lot time. (Size = 0.024 MB)
+                     0.024 MB parsed in 0.083 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/Handle.java may take a lot time. (Size = 0.005 MB)
+                     0.005 MB parsed in 0.023 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/SftpEventListenerManager.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/InvalidHandleException.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/SftpSubsystem.java may take a lot time. (Size = 0.045 MB)
+                     0.045 MB parsed in 0.421 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/SftpSubsystemProxy.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/SftpSubsystemEnvironment.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.005 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/SftpFileSystemAccessorManager.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/SftpErrorStatusDataHandlerProvider.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.0 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/DefaultUserPrincipal.java may take a lot time. (Size = 0.001 MB)
+                     0.001 MB parsed in 0.001 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/PrincipalBase.java may take a lot time. (Size = 0.002 MB)
+                     0.002 MB parsed in 0.004 sec
+     Current file =  packages/pom_jar/sshd-sftp-2.9.0-sources/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java may take a lot time. (Size = 0.125 MB)
+                     0.125 MB parsed in 4.657 sec
+
+Analyzed files = 120, Exceptions = 0
+Number of methods = 569, Total LOCS = 11810
+On average we have 20.755711775043938 locs per method
+
+
+--------------------------------------------------------------------------------
+
+Starting Cyclomatic complexity analysis
+Init cyclomatic complexity analyzer
+AVG CCN per file = {23.708333333333332}. For more detailed output uncomment code in CyclomaticComplexityAnalyzer.py::start()
+
+--------------------------------------------------------------------------------
+Searching for version precedent to  2.9.0
+Searching among 17 pages. This may take more than 34 seconds.
+Pages left = 17
+|||||||||||||||||Version 2.9.0 has predecessor 2.8.0
+
+--------------------------------------------------------------------------------
+Directory packages/sshd-sftp-2.8.0-sources already exists. Skipping extraction of sshd-sftp-2.8.0-sources.jar.
+
+--------------------------------------------------------------------------------
+Comparing packages/sshd-sftp-2.8.0-sources and packages/pom_jar/sshd-sftp-2.9.0-sources:
+org.apache.sshd:sshd-sftp:2.9.0 has no links to github. GitHub parameters such as code churn and diff commits will not be examinated.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+RESULTS for org.apache.sshd : sshd-sftp : 2.9.0:
+
+On average we have 20.755711775043938 locs per method
+AVG CCN per file = {23.708333333333332}. For more detailed output uncomment code in CyclomaticComplexityAnalyzer.py::start()
+Version 2.9.0 has predecessor 2.8.0
+Changed files: 120
+Examined files: 128
+org.apache.sshd:sshd-sftp:2.9.0 has no links to github. GitHub parameters such as code churn and diff commits will not be examinated.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------

@@ -18,7 +18,7 @@ class GitManager:
         self.github_api_url = "https://api.github.com"
         l = Login()
         self.api_username = l.get_username()
-        self.access_token = "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"
+        self.access_token = "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"
 
     def query_github(self, repo_path):
         try:
@@ -95,7 +95,7 @@ class GitManager:
         path = url.replace("http://github.com", "")
         path = path.replace("https://github.com", "")
         print("path = ", path)
-        dir = os.getcwd() + path
+        dir = os.getcwd() + "/gh_repos" + path
         print("Cloning in directory =", dir)
         if os.path.exists(dir):
             print(f"The repository {url} already exists in directory: {dir}. Not going to clone.")
@@ -113,7 +113,7 @@ class GitManager:
                 exit(1)
         return dir
 
-    def get_code_chunk(self, dir):
+    def get_code_churn(self, dir):
         '''
         This function execute the command provided in git-chunk in order to compute the code chunk
         :param dir: directory that contains the code to analyze
@@ -168,8 +168,34 @@ class GitManager:
             #print(f"Adding Release: {release.tag_name} to the versions array")
             versions.append(release.tag_name)
         versions.sort()
+        print("GH-----", versions)
 
         return versions
+
+    def get_prev_version(self, repo_path, v):
+        '''
+        This function takes in input a version and returns its precedent version.
+        :param v: version
+        :return: precedent version
+        '''
+
+        print("Looking for precedent of version = ",v)
+        precedent_version = -1
+        versions = self.get_versions_of_repo(repo_path)
+        if len(versions) > 0:
+            try:
+                current_version_index = versions.index(v)
+                print(f"{v} is at {current_version_index}pos and v-1 is {versions[current_version_index+1]}")
+                precedent_version = {versions[current_version_index+1]} # GH ordering is from biggest to smallest number of version
+            except BaseException as be:
+                print(f"I wasn't able to find version {v} in the list of versions retrieved from git repo "
+                      f"for repository {repo_path}. This may happen because github does not contain all versions that are contained on maven repo."
+                      f"The following exception was raised: {be}. "
+                      f"Skipping this step")
+                return -1
+
+        return precedent_version
+
 
     def get_changed_files(self, repo_path, v1, v2):
         '''

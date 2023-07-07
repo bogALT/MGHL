@@ -27,8 +27,8 @@ class JARExtractor():
 #-----------------------------------------------------------------------------
 def unzip(fileName):
     #oDir = getExpandedDirName(fileName) # original
-    oDir = fileName.replace(".jar", "")
-
+    oDir = "packages/" + fileName.replace(".jar", "")
+    fileName = "pom_jar/" + fileName
     if os.path.exists(oDir):
         print(f"Directory {oDir} already exists. Skipping extraction of {fileName}.")
     else:
@@ -38,7 +38,7 @@ def unzip(fileName):
             print("Base Exception = ", be)
 
         try:
-            print ("Processing: %s into: %s" % (fileName, oDir))
+            print(f"Processing {fileName} into {oDir}")
             command = "unzip %s -d %s" % (fileName, oDir)
             process = subprocess.Popen(command, shell=True)
             status  = os.waitpid(process.pid, 0)[1]
@@ -60,7 +60,7 @@ def walkFiles(dirName):
 
 #-----------------------------------------------------------------------------
 def getExpandedDirName(fileName):
-    fileDir  = os.path.dirname(fileName)
+    fileDir  = "packages/" + os.path.dirname(fileName)
     baseName = "%s.contents" % os.path.basename(fileName)
 
     return os.path.join(fileDir, baseName)

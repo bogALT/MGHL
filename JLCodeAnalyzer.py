@@ -1,4 +1,5 @@
 import javalang
+import timeit   #for testing
 import os
 
 class JLCodeAnalyzer:
@@ -88,46 +89,54 @@ class JLCodeAnalyzer:
         :return: list of java files found
         '''
         java_files = []
-        print("Retrieving .java files from ", directory)
+        #print("Retrieving .java files from ", directory)
         for root, _, files in os.walk(directory):
             for file in files:
                 if file.endswith(".java") and file != "module-info.java":
                     java_files.append(os.path.join(root, file))
         return java_files
 
-    def start(self):
+    def start(self, file_size_limit):
         '''
-        This is the main method that must be run
+        This is the main method that must be run. Very large java files may cause a long execution time.
+        :param file_size_limit: limit in MB above which the java file examined will be skipped , default = 1Mb
         :return: it prompts the number of methods and locs calculated in all files contained in the code path
         '''
 
         java_files = self.get_java_files(self.code_path)
-        print("Collecting Java files from directory = ", self.code_path)
+        #print(f"Collecting Java files from directory =  {self.code_path}. This may take a while. Limit size = {file_size_limit}")
         methods = {}
         counter = 0
         for target_file in java_files:
-            counter += 1
+            '''counter += 1
             if counter % 30 != 0:
                 print('|', end='')
             else:
-                print("\n")
+                print("\n")'''
             with open(target_file, 'r') as r:
+                start = timeit.default_timer()
                 codelines = r.readlines()
                 code_text = ''.join(codelines)
                 lex = None
-                #print(" "*5 + "Current file = ", (target_file))
+                file_size = os.stat(target_file)
+                file_size = round(file_size.st_size/(1024*1024),3)
+                if file_size > float(file_size_limit):
+                    print(f"     Current file =  {target_file} may take a lot time. (Size = {file_size} MB) Skipping File!")
+                    continue
+                else:
+                    print(f"     Current file =  {target_file} (Size = {file_size} MB, Limit = {file_size_limit} MB)")
                 try:
                     tree = javalang.parse.parse(code_text)
                     self.analized_files_count += 1
                 except Exception as e:
                     print(f"\nERROR when parsing {(target_file)}: Exception Type = {type(e)}, Containg = {e}\n"
-                          f"This error is caused when reading a java interface file (Empirically tested)."
+                          f"This error is caused when reading a java interface file (Empirically tested).\n"
                           f"This is not a fatal error: Going On!")
                     self.exceptions_count += 1
 
                 avg_locs = 0
                 try:
-                    print(f"\nCunting methods in {target_file}:")
+                    #print(f"\nCunting methods in {target_file}:")
                     for _, method_node in tree.filter(javalang.tree.MethodDeclaration): # sometimes this may generate a parsing  error
                         startpos, endpos, startline, endline = self.get_method_start_end(method_node, tree)
 
@@ -146,10 +155,20 @@ class JLCodeAnalyzer:
                             #print(f"{method_node.name} has {endline - startline} locs")
                             methods[method_node.name] = endline - startline
                             self.codelines += endline-startline
-                        print('|', end='')
+                        #print('|', end='')
                 except BaseException as be:
                     print("Exception while reading methods = ", be)
-        print(f"Analyzed files = {self.analized_files_count}, Exceptions = {self.exceptions_count}")
-        avg_locs = self.codelines/len(methods.items())
-        print(f"Number of methods = {len(methods.items())}, Total LOCS = {self.codelines}")
-        return avg_locs
+                stop = timeit.default_timer()
+                p_time = round((stop - start), 3)
+                #print(f"                     {file_size} MB parsed in {p_time} sec")
+
+        #print(f"\nAnalyzed files = {self.analized_files_count}, Exceptions = {self.exceptions_count}")
+        try:
+            avg_locs = self.codelines/len(methods.items())
+        except ZeroDivisionError as e:
+            print(f"\nERROR when calculating cyclomatic complexity: Exception = {e}\n"
+                  f"Probably the package downloaded has no java files. \n"
+                  f"This is mandatory so I cannot continue execution.")
+            exit(1)
+        #print(f"Number of methods = {len(methods.items())}, Total LOCS = {self.codelines}")
+        return round(avg_locs, 2)

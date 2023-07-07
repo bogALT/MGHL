@@ -12,6 +12,7 @@ class MavenRepositorySearcher:
         :return: responses content (XML)
         '''
         try:
+            #print("Requesting versions at = ", url)
             response = requests.get(url)
             data = response.content.decode("utf-8")
         except BaseException as be:
@@ -21,16 +22,14 @@ class MavenRepositorySearcher:
         return data
 
     def search_last_version(self, g, a):
-
         '''
-        This method takes in input a G:A:V sequence and prompts it precedent version.
+        This method takes in input a G:A sequence and returns the newest version.
         It reads the paginated result: page per page and merges all results
         :param g: group id
         :param a: artefact id
-        :param v: version
-        :return: version - 1
+        :return: newer version
         '''
-        if g == "" or a == "":
+        '''if g == "" or a == "":
             print("You did not specify all of GAV values")
             return 1
 
@@ -43,7 +42,7 @@ class MavenRepositorySearcher:
 
         # get the number of pages
         pages_number = math.ceil(int(self.get_total_number_of_versions(data))/20)
-        print(f"GPages to be read = {pages_number}. This may take prox {pages_number} seconds.")
+        print(f"Searching amoung {pages_number} pages. This may take more than {pages_number*2} seconds.")
 
         # retrieve all versions available reading every page
         versions = []
@@ -53,10 +52,9 @@ class MavenRepositorySearcher:
             if counter % 30 != 0:
                 print('|', end = '')
             else:
-                print(f' Missing: {pages_number}')
+                print(f'Missing: {pages_number} pages')
 
             counter += 1
-
             versions += self.read_xml(data)
 
             # create search url
@@ -73,7 +71,8 @@ class MavenRepositorySearcher:
 
         print("Versions found = ",len(versions))
         print("    ----> ", versions)
-        return versions[0]
+        return versions[0]'''
+        return 0
 
     def search_GAV(self, g, a, v):
         '''
@@ -93,12 +92,23 @@ class MavenRepositorySearcher:
         search_parameters = f"g:{g}&a:{a}&v:{v}&core=gav&start=0&wt=jso"
 
         # do request
-        data = self.do_request(search_url+search_parameters)
+        try:
+            data = self.do_request(search_url+search_parameters)
+        except BaseException as be:
+            print(f"Error while querying the maven repository. Exception: {be}. "
+                  f"The error is often caused by the maven server which returns a 503 error due to outage."
+                  f"Last data received from the server: {data}")
+        #print("Data = ", data)
 
         # get the number of pages
-        pages_number = math.ceil(int(self.get_total_number_of_versions(data))/20)
-        print(f"GPages to be read = {pages_number}. This may take prox {pages_number} seconds.")
-
+        try:
+            pages_number = math.ceil(int(self.get_total_number_of_versions(data))/20)
+            print(f"Searching among {pages_number} pages. This may take more than {pages_number} seconds according to your internet speed and maven central server status.")
+        except BaseException as be:
+            print(
+                f"I wasn't able to retrive versions from maven server at url = {search_url+search_parameters}, the following exception was raised: {be}. "
+                f"This may be caused by a Maven server malfunction (or not). The server returned an error: {data}. \nThis point is mandatory, exiting!")
+            exit(1)
         # retrieve all versions available reading every page
         versions = []
         counter = 0
@@ -107,11 +117,8 @@ class MavenRepositorySearcher:
             if counter % 30 != 0:
                 print('|', end = '')
             else:
-
-                print(f' Missing: {pages_number}')
-
+                print(f'Pages left = {pages_number}')
             counter += 1
-
             versions += self.read_xml(data)
 
             # create search url
@@ -122,11 +129,11 @@ class MavenRepositorySearcher:
             data = self.do_request(search_url+search_parameters)
             pages_number -= 1
 
-        if len(versions) > 1:   # manually sort versions
+        if len(versions) > 1:   # manually sort versions UPDATE THE SORTING ALG
             versions.sort()
 
-        print("Versions found = ",len(versions))
-        print("    ----> ", versions)
+        #print("Versions found = ",len(versions))
+        print("MVN----> ", versions)
         return versions[versions.index(v)-1]
 
     def read_xml(self, data):
@@ -139,7 +146,8 @@ class MavenRepositorySearcher:
 
         xml_file = "test2.xml"
         xr = XMLReader()
-        f = xr.data_to_xml_file(data, "test3.xml")
+        #print("Writting to XML = ", data)
+        f = xr.data_to_xml_file(data, "versions.xml")
         versions = xr.get_versions_of_artefact(f)
         #print(versions)
         return versions

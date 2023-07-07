@@ -1,0 +1,257 @@
+group:artifact
+ca.uhn.hapi.fhir:hapi-fhir-base
+ca.uhn.hapi.fhir:hapi-fhir-jpaserver-api
+cd.go.plugin:go-plugin-api
+ch.qos.reload4j:reload4j
+co.elastic.apm:apm-agent-api
+co.elastic.apm:apm-agent-attach-cli
+com.alibaba.nacos:nacos-api
+com.alibaba.nacos:nacos-client
+com.alibaba.nacos:nacos-common
+com.alibaba:fastjson
+com.atlassian.connect:atlassian-connect-spring-boot-core
+com.bmuschko:gradle-vagrant-plugin
+com.bstek.ureport:ureport2-console
+com.clever-cloud:biscuit-java
+com.cronutils:cron-utils
+com.epam.reportportal:service-api
+com.erudika:para-core
+com.fasterxml.jackson.core:jackson-databind
+com.github.fracpete:vfsjfilechooser2
+com.github.jnr:jnr-posix
+com.github.junrar:junrar
+com.google.code.gson:gson
+com.google.oauth-client:google-oauth-client
+com.google.protobuf:protobuf-java
+com.google.protobuf:protobuf-kotlin
+com.googlecode.aviator:aviator
+com.googlecode.gwtupload:gwtupload
+com.h2database:h2
+com.hubspot.jinjava:jinjava
+com.itextpdf:io
+com.jfinal:jfinal
+com.liferay.portal:com.liferay.portal.impl
+com.liferay.portal:portal-impl
+com.liferay:com.liferay.gogo.shell.web
+com.liferay:com.liferay.portal.scripting.groovy
+com.liferay:com.liferay.portal.settings.authentication.ldap.web
+com.liferay:com.liferay.portal.store.s3
+com.liferay:com.liferay.portal.template.freemarker
+com.linecorp.armeria:armeria			// has only one github version
+com.linecorp.centraldogma:centraldogma-server
+com.linkedin.azkaban:azkaban-common
+com.manydesigns:portofino-core
+com.manydesigns:portofino-dispatcher
+com.mikesamuel:json-sanitizer
+com.mitchellbosecke:pebble			// ok
+com.netflix.conductor:conductor-core		// has github
+com.opensymphony:xwork-core
+com.rabbitmq.jms:rabbitmq-jms
+com.sap.scimono:scimono-server
+com.thoughtworks.xstream:xstream
+com.twelvemonkeys.imageio:imageio-metadata
+com.typesafe.akka:akka-http-core
+com.typesafe.akka:akka-http-core_2.12
+com.typesafe.akka:akka-http-core_2.13
+com.typesafe.play:play_2.12
+com.typesafe.play:play_2.13
+com.vaadin:flow-server
+com.vaadin:vaadin-compatibility-server
+com.vaadin:vaadin-server
+com.vaadin:vaadin-text-field-flow
+commons-beanutils:commons-beanutils
+commons-fileupload:commons-fileupload
+dom4j:dom4j
+edu.stanford.nlp:stanford-corenlp
+io.atomix:atomix-cluster
+io.micronaut:micronaut-core
+io.netty:netty-codec			// this throws a xml parser error -> server time out
+io.netty:netty-codec-http
+io.pebbletemplates:pebble
+io.ratpack:ratpack-core
+io.ratpack:ratpack-session
+io.undertow:undertow-core		// this throws a xml parser error -> server time out
+io.undertow:undertow-websockets-jsr
+io.vertx:vertx-web
+io.whitesource:curekit
+log4j:log4j
+net.mingsoft:ms-mcms
+net.minidev:json-smart
+net.sf.mpxj:mpxj				// current_version_index = versions.index(v) - ValueError: '11.1.0' is not in list
+org.apache.activemq:activemq-jaas
+org.apache.activemq:activemq-web-console
+org.apache.activemq:artemis-server
+org.apache.any23:apache-any23-core
+org.apache.calcite:calcite-core
+org.apache.camel:camel-core
+org.apache.cassandra:cassandra-all
+org.apache.commons:commons-compress
+org.apache.cxf:cxf-bundle
+org.apache.cxf:cxf-bundle-minimal
+org.apache.cxf:cxf-rt-rs-json-basic
+org.apache.cxf:cxf-rt-rs-security-oauth2
+org.apache.ddlutils:ddlutils
+org.apache.directory.studio:org.apache.directory.studio.connection.core
+org.apache.dolphinscheduler:dolphinscheduler-server
+org.apache.druid.extensions:druid-basic-security
+org.apache.dubbo:dubbo-cluster
+org.apache.dubbo:dubbo-common			        // error not valid gh url = https://github.com/apache/dubbo/dubbo-common
+org.apache.dubbo:dubbo-rpc-http
+org.apache.flume.flume-ng-sources:flume-jms-source
+org.apache.hadoop:hadoop-hdds-common
+org.apache.hadoop:hadoop-hdds-container-service
+org.apache.hadoop:hadoop-hdds-server-framework
+org.apache.hadoop:hadoop-hdds-server-scm
+org.apache.hadoop:hadoop-ozone-ozone-manager	// does not contain a downloadable source jar file
+org.apache.hadoop:hadoop-ozone-s3gateway
+org.apache.hive:hive-exec			            // error: 2.8.1 has no sources.jar
+org.apache.hive:hive-standalone-metastore
+org.apache.ignite:ignite-core
+org.apache.iotdb:iotdb-server			        // ok
+org.apache.jackrabbit:jackrabbit-standalone
+org.apache.james:apache-james-mpt-smtp-core
+org.apache.james:james-server-data-file
+org.apache.jena:jena-arq
+org.apache.jena:jena-core
+org.apache.karaf.management:org.apache.karaf.management.server
+org.apache.kylin:kylin-core-common
+org.apache.kylin:kylin-server
+org.apache.kylin:kylin-server-base
+org.apache.kylin:kylin-stream-coordinator
+org.apache.logging.log4j:log4j-core
+org.apache.mesos:mesos				            // one file takes a loot of time (7.5MB compared to 10-50kb -> 1h+)
+org.apache.mina:mina-http
+org.apache.nifi.registry:nifi-registry-web-api
+org.apache.nifi:nifi-framework-core
+org.apache.nifi:nifi-security-utils
+org.apache.nifi:nifi-web-security
+org.apache.openjpa:openjpa-kernel
+org.apache.parquet:parquet-format-structures
+org.apache.pdfbox:pdfbox
+org.apache.shenyu:shenyu-admin
+org.apache.shenyu:shenyu-client-core
+org.apache.shenyu:shenyu-common
+org.apache.shenyu:shenyu-plugin-base		// ok
+org.apache.shenyu:shenyu-register-client-http
+org.apache.shenyu:shenyu-spring-boot-starter-client-apache-dubbo
+org.apache.shenyu:shenyu-sync-data-http
+org.apache.shiro:shiro-core
+org.apache.shiro:shiro-web			        // ok
+org.apache.skywalking:storage-jdbc-hikaricp-plugin
+org.apache.solr:solr-core
+org.apache.solr:solr-velocity			    // ok
+org.apache.spark:spark-core_2.10
+org.apache.spark:spark-core_2.11
+org.apache.spark:spark-core_2.12
+org.apache.spark:spark-core_2.13
+org.apache.spark:spark-network-common_2.10
+org.apache.spark:spark-network-common_2.12
+org.apache.spark:spark-network-shuffle_2.10
+org.apache.spark:spark-network-shuffle_2.11
+org.apache.sshd:sshd-core
+org.apache.sshd:sshd-sftp			        // ok
+org.apache.storm:storm-server
+org.apache.struts.xwork:xwork-core
+org.apache.struts:struts-core
+org.apache.struts:struts2-core
+org.apache.struts:struts2-showcase
+org.apache.syncope.client:syncope-client-enduser
+org.apache.tapestry:tapestry-core
+org.apache.thrift:libthrift
+org.apache.tomcat.embed:tomcat-embed-core
+org.apache.tomcat:coyote			        // no jar
+org.apache.tomcat:tomcat-catalina
+org.apache.tomcat:tomcat-coyote
+org.apache.tomcat:tomcat-util
+org.apache.tomcat:tomcat-websocket
+org.apache.unomi:unomi-common			    // ok
+org.apache.unomi:unomi-persistence-elasticsearch-core
+org.apache.unomi:unomi-services			    // missing jar sources
+org.apache.velocity.tools:velocity-tools-view
+org.apache.velocity:velocity-engine-core
+org.apache.wicket:wicket-core
+org.apache.xmlbeans:xmlbeans			    // ok
+org.apache.xmlgraphics:batik-svgbrowser
+org.apache.xmlgraphics:batik-svgrasterizer
+org.apache.xmlgraphics:batik-transcoder
+org.apereo.cas:cas-server-support-otp-mfa-core
+org.bouncycastle:bcprov-ext-jdk15on
+org.bouncycastle:bcprov-jdk15on
+org.codehaus.groovy:groovy
+org.codehaus.mojo:exec-maven-plugin
+org.craftercms:crafter-engine
+org.craftercms:crafter-studio
+org.eclipse.jetty.http2:http2-server
+org.eclipse.jetty:jetty-io
+org.eclipse.jetty:jetty-server
+org.eclipse.jetty:jetty-webapp
+org.elasticsearch:elasticsearch
+org.glassfish:jakarta.el
+org.glassfish:javax.el
+org.grails:grails-databinding
+org.hibernate:hibernate-core
+org.http4s:blaze-core_2.11
+org.http4s:blaze-core_2.12
+org.http4s:http4s-blaze-server_2.12
+org.http4s:http4s-blaze-server_2.13
+org.http4s:http4s-core_2.12
+org.http4s:http4s-core_2.13
+org.http4s:http4s-core_3		            // no java files
+org.http4s:http4s-server_2.12
+org.http4s:http4s-server_2.13
+org.infinispan:infinispan-server-rest
+org.jboss.remoting:jboss-remoting
+org.jboss.resteasy:resteasy-core
+org.jdom:jdom
+org.jdom:jdom2			                    // ok no GH
+org.jenkins-ci.plugins.workflow:workflow-cps
+org.jenkins-ci.plugins:script-security
+org.jenkins-ci.plugins:teamconcert
+org.jolokia:jolokia-core	                // ok no gh
+org.jsoup:jsoup
+org.jyaml:jyaml			                    // no source jars
+org.keycloak:keycloak-core
+org.keycloak:keycloak-services
+org.lucee:lucee			                    // ok, GH solo 1
+org.mapfish.print:print-lib
+org.mapfish.print:print-servlet
+org.mitre:openid-connect-server	?? XML Parsing error
+org.mock-server:mockserver-core
+org.mortbay.jetty:jetty
+org.neo4j.procedure:apoc
+org.neo4j:neo4j-cypher		                // XML Parsing error + 1247 pages to look + GH
+org.openapitools:openapi-generator-online
+org.opencastproject:opencast-caption-impl
+org.opencastproject:opencast-caption-remote
+org.opencastproject:opencast-common		    // ok no GH
+org.opencastproject:opencast-common-jpa-impl
+org.opencastproject:opencast-composer-service-api
+org.opencastproject:opencast-cover-image-impl
+org.opencastproject:opencast-distribution-service-adaptive-streaming-wowza
+org.opencastproject:opencast-fileupload
+org.opencastproject:opencast-kernel
+org.opencastproject:opencast-oaipmh-api
+org.opencastproject:opencast-search-service-api
+org.opencastproject:opencast-security-aai
+org.opencastproject:opencast-silencedetection-api
+org.opencastproject:opencast-smil-impl
+org.opencastproject:opencast-userdirectory-sakai
+org.opencms:opencms-core
+org.openidentityplatform.openam:openam-auth-nt
+org.postgresql:postgresql
+org.richfaces.core:richfaces-core-impl
+org.richfaces:richfaces
+org.rundeck:rundeck		                    // has GH butt no vers: different naming
+org.rundeck:rundeck-core
+org.sonatype.nexus:nexus-repository		    // ok
+org.springframework.cloud:spring-cloud-config-server
+org.springframework.cloud:spring-cloud-gateway-server
+org.springframework.cloud:spring-cloud-netflix-hystrix-dashboard
+org.springframework.cloud:spring-cloud-openfeign-core
+org.springframework.data:spring-data-mongodb
+org.springframework.security:spring-security-saml2-service-provider
+org.springframework.security:spring-security-web
+org.springframework:spring-core
+org.springframework:spring-web
+org.thymeleaf:thymeleaf-spring5
+xalan:xalan

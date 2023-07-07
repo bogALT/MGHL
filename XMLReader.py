@@ -18,11 +18,11 @@ class XMLReader:
             try:
                 n = file.write(data)
             except (IOError, OSError):
-                print("Error writing to file")
+                print("Error writing to file: ", file_name)
                 exit(1)
             file.close()
         except (FileNotFoundError, PermissionError, OSError):
-            print("Error opening/closing file")
+            print("Error opening/closing file: ", file_name)
             exit(1)
         #print(f"Written XML into {file} with filename {file_name}")
         return file
@@ -35,7 +35,12 @@ class XMLReader:
 
         '''
         #print("Reading XML = ", file.name)
-        xmldoc = minidom.parse(file.name)
+        try:
+            xmldoc = minidom.parse(file.name)
+            strs = xmldoc.getElementsByTagName('str')
+        except BaseException as be:
+            print(f"Something went wrong when creating the XML parser or when seeking the element by tag. Error: {be}. Exiting!")
+            exit(1)
         strs = xmldoc.getElementsByTagName('str')
         versions = []
         for s in strs:
