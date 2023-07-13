@@ -1,6 +1,9 @@
+import time
 import javalang
 import timeit   #for testing
 import os
+
+from MyException import MyException
 
 class JLCodeAnalyzer:
     '''
@@ -10,8 +13,9 @@ class JLCodeAnalyzer:
     def __init__(self, directory):
         self.code_path = directory + "/"
         self.codelines = 0           # not sure why I need this
+        self.exceptions = []
+        self.exceptions.append("Code analyzer : --------------------------------")
         self.exceptions_count = 0       # may be removed !!! but be aware
-        self.analized_files_count = 0   # may be removed !!! but be aware
 
     def get_method_start_end(self, method_node, tree):
         '''
@@ -106,13 +110,11 @@ class JLCodeAnalyzer:
         java_files = self.get_java_files(self.code_path)
         #print(f"Collecting Java files from directory =  {self.code_path}. This may take a while. Limit size = {file_size_limit}")
         methods = {}
-        counter = 0
+        avg_locs = 0
+        exceptions_count = 0
+        analized_files_count = 0
+
         for target_file in java_files:
-            '''counter += 1
-            if counter % 30 != 0:
-                print('|', end='')
-            else:
-                print("\n")'''
             with open(target_file, 'r') as r:
                 start = timeit.default_timer()
                 codelines = r.readlines()
@@ -121,18 +123,20 @@ class JLCodeAnalyzer:
                 file_size = os.stat(target_file)
                 file_size = round(file_size.st_size/(1024*1024),3)
                 if file_size > float(file_size_limit):
-                    print(f"     Current file =  {target_file} may take a lot time. (Size = {file_size} MB) Skipping File!")
+                    print(f"     Current file =  {target_file} may take a lot time. ({file_size} MB) Skipping File!")
                     continue
                 else:
-                    print(f"     Current file =  {target_file} (Size = {file_size} MB, Limit = {file_size_limit} MB)")
+                    print(f"     Current file =  {target_file}")
                 try:
                     tree = javalang.parse.parse(code_text)
-                    self.analized_files_count += 1
+                    
                 except Exception as e:
-                    print(f"\nERROR when parsing {(target_file)}: Exception Type = {type(e)}, Containg = {e}\n"
-                          f"This error is caused when reading a java interface file (Empirically tested).\n"
-                          f"This is not a fatal error: Going On!")
-                    self.exceptions_count += 1
+                    msg = f"\nERROR when parsing {(target_file)}: Exception Type = {type(e)}, Containg = {e}\n"\
+                          f"This error is caused when reading a java interface file (Empirically tested).\n"\
+                          f"This is not a fatal error: Going On!"
+                    exceptions_count += 1
+                    #raise MyException(msg)
+                    #self.exceptions.append[msg]
 
                 avg_locs = 0
                 try:
@@ -157,18 +161,28 @@ class JLCodeAnalyzer:
                             self.codelines += endline-startline
                         #print('|', end='')
                 except BaseException as be:
-                    print("Exception while reading methods = ", be)
+                    msg = "Exception while reading methods = ", be
+                    #self.exceptions.append(msg)
+                    raise MyException(msg)
+
                 stop = timeit.default_timer()
                 p_time = round((stop - start), 3)
+            analized_files_count += 1
+
+        if exceptions_count > 0 and len(java_files) / exceptions_count < 10:
+            print(f"\nAnalyzed files = {len(java_files)}, Exceptions = {exceptions_count}")
+            raise MyException(f"\nAnalyzed files = {len(java_files)}, Exceptions = {exceptions_count}")
                 #print(f"                     {file_size} MB parsed in {p_time} sec")
 
-        #print(f"\nAnalyzed files = {self.analized_files_count}, Exceptions = {self.exceptions_count}")
+        print(f"\nAnalyzed files = {analized_files_count}, Exceptions = {exceptions_count}")
         try:
             avg_locs = self.codelines/len(methods.items())
         except ZeroDivisionError as e:
-            print(f"\nERROR when calculating cyclomatic complexity: Exception = {e}\n"
-                  f"Probably the package downloaded has no java files. \n"
-                  f"This is mandatory so I cannot continue execution.")
-            exit(1)
+            msg = f"\nERROR when calculating cyclomatic complexity: Exception = {e}\n"\
+                  f"Probably the package downloaded has no java files. \n"\
+                  f"This is mandatory so I cannot continue execution."
+            #self.exceptions.append(msg)
+            raise MyException(msg)
+            
         #print(f"Number of methods = {len(methods.items())}, Total LOCS = {self.codelines}")
         return round(avg_locs, 2)

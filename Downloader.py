@@ -1,7 +1,13 @@
 import requests
+
+from MyException import MyException
+
+
 class Downlaoder:
     def __init__(self):
         self.base = "https://repo1.maven.org/maven2/"   # base url
+        self.exceptions = []
+        self.exceptions.append("Maven Downloader: --------------------------------")
 
 # -----------------------------------------------------------------------------
     def download(self, g, a, v, extension="jar"):
@@ -21,13 +27,17 @@ class Downlaoder:
 
         url = self.gav_to_url(g, a, v, extension)   # create the url from the GAV format
         url = url.replace(".jar", "-sources.jar")   # specify to download the source files
-        #print("jar url = ", url)
+        print("     download url = ", url)
         if self.is_downloadable(url):
-            return self.perform_download(url)       #return the downloaded file
+            try:
+                file = self.perform_download(url)       #return the downloaded file
+                return file
+            except Exception as e:
+                raise MyException(e)
         else:
-            print(f"The url = {url} is not a downloadable URL")
-            exit(1)
-        return 0
+            msg = f"The url = {url} is not a downloadable URL"
+            self.exceptions.append(msg)
+            raise MyException(msg)
 
 # -----------------------------------------------------------------------------
     def gav_to_url(self, g, a, v, ext):
@@ -58,10 +68,11 @@ class Downlaoder:
         try:
             response = requests.get(url, allow_redirects=True)
             open("pom_jar/"+filename, "wb").write(response.content)    # overwritting file in case it exists
-        except BaseException as be:
-            print(f"Something went wrong while downloading: {url} and the following exception was raised: {be}. Exiting!"
-                  f"This operation is mandatory, exiting!")
-            exit(1)
+        except Exception as e:
+            msg = f"Something went wrong while downloading: {url} and the following exception was raised: {e}. "
+            f"This operation is mandatory, "
+            self.exceptions.append(msg)
+            raise MyException(msg)
         return filename
 
 # -----------------------------------------------------------------------------
@@ -79,5 +90,7 @@ class Downlaoder:
         if "text/xml" in content_type.lower() or "application/java-archive" in content_type.lower():
             return True
         else:
-            print(f"this url doesn't point nor to a POM file neighter to a JAR file but to a {content_type.lower()}")
+            msg = f"this url= {url} doesn't point nor to a POM file neighter to a JAR file but to a {content_type.lower()}"
+            self.exceptions.append(msg)
+            raise MyException(msg)
             return False

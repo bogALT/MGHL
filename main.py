@@ -1,5 +1,6 @@
 # My Objects:
 import getopt
+import json
 
 from CyclomaticComplexityAnalyzer import CyclomaticComplexityAnalyzer
 from Downloader import Downlaoder
@@ -10,27 +11,53 @@ from MavenRepositorySearcher import MavenRepositorySearcher
 from GitManager import GitManager
 import csv
 import argparse
+from Setup import Setup
+from prettytable import PrettyTable
+from Setup import Setup
 
 from HTMLCreator import HTMLPage
+from MyException import MyException
 from XMLReader import XMLReader
 
 
-def separator(type=None):
-    if type == None:
-        print("\n"+"-"*80)
-    elif type == "results":
-        print("-" * 80)
-        print("-" * 80)
 
-def read_csv():
-    file_names = []
-    with open('gav_input.csv') as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=",")
-        for row in csv_reader:
-            g = row[0]
-            a = row[1]
-            file_names.append([g, a])
-    return file_names
+report = {
+        "GAV"                       : "ND - Not Defined", # ND = Not Defined
+        "AVG Cyclomatic Complexity" : "NA - Not Analyzed", # NA = Not Analyzed
+        "AVG LOCs per method"       : "NA - Not Analyzed",
+        "Precedent version"         : "NA - Not Analyzed",
+        "Number of changed files"   : "NA - Not Analyzed",
+        "Number files examined"     : "NA - Not Analyzed",
+        "GitHub repository"         : "NA - Not Analyzed",
+        "Code Churn"                : "NA - Not Analyzed",
+        "GitHub Nr. changed files"  : "NA - Not Analyzed",
+        "GitHub Nr. commits"        : "NA - Not Analyzed"
+    }
+
+def create_report():
+    x = PrettyTable()
+    x.field_names = ["Metric", "Result"]
+
+    for key in report:
+        x.add_row([key, report[key]])
+        #f"{key}: {report[key]}"
+    x.align = "l"
+    print(x)
+
+def export_json(gav):
+    json_report = json.dumps(report)
+    jsonFile = open(f"json_reports/{gav[0]}_{gav[1]}_{gav[2]}.json", "w")
+    jsonFile.write(json_report)
+    jsonFile.close()
+
+def terminate_app(e):
+    print("\n--------- E N D   W I T H   E R R O R ---------\n")
+    print_report()
+    exit(1)
+
+def separator():
+    print("\n" + "-" * 80)
+
 
 def start(gav=None, slimit=None):
     if gav != None:
@@ -41,107 +68,105 @@ def start(gav=None, slimit=None):
     if slimit == None:
         slimit = 1.0
 
-    outputs = []
-    outputs.append(f"RESULTS for {g}:{a}:{v} with Limit File Size = {slimit}:\n")
+    setup = Setup()
+    setup.crete_folders()
     mrs = MavenRepositorySearcher()
 
-    # create an empty HTML page (outputs go here)
-    page = HTMLPage()
-    page.create_empty_page(g + " : " + a + " : " + v)
-    page.add_css()
 
     # download the JAR and POM files of the specific GAV
-    title = "Downloading JAR"
     text = f"I am downloading the JAR source file {g} : {a} : {v} from MVN"
     text += f"\nI am downloading the POM file for {g} : {a} : {v} from MVN"
-    page.add_content(title, text)
+
+    report["GAV"] = f"{g} : {a} : {v}"
     dl = Downlaoder()
-    jar_file = dl.download(g, a, v)
-    pom_file_name = dl.download(g, a, v, "pom")
-
-
+    try:
+        jar_file = dl.download(g, a, v)
+        pom_file_name = dl.download(g, a, v, "pom")
+    except MyException as me:
+        terminate_app(me)
+        
     separator()
     # Extract java files from JAR to oDir
-    je = JARExtractor()
-    #jar_file = "packages/"+jar_file
-    oDir = je.extract(jar_file)
-    title = "Extracting java files from JAR source"
-    text = f"Files extracted in {oDir}"
-    page.add_content(title, text)
+    try:
+        je = JARExtractor()
+        oDir = je.extract(jar_file)
+        print(jar_file)
+    except MyException as me:
+        terminate_app(me)
 
     separator()
     # count LOCs per method
-    jlca = JLCodeAnalyzer(oDir)
-    avg_locs_per_method = jlca.start(slimit)
+    try:
+        print(oDir)
+        jlca = JLCodeAnalyzer(oDir)
+        avg_locs_per_method = jlca.start(slimit)
+    except MyException as me:
+        terminate_app(me)
     print(f"On average we have {avg_locs_per_method} locs per method\n")
-    title = "LOCS per method"
-    text = f"On average we have {avg_locs_per_method} locs per method"
-    page.add_content(title, text)
-    outputs.append(text)
+
+    report["AVG LOCs per method"] = avg_locs_per_method
 
     separator()
     print("\nStarting Cyclomatic complexity analysis")
-    cca = CyclomaticComplexityAnalyzer(oDir)
-    complexity = cca.start()
-    print(f"AVG CCN per file = {complexity}. "
-          f"For more detailed output uncomment code in CyclomaticComplexityAnalyzer.py::start()")
-    title = "Cyclomatic complexity"
-    text = f"AVG CCN per file = {complexity}. " \
-           f"For more detailed output uncomment code in CyclomaticComplexityAnalyzer.py::start()"
-    page.add_content(title, text)
-    outputs.append(text)
+    try:
+        cca = CyclomaticComplexityAnalyzer(oDir)
+        complexity = cca.start()
+    except MyException as me:
+        terminate_app(me)
+    print(f"AVG CCN per file = {complexity}. ")
+    report["AVG Cyclomatic Complexity"] = complexity
 
     separator()
-
     # search the Maven Repository for version - 1
     print("Searching for version precedent to ", v)
-    precedent = mrs.search_GAV(g, a, v)  # check what to do when incomplete parameters are set
-    print(f"Version {v} has predecessor {precedent}")
-    title = "Searching for v-1"
-    text = f"Version {v} has predecessor {precedent}"
-    page.add_content(title, text)
-    outputs.append(text)
+    try:
+        precedent = mrs.search_GAV(g, a, v)  # check what to do when incomplete parameters are set
+    except MyException as me:
+        terminate_app(me)
+
+    report["Precedent version"] = precedent
 
     separator()
     # download the precedent version
     # download the JAR file (version -1) from MVN repository
     # dl = Downlaoder()
-    jar_file = dl.download(g, a, precedent)
-    title = "Downloading JAR v-1"
-    text = f"Downloading the JAR for the version {precedent}. " + "\n"
+    try:
+        jar_file = dl.download(g, a, precedent)
+    except MyException as me:
+        terminate_app(me)
 
     # Extract java files from JAR to oDir
     # je = JARExtractor()
-    oDir_precedent = je.extract(jar_file)
-    text += f"saving in directory: {oDir_precedent}"
-    page.add_content(title, text)
+    try:
+        oDir_precedent = je.extract(jar_file)
+        text += f"saving in directory: {oDir_precedent}"
+    except MyException as me:
+        terminate_app(me)
 
     separator()
 
-    print(f"Comparing {oDir_precedent} and {oDir}:")
-
     # create Directory comparator
-    comparator = FolderComparator(oDir, oDir_precedent)
-    num_different_files, num_files_examined = comparator.count_different_files()
-    title = f"Comparing {oDir_precedent} and {oDir}:"
-    text = f"Changed files: {num_different_files}" + "\n" + \
-           f"Examined files: {num_files_examined}"
-    print(text)
-    page.add_content(title, text)
-    outputs.append(text)
+    try:
+        comparator = FolderComparator(oDir, oDir_precedent)
+        num_different_files, num_files_examined = comparator.count_different_files()
+    except MyException as me:
+        terminate_app(me)
+
+    report["Number files examined"]     = num_files_examined
+    report["Number of changed files"]   = num_different_files
 
     # XML Reader -> return github url contained in the POM file
-    xr = XMLReader()
-    pom_file_name = "pom_jar/" + pom_file_name
+    try:
+        xr = XMLReader()
+        pom_file_name = "pom_jar/" + pom_file_name
+    except MyException as me:
+        terminate_app(me)
     urls = xr.get_github_url(pom_file_name)
     if len(urls) > 0:
-        #print("Possible urls = ", urls)
-
         # create github manager object
         separator()
         print("Creating GitManager")
         gm = GitManager()
-        # print("Current dir = ", os.getcwd())
 
         # the POM file may contain more github urls, some may be documentation, some repositories and some other things
         # but i am looking only for repositories
@@ -165,59 +190,57 @@ def start(gav=None, slimit=None):
         if valid_gh_url:
             separator()
             # get code chunk
-            code_churn = gm.get_code_churn(repo_dir)
-            print(f"Code chunk = {code_churn}")
-            title = "Code chunk"
-            text = f"Code chunk = {code_churn}"
-            page.add_content(title, text)
-            outputs.append(text)
-            versions = gm.get_prev_version(repo_name, v)
-            print(versions)
+            try:
+                code_churn = gm.get_code_churn(repo_dir)
+            except MyException as me:
+                terminate_app(me)
+            print(f"Code churn (from the first version) = {code_churn}")
+
+            report["Code Churn"] = code_churn
+            try:
+                versions = gm.get_prev_version(repo_name, v)
+            except MyException as me:
+                terminate_app(me)
+
             if versions != -1:  # I have found the version on gh
                 v1 = precedent  # older
                 v2 = v  # newer
+                try:
+                    changed_files = gm.get_changed_files(repo_name, v1, v2)
+                    commits = gm.get_total_commits(repo_name, v1, v2)
+                except MyException as me:
+                    terminate_app(me)
 
-                print(f"Comparing versions: v2 = {v2} and v1 = {v1}")
-                changed_files = gm.get_changed_files(repo_name, v1, v2)
-                commits = gm.get_total_commits(repo_name, v1, v2)
-                print(f"     Changed files between {v2} and {v1} = {changed_files}")
-                print(f"     Commits between {v2} and {v1} = {commits}")
+                report["GitHub Nr. changed files"]  = changed_files
+                report["GitHub Nr. commits"]        = commits
             else:
-                text = f"{g}:{a}:{v} has no valid version on github. GitHub parameter: diff commits will not be examinated."
-                print(text)
-                title = "GitHub"
-                page.add_content(title, text)
-                outputs.append(text)
+                text = f"No links to GitHub. GitHub parameters will not be examinated."
+                report["GitHub repository"] = text
         else:
-            text = f"{g}:{a}:{v} has no valid links to github. GitHub parameters such as ode churn and diff commits will not be examinated."
-            print(text)
-            title = "GitHub"
-            page.add_content(title, text)
-            outputs.append(text)
-    else:
-        text = f"{g}:{a}:{v} has no links to github. GitHub parameters such as code churn and diff commits will not be examinated."
-        print(text)
-        title = "GitHub"
-        page.add_content(title, text)
-        outputs.append(text)
+            text = f"No links to GitHub. GitHub parameters will not be examinated."
+            report["GitHub repository"] = text
 
-    # save to file
-    page.save_to_file(f"{g}_{a}_{v}.html")
-    print("\n")
-    separator("results")
-    for output in outputs:
-        print(output)
-    separator("results")
+    else:
+        text = f"No links to GitHub. GitHub parameters will not be examinated."
+        report["GitHub repository"] = text
+
+    create_report()
+    export_json(gav)
+    
 
 if __name__ == '__main__':
     # get GAV trom CL
-    parser = argparse.ArgumentParser(description="description app",
-                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument("-gav", help="insert group artefact and version")
-    parser.add_argument("-slimit", help="files bigger than this will not be examined")
-    args = parser.parse_args()
-    slimit = args.slimit
-    gav = (args.gav).split(":")
+    try:
+        parser = argparse.ArgumentParser(description="MVN repo anlayzer",
+                                        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+        parser.add_argument("-gav", help="insert group artefact and version")
+        parser.add_argument("-slimit", help="files bigger than this will not be examined")
+        args = parser.parse_args()
+        slimit = args.slimit
+        gav = (args.gav).split(":")
+    except BaseException as be:
+        print("Correct Usage: usage: main.py [-h] [-gav GAV] [-slimit SLIMIT]")
+        exit(1)
     print("Starting the program for GAV = ", args.gav)
     print("Slimit the program for GAV = ", args.slimit)
     start(gav, slimit)

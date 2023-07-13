@@ -2,27 +2,22 @@ import os
 import sys
 import subprocess
 
+from MyException import MyException
+
 class JARExtractor():
-    def __init__(self):
-        print("JAR Extractor created")
 
 # -----------------------------------------------------------------------------
     def extract(self, jar_file):
         errorMessages = []
-        if not isArchive(jar_file):
-            errorMessages.append("file is not an archive:        %s" % jar_file)
+        if not isArchive(jar_file):           
+            raise MyException(f"{jar_file} is not a valid jar archive")
 
         contentsDir = getExpandedDirName(jar_file)
         if os.path.exists(contentsDir):
-            errorMessages.append("directory needs to be removed: %s" % contentsDir)
-
-        if len(errorMessages) > 0:
-            for errorMessage in errorMessages:
-                print(errorMessage)
-            sys.exit()
+            raise MyException(f"{contentsDir} needs to be removed")
 
         oDir = unzip(jar_file)
-        return oDir #return the directory
+        return oDir
 
 #-----------------------------------------------------------------------------
 def unzip(fileName):
@@ -30,27 +25,28 @@ def unzip(fileName):
     oDir = "packages/" + fileName.replace(".jar", "")
     fileName = "pom_jar/" + fileName
     if os.path.exists(oDir):
-        print(f"Directory {oDir} already exists. Skipping extraction of {fileName}.")
+        print(f"     Directory {oDir} already exists. Skipping extraction of {fileName}.")
     else:
         try:
             os.makedirs(oDir)
         except BaseException as be:
-            print("Base Exception = ", be)
+            raise MyException(f"Error while extracting files from the jar: {fileName}. Exceprion: {be}")
 
         try:
-            print(f"Processing {fileName} into {oDir}")
+            #print(f"     Processing {fileName} into {oDir}")
             command = "unzip %s -d %s" % (fileName, oDir)
             process = subprocess.Popen(command, shell=True)
             status  = os.waitpid(process.pid, 0)[1]
         except BaseException as be:
-            print(f"An error ocured while executing subprocess.Popen({command}, shell=True):\n{be}")
+            msg = f"An error ocured while executing subprocess.Popen({command}, shell=True):\n{be}"
+            raise MyException(f"Error while extracting files from the jar: {fileName}. Error: {msg}")
 
     return oDir # return the directory
     #walkFiles(oDir) commented because rises an exception
 
 #-----------------------------------------------------------------------------
 def walkFiles(dirName):
-    print ("walking the files of %s" % dirName)
+   # print ("walking the files of %s" % dirName)
     dirs = os.walk(dirName)
 
     for (dirPath, dirNames, fileNames) in dirs:

@@ -1,6 +1,7 @@
 import os
 import re
 import subprocess
+from MyException import MyException
 
 import git
 from github import Github
@@ -19,6 +20,8 @@ class GitManager:
         l = Login()
         self.api_username = l.get_username()
         self.access_token = "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"
+        self.exceptions = []
+        self.exceptions.append("GitHub Manager: --------------------------------")
 
     def query_github(self, repo_path):
         try:
@@ -27,10 +30,10 @@ class GitManager:
             url = self.github_api_url + repo_path
             response = requests.get(url, headers=headers, auth=(self.api_username, self.access_token))
         except BaseException as be:
-            print(f"Something went wrong while quering github at url: {url} "
-                  f"and the following exception was raised: {be}. "
-                  f"This operation is mandatory, exiting!")
-            exit(1)
+            msg = f"Something went wrong while quering github at url: {url} "\
+                  f"and the following exception was raised: {be}. "\
+                  f"This operation is mandatory, "
+            raise MyException(msg)
         return response
 
     def get_locs_from_repo(self, repo_path):
@@ -64,10 +67,12 @@ class GitManager:
         # get contributions of user
         #print(f"Let's get contribution of: {user}")
         url = "https://github-contributions-api.deno.dev/" + user + ".json"
-
-        headers = {'Authorization': "Token " + self.access_token}
-        response = requests.get(url, headers=headers, auth=(self.api_username, self.access_token))
-        contributions = response.json()
+        try:
+            headers = {'Authorization': "Token " + self.access_token}
+            response = requests.get(url, headers=headers, auth=(self.api_username, self.access_token))
+            contributions = response.json()
+        except Exception as e:
+            raise MyException(e)
         return contributions
 
     def is_valid_github_url(self, url):
@@ -104,13 +109,13 @@ class GitManager:
             try:
                 Repo.clone_from(url, dir)
             except git.exc.InvalidGitRepositoryError as ghe:
-                print(f"Something went wrong while cloning repository {url} and the following exception was raised: {ghe}. "
-                      f"This operation is mandatory, exiting!")
-                exit(1)
+                msg = f"Something went wrong while cloning repository {url} and the following exception was raised: {ghe}. "
+                #self.exceptions.append(msg)
+                raise MyException(msg)
             except BaseException as be:
-                print(f"Something went wrong while cloning repository {url} and the following exception was raised: {be}. "
-                      f"This operation is mandatory, exiting!")
-                exit(1)
+                msg = f"Something went wrong while cloning repository {url} and the following exception was raised: {be}. "
+                #self.exceptions.append(msg)
+                raise MyException(msg)
         return dir
 
     def get_code_churn(self, dir):
@@ -127,7 +132,7 @@ class GitManager:
                                 stdout=subprocess.PIPE)
         command_output = task.stdout.read()
         lines = command_output.splitlines()
-        lines
+        #lines       # WHAT THE HELL IS THIS ??  # WHAT THE HELL IS THIS ??  # WHAT THE HELL IS THIS ??  # WHAT THE HELL IS THIS ??  # WHAT THE HELL IS THIS ??
         count = 0
         sum = 0
         for l in lines:
@@ -149,27 +154,26 @@ class GitManager:
         print("Quering forversions of: ", repo_path)
         # Access token or username and password can be used to access a private repository
         g = Github(self.access_token)
+        relases = []
+        versions = []
 
         # Fetch the repository object using the extracted name
         try:
             repo = g.get_repo(repo_path)
-        except BaseException as be:
-            print(f"Something went wrong when retrieving repository {repo_path} in order to obtain all "
-                  f"repository versions and the following exception was raised: {be}. "
-                  f"This values are mandatory, exiting!")
-            exit(1)
-
-        # Get all the releases of the repository - may need pagination
-        releases = repo.get_releases()
-        versions = []
-
-        #populate an array
-        for release in releases:
-            #print(f"Adding Release: {release.tag_name} to the versions array")
-            versions.append(release.tag_name)
-        versions.sort()
+            releases = repo.get_releases()
+            #populate an array
+            for release in releases:
+                #print(f"Adding Release: {release.tag_name} to the versions array")
+                versions.append(release.tag_name)
+            versions.sort()
         #print("GH-----", versions)
-
+        except BaseException as be:
+            msg = f"Something went wrong when retrieving repository {repo_path} in order to obtain all "\
+                  f"repository versions and the following exception was raised: {be}. "\
+                  f"This values are mandatory, "
+            self.exceptions.append(msg)
+            raise MyException(msg)
+        
         return versions
 
     def get_prev_version(self, repo_path, v):
@@ -188,11 +192,12 @@ class GitManager:
                 print(f"{v} is at {current_version_index}pos and v-1 is {versions[current_version_index+1]}")
                 precedent_version = {versions[current_version_index+1]} # GH ordering is from biggest to smallest number of version
             except BaseException as be:
-                print(f"I wasn't able to find version {v} in the list of versions retrieved from git repo "
+                msg = (f"I wasn't able to find version {v} in the list of versions retrieved from git repo "
                       f"for repository {repo_path}. This may happen because github does not contain all versions that are contained on maven repo."
                       f"The following exception was raised: {be}. "
                       f"Skipping this step")
-                return -1
+                self.exceptions.append(msg)
+                raise MyException(msg)
 
         return precedent_version
 
@@ -215,10 +220,12 @@ class GitManager:
         try:
             response = requests.get(url, headers=headers, auth=(self.api_username, self.access_token))
         except BaseException as be:
-            print(f"Something went wrong when retrieving number of changed files between {v1} and {v2} "
-                  f"for repository {repo_path} and the following exception was raised: {be}. "
-                  f"This value is mandatory, exiting!")
-            exit(1)
+            msg = f"Something went wrong when retrieving number of changed files between {v1} and {v2} "\
+                  f"for repository {repo_path} and the following exception was raised: {be}. "\
+                  f"This value is mandatory, "
+            self.exceptions.append(msg)
+            raise MyException(msg)
+
         diff = response.content
         count = diff.count(b"diff --git")   # count() uses byte, so "b" is needed
         #print("Count via diff file = ", count)
@@ -240,9 +247,10 @@ class GitManager:
             repo = g.get_user(repo_info[0]).get_repo(repo_info[1])
             comp = repo.compare(v1, v2)
         except BaseException as be:
-            print(f"Something went wrong when retrieving total commits between {v1} and {v2} "
-                  f"for repository {repo_path} and the following exception was raised: {be}. "
-                  f"This value is mandatory, exiting!")
-            exit(1)
+            msg = f"Something went wrong when retrieving total commits between {v1} and {v2} "\
+                  f"for repository {repo_path} and the following exception was raised: {be}. "\
+                  f"This value is mandatory, "
+            self.exceptions.append(msg)
+            raise MyException(msg)
 
         return comp.total_commits

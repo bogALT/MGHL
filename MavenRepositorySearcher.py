@@ -1,9 +1,13 @@
 import math
 import requests
 import re
+from MyException import MyException
 from XMLReader import XMLReader
 
 class MavenRepositorySearcher:
+    def __init__(self):
+        self.exceptions = []
+        self.exceptions.append("Maven Repos Search: --------------------------------")
 
     def do_request(self, url):
         '''
@@ -16,9 +20,10 @@ class MavenRepositorySearcher:
             response = requests.get(url)
             data = response.content.decode("utf-8")
         except BaseException as be:
-            print(f"Something went wrong when searching on maven for url = {url} the following exception was raised: {be}. "
-                  f"This point is mandatory, exiting!")
-            exit(1)
+            msg = f"Something went wrong when searching on maven for url = {url} the following exception was raised: {be}. "\
+                  f"This point is mandatory, "
+            #self.exceptions.append(msg)
+            raise MyException(msg)
         return data
 
     def search_last_version(self, g, a):
@@ -84,8 +89,7 @@ class MavenRepositorySearcher:
         :return: version - 1
         '''
         if g == "" or a == "" or v == "":
-            print("You did not specify all of GAV values")
-            return 1
+            raise MyException("You did not specify all of GAV values, one or more are missing. This is the GAV i got {g} : {a} : {v}")
 
         # create search url
         search_url = "https://search.maven.org/solrsearch/select?q="
@@ -95,9 +99,11 @@ class MavenRepositorySearcher:
         try:
             data = self.do_request(search_url+search_parameters)
         except BaseException as be:
-            print(f"Error while querying the maven repository. Exception: {be}. "
-                  f"The error is often caused by the maven server which returns a 503 error due to outage."
-                  f"Last data received from the server: {data}")
+            msg = f"Error while querying the maven repository. Exception: {be}. "\
+                  f"The error is often caused by the maven server which returns a 503 error due to outage."\
+                  f"Last data received from the server: {data}"
+            #self.exceptions.append(msg)
+            raise MyException(msg)
         #print("Data = ", data)
 
         # get the number of pages
@@ -105,10 +111,10 @@ class MavenRepositorySearcher:
             pages_number = math.ceil(int(self.get_total_number_of_versions(data))/20)
             print(f"Searching among {pages_number} pages. This may take more than {pages_number} seconds according to your internet speed and maven central server status.")
         except BaseException as be:
-            print(
-                f"I wasn't able to retrive versions from maven server at url = {search_url+search_parameters}, the following exception was raised: {be}. "
-                f"This may be caused by a Maven server malfunction (or not). The server returned an error: {data}. \nThis point is mandatory, exiting!")
-            exit(1)
+            msg = f"I wasn't able to retrive versions from maven server at url = {search_url+search_parameters}, the following exception was raised: {be}. "\
+                f"This may be caused by a Maven server malfunction (or not). The server returned an error: {data}. \nThis point is mandatory, "
+            #self.exceptions.append(msg)
+            raise MyException(msg)
         # retrieve all versions available reading every page
         versions = []
         counter = 0
@@ -123,7 +129,6 @@ class MavenRepositorySearcher:
 
             # create search url
             search_parameters = f"g:{g}&a:{a}&v:{v}&core=gav&start={pages_number*20}&wt=jso"
-            #print(f"\nPages left = {pages_number}, url = {search_url+search_parameters}")
 
             # do request
             data = self.do_request(search_url+search_parameters)
