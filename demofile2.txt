@@ -1,0 +1,2193 @@
+diff --git a/.gitignore b/.gitignore
+index 6bf71b0ef..f79fb99da 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -32,6 +32,3 @@ lib/
+ build/
+ */build/
+ 
+-# asdf version file
+-.tool-versions
+-
+diff --git a/awss3-storage/dependencies.lock b/awss3-storage/dependencies.lock
+index 971612a83..4a6cb0e9f 100644
+--- a/awss3-storage/dependencies.lock
++++ b/awss3-storage/dependencies.lock
+@@ -77,7 +77,7 @@
+                 "com.netflix.conductor:conductor-common",
+                 "com.netflix.conductor:conductor-core"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+@@ -273,7 +273,7 @@
+                 "com.netflix.conductor:conductor-common",
+                 "com.netflix.conductor:conductor-core"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+diff --git a/awss3-storage/src/main/java/com/netflix/conductor/s3/config/S3Configuration.java b/awss3-storage/src/main/java/com/netflix/conductor/s3/config/S3Configuration.java
+index 5b8e6b3dc..a188c8504 100644
+--- a/awss3-storage/src/main/java/com/netflix/conductor/s3/config/S3Configuration.java
++++ b/awss3-storage/src/main/java/com/netflix/conductor/s3/config/S3Configuration.java
+@@ -21,9 +21,6 @@ import com.netflix.conductor.common.utils.ExternalPayloadStorage;
+ import com.netflix.conductor.core.utils.IDGenerator;
+ import com.netflix.conductor.s3.storage.S3PayloadStorage;
+ 
+-import com.amazonaws.services.s3.AmazonS3;
+-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+-
+ @Configuration
+ @EnableConfigurationProperties(S3Properties.class)
+ @ConditionalOnProperty(name = "conductor.external-payload-storage.type", havingValue = "s3")
+@@ -31,16 +28,7 @@ public class S3Configuration {
+ 
+     @Bean
+     public ExternalPayloadStorage s3ExternalPayloadStorage(
+-            IDGenerator idGenerator, S3Properties properties, AmazonS3 s3Client) {
+-        return new S3PayloadStorage(idGenerator, properties, s3Client);
+-    }
+-
+-    @ConditionalOnProperty(
+-            name = "conductor.external-payload-storage.s3.use_default_client",
+-            havingValue = "true",
+-            matchIfMissing = true)
+-    @Bean
+-    public AmazonS3 amazonS3(S3Properties properties) {
+-        return AmazonS3ClientBuilder.standard().withRegion(properties.getRegion()).build();
++            IDGenerator idGenerator, S3Properties properties) {
++        return new S3PayloadStorage(idGenerator, properties);
+     }
+ }
+diff --git a/awss3-storage/src/main/java/com/netflix/conductor/s3/storage/S3PayloadStorage.java b/awss3-storage/src/main/java/com/netflix/conductor/s3/storage/S3PayloadStorage.java
+index 838ab4088..8ac530ea5 100644
+--- a/awss3-storage/src/main/java/com/netflix/conductor/s3/storage/S3PayloadStorage.java
++++ b/awss3-storage/src/main/java/com/netflix/conductor/s3/storage/S3PayloadStorage.java
+@@ -30,6 +30,7 @@ import com.netflix.conductor.s3.config.S3Properties;
+ import com.amazonaws.HttpMethod;
+ import com.amazonaws.SdkClientException;
+ import com.amazonaws.services.s3.AmazonS3;
++import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+ import com.amazonaws.services.s3.model.*;
+ 
+ /**
+@@ -51,11 +52,12 @@ public class S3PayloadStorage implements ExternalPayloadStorage {
+     private final String bucketName;
+     private final long expirationSec;
+ 
+-    public S3PayloadStorage(IDGenerator idGenerator, S3Properties properties, AmazonS3 s3Client) {
++    public S3PayloadStorage(IDGenerator idGenerator, S3Properties properties) {
+         this.idGenerator = idGenerator;
+-        this.s3Client = s3Client;
+         bucketName = properties.getBucketName();
+         expirationSec = properties.getSignedUrlExpirationDuration().getSeconds();
++        String region = properties.getRegion();
++        s3Client = AmazonS3ClientBuilder.standard().withRegion(region).build();
+     }
+ 
+     /**
+diff --git a/awssqs-event-queue/dependencies.lock b/awssqs-event-queue/dependencies.lock
+index e22ed2403..e1f4f1f6e 100644
+--- a/awssqs-event-queue/dependencies.lock
++++ b/awssqs-event-queue/dependencies.lock
+@@ -86,7 +86,7 @@
+                 "com.netflix.conductor:conductor-common",
+                 "com.netflix.conductor:conductor-core"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+@@ -294,7 +294,7 @@
+                 "com.netflix.conductor:conductor-common",
+                 "com.netflix.conductor:conductor-core"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+diff --git a/cassandra-persistence/dependencies.lock b/cassandra-persistence/dependencies.lock
+index c625d004b..15cde49f1 100644
+--- a/cassandra-persistence/dependencies.lock
++++ b/cassandra-persistence/dependencies.lock
+@@ -77,7 +77,7 @@
+                 "com.netflix.conductor:conductor-common",
+                 "com.netflix.conductor:conductor-core"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+@@ -196,7 +196,7 @@
+             "locked": "3.10.2"
+         },
+         "com.google.protobuf:protobuf-java": {
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.netflix.conductor:conductor-common": {
+             "project": true
+@@ -291,7 +291,7 @@
+                 "com.netflix.conductor:conductor-common",
+                 "com.netflix.conductor:conductor-core"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+diff --git a/cassandra-persistence/src/main/java/com/netflix/conductor/cassandra/config/cache/CacheableMetadataDAO.java b/cassandra-persistence/src/main/java/com/netflix/conductor/cassandra/config/cache/CacheableMetadataDAO.java
+index 256512ea4..f7ad3d25e 100644
+--- a/cassandra-persistence/src/main/java/com/netflix/conductor/cassandra/config/cache/CacheableMetadataDAO.java
++++ b/cassandra-persistence/src/main/java/com/netflix/conductor/cassandra/config/cache/CacheableMetadataDAO.java
+@@ -143,11 +143,6 @@ public class CacheableMetadataDAO implements MetadataDAO {
+         return cassandraMetadataDAO.getAllWorkflowDefs();
+     }
+ 
+-    @Override
+-    public List<WorkflowDef> getAllWorkflowDefsLatestVersions() {
+-        return cassandraMetadataDAO.getAllWorkflowDefsLatestVersions();
+-    }
+-
+     private List<TaskDef> refreshTaskDefsCache() {
+         try {
+             Cache taskDefsCache = cacheManager.getCache(TASK_DEF_CACHE);
+diff --git a/cassandra-persistence/src/main/java/com/netflix/conductor/cassandra/dao/CassandraMetadataDAO.java b/cassandra-persistence/src/main/java/com/netflix/conductor/cassandra/dao/CassandraMetadataDAO.java
+index 90ff3ed4a..af846e6a1 100644
+--- a/cassandra-persistence/src/main/java/com/netflix/conductor/cassandra/dao/CassandraMetadataDAO.java
++++ b/cassandra-persistence/src/main/java/com/netflix/conductor/cassandra/dao/CassandraMetadataDAO.java
+@@ -14,12 +14,9 @@ package com.netflix.conductor.cassandra.dao;
+ 
+ import java.util.Collections;
+ import java.util.Comparator;
+-import java.util.HashMap;
+ import java.util.List;
+-import java.util.Map;
+ import java.util.Objects;
+ import java.util.Optional;
+-import java.util.PriorityQueue;
+ import java.util.stream.Collectors;
+ 
+ import org.apache.commons.lang3.tuple.ImmutablePair;
+@@ -63,10 +60,8 @@ public class CassandraMetadataDAO extends CassandraBaseDAO implements MetadataDA
+     private final PreparedStatement insertTaskDefStatement;
+ 
+     private final PreparedStatement selectWorkflowDefStatement;
+-
+     private final PreparedStatement selectAllWorkflowDefVersionsByNameStatement;
+     private final PreparedStatement selectAllWorkflowDefsStatement;
+-    private final PreparedStatement selectAllWorkflowDefsLatestVersionsStatement;
+     private final PreparedStatement selectTaskDefStatement;
+     private final PreparedStatement selectAllTaskDefsStatement;
+ 
+@@ -102,9 +97,6 @@ public class CassandraMetadataDAO extends CassandraBaseDAO implements MetadataDA
+         this.selectAllWorkflowDefsStatement =
+                 session.prepare(statements.getSelectAllWorkflowDefsStatement())
+                         .setConsistencyLevel(properties.getReadConsistencyLevel());
+-        this.selectAllWorkflowDefsLatestVersionsStatement =
+-                session.prepare(statements.getSelectAllWorkflowDefsLatestVersionsStatement())
+-                        .setConsistencyLevel(properties.getReadConsistencyLevel());
+         this.selectTaskDefStatement =
+                 session.prepare(statements.getSelectTaskDefStatement())
+                         .setConsistencyLevel(properties.getReadConsistencyLevel());
+@@ -297,48 +289,6 @@ public class CassandraMetadataDAO extends CassandraBaseDAO implements MetadataDA
+         }
+     }
+ 
+-    @Override
+-    public List<WorkflowDef> getAllWorkflowDefsLatestVersions() {
+-        try {
+-            ResultSet resultSet =
+-                    session.execute(
+-                            selectAllWorkflowDefsLatestVersionsStatement.bind(
+-                                    WORKFLOW_DEF_INDEX_KEY));
+-            List<Row> rows = resultSet.all();
+-            if (rows.size() == 0) {
+-                LOGGER.info("No workflow definitions were found.");
+-                return Collections.EMPTY_LIST;
+-            }
+-            Map<String, PriorityQueue<WorkflowDef>> allWorkflowDefs = new HashMap<>();
+-
+-            for (Row row : rows) {
+-                String defNameVersion = row.getString(WORKFLOW_DEF_NAME_VERSION_KEY);
+-                var nameVersion = getWorkflowNameAndVersion(defNameVersion);
+-                WorkflowDef def =
+-                        getWorkflowDef(nameVersion.getLeft(), nameVersion.getRight()).orElse(null);
+-                if (def == null) {
+-                    continue;
+-                }
+-                if (allWorkflowDefs.get(def.getName()) == null) {
+-                    allWorkflowDefs.put(
+-                            def.getName(),
+-                            new PriorityQueue<>(
+-                                    (WorkflowDef w1, WorkflowDef w2) ->
+-                                            Integer.compare(w2.getVersion(), w1.getVersion())));
+-                }
+-                allWorkflowDefs.get(def.getName()).add(def);
+-            }
+-            return allWorkflowDefs.values().stream()
+-                    .map(PriorityQueue::poll)
+-                    .collect(Collectors.toList());
+-        } catch (DriverException e) {
+-            Monitors.error(CLASS_NAME, "getAllWorkflowDefsLatestVersions");
+-            String errorMsg = "Error retrieving all workflow defs latest versions";
+-            LOGGER.error(errorMsg, e);
+-            throw new TransientException(errorMsg, e);
+-        }
+-    }
+-
+     private TaskDef getTaskDefFromDB(String name) {
+         try {
+             ResultSet resultSet = session.execute(selectTaskDefStatement.bind(name));
+diff --git a/cassandra-persistence/src/main/java/com/netflix/conductor/cassandra/util/Statements.java b/cassandra-persistence/src/main/java/com/netflix/conductor/cassandra/util/Statements.java
+index 68fe3b242..c77f2b293 100644
+--- a/cassandra-persistence/src/main/java/com/netflix/conductor/cassandra/util/Statements.java
++++ b/cassandra-persistence/src/main/java/com/netflix/conductor/cassandra/util/Statements.java
+@@ -210,14 +210,6 @@ public class Statements {
+                 .getQueryString();
+     }
+ 
+-    public String getSelectAllWorkflowDefsLatestVersionsStatement() {
+-        return QueryBuilder.select()
+-                .all()
+-                .from(keyspace, TABLE_WORKFLOW_DEFS_INDEX)
+-                .where(eq(WORKFLOW_DEF_INDEX_KEY, bindMarker()))
+-                .getQueryString();
+-    }
+-
+     /**
+      * @return cql query statement to fetch a task definition by name from the "task_definitions"
+      *     table
+diff --git a/cassandra-persistence/src/test/groovy/com/netflix/conductor/cassandra/dao/CassandraMetadataDAOSpec.groovy b/cassandra-persistence/src/test/groovy/com/netflix/conductor/cassandra/dao/CassandraMetadataDAOSpec.groovy
+index fd8afacc5..f28216d17 100644
+--- a/cassandra-persistence/src/test/groovy/com/netflix/conductor/cassandra/dao/CassandraMetadataDAOSpec.groovy
++++ b/cassandra-persistence/src/test/groovy/com/netflix/conductor/cassandra/dao/CassandraMetadataDAOSpec.groovy
+@@ -166,36 +166,6 @@ class CassandraMetadataDAOSpec extends CassandraSpec {
+ 
+     }
+ 
+-    def "Get All WorkflowDef"() {
+-        when:
+-        metadataDAO.removeWorkflowDef("workflow_def_1", 1)
+-        WorkflowDef workflowDef = new WorkflowDef()
+-        workflowDef.setName("workflow_def_1")
+-        workflowDef.setVersion(1)
+-        workflowDef.setOwnerEmail("test@junit.com")
+-        metadataDAO.createWorkflowDef(workflowDef)
+-
+-        workflowDef.setName("workflow_def_2")
+-        metadataDAO.createWorkflowDef(workflowDef)
+-        workflowDef.setVersion(2)
+-        metadataDAO.createWorkflowDef(workflowDef)
+-
+-        workflowDef.setName("workflow_def_3")
+-        workflowDef.setVersion(1)
+-        metadataDAO.createWorkflowDef(workflowDef)
+-        workflowDef.setVersion(2)
+-        metadataDAO.createWorkflowDef(workflowDef)
+-        workflowDef.setVersion(3)
+-        metadataDAO.createWorkflowDef(workflowDef)
+-
+-        then: // fetch the workflow definition
+-        def allDefsLatestVersions = metadataDAO.getAllWorkflowDefsLatestVersions()
+-        Map<String, WorkflowDef> allDefsMap = allDefsLatestVersions.collectEntries {wfDef -> [wfDef.getName(), wfDef]}
+-        allDefsMap.get("workflow_def_1").getVersion() == 1
+-        allDefsMap.get("workflow_def_2").getVersion() == 2
+-        allDefsMap.get("workflow_def_3").getVersion() == 3
+-    }
+-
+     def "parse index string"() {
+         expect:
+         def pair = metadataDAO.getWorkflowNameAndVersion(nameVersionStr)
+diff --git a/client-spring/dependencies.lock b/client-spring/dependencies.lock
+index 4499a9a75..12a5eece4 100644
+--- a/client-spring/dependencies.lock
++++ b/client-spring/dependencies.lock
+@@ -11,9 +11,6 @@
+         "com.netflix.conductor:conductor-common": {
+             "project": true
+         },
+-        "com.netflix.conductor:conductor-java-sdk": {
+-            "project": true
+-        },
+         "com.netflix.eureka:eureka-client": {
+             "locked": "1.10.10"
+         },
+@@ -37,12 +34,6 @@
+         }
+     },
+     "runtimeClasspath": {
+-        "cglib:cglib": {
+-            "firstLevelTransitive": [
+-                "com.netflix.conductor:conductor-java-sdk"
+-            ],
+-            "locked": "3.3.0"
+-        },
+         "com.amazonaws:aws-java-sdk-core": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-client"
+@@ -57,8 +48,7 @@
+         },
+         "com.fasterxml.jackson.core:jackson-databind": {
+             "firstLevelTransitive": [
+-                "com.netflix.conductor:conductor-common",
+-                "com.netflix.conductor:conductor-java-sdk"
++                "com.netflix.conductor:conductor-common"
+             ],
+             "locked": "2.13.3"
+         },
+@@ -80,17 +70,11 @@
+             ],
+             "locked": "2.13.3"
+         },
+-        "com.google.guava:guava": {
+-            "firstLevelTransitive": [
+-                "com.netflix.conductor:conductor-java-sdk"
+-            ],
+-            "locked": "30.0-jre"
+-        },
+         "com.google.protobuf:protobuf-java": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-common"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.netflix.conductor:conductor-annotations": {
+             "firstLevelTransitive": [
+@@ -99,21 +83,14 @@
+             "project": true
+         },
+         "com.netflix.conductor:conductor-client": {
+-            "firstLevelTransitive": [
+-                "com.netflix.conductor:conductor-java-sdk"
+-            ],
+             "project": true
+         },
+         "com.netflix.conductor:conductor-common": {
+             "firstLevelTransitive": [
+-                "com.netflix.conductor:conductor-client",
+-                "com.netflix.conductor:conductor-java-sdk"
++                "com.netflix.conductor:conductor-client"
+             ],
+             "project": true
+         },
+-        "com.netflix.conductor:conductor-java-sdk": {
+-            "project": true
+-        },
+         "com.netflix.eureka:eureka-client": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-client"
+@@ -128,8 +105,7 @@
+         },
+         "com.sun.jersey:jersey-client": {
+             "firstLevelTransitive": [
+-                "com.netflix.conductor:conductor-client",
+-                "com.netflix.conductor:conductor-java-sdk"
++                "com.netflix.conductor:conductor-client"
+             ],
+             "locked": "1.19.4"
+         },
+@@ -139,13 +115,6 @@
+             ],
+             "locked": "2.7"
+         },
+-        "javax.ws.rs:javax.ws.rs-api": {
+-            "firstLevelTransitive": [
+-                "com.netflix.conductor:conductor-client",
+-                "com.netflix.conductor:conductor-java-sdk"
+-            ],
+-            "locked": "2.1.1"
+-        },
+         "org.apache.bval:bval-jsr": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-common"
+@@ -163,8 +132,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-annotations",
+                 "com.netflix.conductor:conductor-client",
+-                "com.netflix.conductor:conductor-common",
+-                "com.netflix.conductor:conductor-java-sdk"
++                "com.netflix.conductor:conductor-common"
+             ],
+             "locked": "2.17.2"
+         },
+@@ -172,8 +140,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-annotations",
+                 "com.netflix.conductor:conductor-client",
+-                "com.netflix.conductor:conductor-common",
+-                "com.netflix.conductor:conductor-java-sdk"
++                "com.netflix.conductor:conductor-common"
+             ],
+             "locked": "2.17.2"
+         },
+@@ -181,8 +148,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-annotations",
+                 "com.netflix.conductor:conductor-client",
+-                "com.netflix.conductor:conductor-common",
+-                "com.netflix.conductor:conductor-java-sdk"
++                "com.netflix.conductor:conductor-common"
+             ],
+             "locked": "2.17.2"
+         },
+@@ -190,8 +156,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-annotations",
+                 "com.netflix.conductor:conductor-client",
+-                "com.netflix.conductor:conductor-common",
+-                "com.netflix.conductor:conductor-java-sdk"
++                "com.netflix.conductor:conductor-common"
+             ],
+             "locked": "2.17.2"
+         },
+@@ -199,18 +164,10 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-annotations",
+                 "com.netflix.conductor:conductor-client",
+-                "com.netflix.conductor:conductor-common",
+-                "com.netflix.conductor:conductor-java-sdk"
++                "com.netflix.conductor:conductor-common"
+             ],
+             "locked": "2.17.2"
+         },
+-        "org.glassfish.jersey.core:jersey-common": {
+-            "firstLevelTransitive": [
+-                "com.netflix.conductor:conductor-client",
+-                "com.netflix.conductor:conductor-java-sdk"
+-            ],
+-            "locked": "2.35"
+-        },
+         "org.slf4j:slf4j-api": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-client"
+@@ -228,9 +185,6 @@
+         "com.netflix.conductor:conductor-common": {
+             "project": true
+         },
+-        "com.netflix.conductor:conductor-java-sdk": {
+-            "project": true
+-        },
+         "com.netflix.eureka:eureka-client": {
+             "locked": "1.10.10"
+         },
+@@ -266,12 +220,6 @@
+         }
+     },
+     "testRuntimeClasspath": {
+-        "cglib:cglib": {
+-            "firstLevelTransitive": [
+-                "com.netflix.conductor:conductor-java-sdk"
+-            ],
+-            "locked": "3.3.0"
+-        },
+         "com.amazonaws:aws-java-sdk-core": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-client"
+@@ -286,8 +234,7 @@
+         },
+         "com.fasterxml.jackson.core:jackson-databind": {
+             "firstLevelTransitive": [
+-                "com.netflix.conductor:conductor-common",
+-                "com.netflix.conductor:conductor-java-sdk"
++                "com.netflix.conductor:conductor-common"
+             ],
+             "locked": "2.13.3"
+         },
+@@ -309,17 +256,11 @@
+             ],
+             "locked": "2.13.3"
+         },
+-        "com.google.guava:guava": {
+-            "firstLevelTransitive": [
+-                "com.netflix.conductor:conductor-java-sdk"
+-            ],
+-            "locked": "30.0-jre"
+-        },
+         "com.google.protobuf:protobuf-java": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-common"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.netflix.conductor:conductor-annotations": {
+             "firstLevelTransitive": [
+@@ -328,21 +269,14 @@
+             "project": true
+         },
+         "com.netflix.conductor:conductor-client": {
+-            "firstLevelTransitive": [
+-                "com.netflix.conductor:conductor-java-sdk"
+-            ],
+             "project": true
+         },
+         "com.netflix.conductor:conductor-common": {
+             "firstLevelTransitive": [
+-                "com.netflix.conductor:conductor-client",
+-                "com.netflix.conductor:conductor-java-sdk"
++                "com.netflix.conductor:conductor-client"
+             ],
+             "project": true
+         },
+-        "com.netflix.conductor:conductor-java-sdk": {
+-            "project": true
+-        },
+         "com.netflix.eureka:eureka-client": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-client"
+@@ -357,8 +291,7 @@
+         },
+         "com.sun.jersey:jersey-client": {
+             "firstLevelTransitive": [
+-                "com.netflix.conductor:conductor-client",
+-                "com.netflix.conductor:conductor-java-sdk"
++                "com.netflix.conductor:conductor-client"
+             ],
+             "locked": "1.19.4"
+         },
+@@ -368,13 +301,6 @@
+             ],
+             "locked": "2.7"
+         },
+-        "javax.ws.rs:javax.ws.rs-api": {
+-            "firstLevelTransitive": [
+-                "com.netflix.conductor:conductor-client",
+-                "com.netflix.conductor:conductor-java-sdk"
+-            ],
+-            "locked": "2.1.1"
+-        },
+         "junit:junit": {
+             "locked": "4.13.2"
+         },
+@@ -395,8 +321,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-annotations",
+                 "com.netflix.conductor:conductor-client",
+-                "com.netflix.conductor:conductor-common",
+-                "com.netflix.conductor:conductor-java-sdk"
++                "com.netflix.conductor:conductor-common"
+             ],
+             "locked": "2.17.2"
+         },
+@@ -404,8 +329,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-annotations",
+                 "com.netflix.conductor:conductor-client",
+-                "com.netflix.conductor:conductor-common",
+-                "com.netflix.conductor:conductor-java-sdk"
++                "com.netflix.conductor:conductor-common"
+             ],
+             "locked": "2.17.2"
+         },
+@@ -413,8 +337,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-annotations",
+                 "com.netflix.conductor:conductor-client",
+-                "com.netflix.conductor:conductor-common",
+-                "com.netflix.conductor:conductor-java-sdk"
++                "com.netflix.conductor:conductor-common"
+             ],
+             "locked": "2.17.2"
+         },
+@@ -422,8 +345,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-annotations",
+                 "com.netflix.conductor:conductor-client",
+-                "com.netflix.conductor:conductor-common",
+-                "com.netflix.conductor:conductor-java-sdk"
++                "com.netflix.conductor:conductor-common"
+             ],
+             "locked": "2.17.2"
+         },
+@@ -431,18 +353,10 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-annotations",
+                 "com.netflix.conductor:conductor-client",
+-                "com.netflix.conductor:conductor-common",
+-                "com.netflix.conductor:conductor-java-sdk"
++                "com.netflix.conductor:conductor-common"
+             ],
+             "locked": "2.17.2"
+         },
+-        "org.glassfish.jersey.core:jersey-common": {
+-            "firstLevelTransitive": [
+-                "com.netflix.conductor:conductor-client",
+-                "com.netflix.conductor:conductor-java-sdk"
+-            ],
+-            "locked": "2.35"
+-        },
+         "org.junit.vintage:junit-vintage-engine": {
+             "locked": "5.8.2"
+         },
+diff --git a/client/dependencies.lock b/client/dependencies.lock
+index c47e3c755..34735b549 100644
+--- a/client/dependencies.lock
++++ b/client/dependencies.lock
+@@ -92,7 +92,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-common"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.netflix.conductor:conductor-annotations": {
+             "firstLevelTransitive": [
+@@ -284,7 +284,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-common"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.netflix.conductor:conductor-annotations": {
+             "firstLevelTransitive": [
+diff --git a/client/src/main/java/com/netflix/conductor/client/http/MetadataClient.java b/client/src/main/java/com/netflix/conductor/client/http/MetadataClient.java
+index 8db927b8c..1ea4efeba 100644
+--- a/client/src/main/java/com/netflix/conductor/client/http/MetadataClient.java
++++ b/client/src/main/java/com/netflix/conductor/client/http/MetadataClient.java
+@@ -22,16 +22,12 @@ import com.netflix.conductor.common.metadata.tasks.TaskDef;
+ import com.netflix.conductor.common.metadata.workflow.WorkflowDef;
+ 
+ import com.sun.jersey.api.client.ClientHandler;
+-import com.sun.jersey.api.client.GenericType;
+ import com.sun.jersey.api.client.config.ClientConfig;
+ import com.sun.jersey.api.client.config.DefaultClientConfig;
+ import com.sun.jersey.api.client.filter.ClientFilter;
+ 
+ public class MetadataClient extends ClientBase {
+ 
+-    private static final GenericType<List<WorkflowDef>> workflowDefList =
+-            new GenericType<List<WorkflowDef>>() {};
+-
+     /** Creates a default metadata client */
+     public MetadataClient() {
+         this(new DefaultClientConfig(), new DefaultConductorClientConfiguration(), null);
+@@ -126,12 +122,6 @@ public class MetadataClient extends ClientBase {
+                 name);
+     }
+ 
+-    /** */
+-    public List<WorkflowDef> getAllWorkflowsWithLatestVersions() {
+-        return getForEntity(
+-                "metadata/workflow/latest-versions", null, workflowDefList, (Object) null);
+-    }
+-
+     /**
+      * Removes the workflow definition of a workflow from the conductor server. It does not remove
+      * associated workflows. Use with caution.
+diff --git a/client/src/test/groovy/com/netflix/conductor/client/http/MetadataClientSpec.groovy b/client/src/test/groovy/com/netflix/conductor/client/http/MetadataClientSpec.groovy
+index d82acc509..f194f7180 100644
+--- a/client/src/test/groovy/com/netflix/conductor/client/http/MetadataClientSpec.groovy
++++ b/client/src/test/groovy/com/netflix/conductor/client/http/MetadataClientSpec.groovy
+@@ -13,9 +13,7 @@
+ package com.netflix.conductor.client.http
+ 
+ import com.netflix.conductor.client.exception.ConductorClientException
+-import com.netflix.conductor.common.metadata.workflow.WorkflowDef
+ 
+-import com.sun.jersey.api.client.ClientResponse
+ import spock.lang.Subject
+ 
+ class MetadataClientSpec extends ClientSpecification {
+@@ -77,18 +75,4 @@ class MetadataClientSpec extends ClientSpecification {
+         then:
+         thrown(IllegalArgumentException.class)
+     }
+-
+-    def "workflow get all definitions latest version"() {
+-        given:
+-        List<WorkflowDef> result = new ArrayList<WorkflowDef>()
+-        URI uri = createURI("metadata/workflow/latest-versions")
+-
+-        when:
+-        metadataClient.getAllWorkflowsWithLatestVersions()
+-
+-        then:
+-        1 * requestHandler.get(uri) >>  Mock(ClientResponse.class) {
+-            getEntity(_) >> result
+-        }
+-    }
+ }
+diff --git a/common/dependencies.lock b/common/dependencies.lock
+index 83f5cb299..d61bb47f7 100644
+--- a/common/dependencies.lock
++++ b/common/dependencies.lock
+@@ -91,7 +91,7 @@
+             "locked": "2.13.3"
+         },
+         "com.google.protobuf:protobuf-java": {
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.netflix.conductor:conductor-annotations": {
+             "project": true
+@@ -118,7 +118,7 @@
+             "locked": "2.17.2"
+         },
+         "org.springdoc:springdoc-openapi-ui": {
+-            "locked": "1.6.15"
++            "locked": "1.6.12"
+         },
+         "org.springframework.boot:spring-boot-starter": {
+             "locked": "2.7.3"
+@@ -138,7 +138,7 @@
+             "locked": "2.13.3"
+         },
+         "com.google.protobuf:protobuf-java": {
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.netflix.conductor:conductor-annotations": {
+             "project": true
+@@ -191,7 +191,7 @@
+             "locked": "2.13.3"
+         },
+         "com.google.protobuf:protobuf-java": {
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.netflix.conductor:conductor-annotations": {
+             "project": true
+@@ -244,7 +244,7 @@
+             "locked": "2.13.3"
+         },
+         "com.google.protobuf:protobuf-java": {
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.netflix.conductor:conductor-annotations": {
+             "project": true
+diff --git a/core/dependencies.lock b/core/dependencies.lock
+index b5d7024d3..41067909d 100644
+--- a/core/dependencies.lock
++++ b/core/dependencies.lock
+@@ -18,7 +18,7 @@
+             "locked": "2.9.3"
+         },
+         "com.google.protobuf:protobuf-java": {
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "locked": "2.4.0"
+@@ -104,7 +104,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-common"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "locked": "2.4.0"
+@@ -198,7 +198,7 @@
+             "locked": "2.9.3"
+         },
+         "com.google.protobuf:protobuf-java": {
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "locked": "2.4.0"
+@@ -305,7 +305,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-common"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "locked": "2.4.0"
+diff --git a/core/src/main/java/com/netflix/conductor/dao/MetadataDAO.java b/core/src/main/java/com/netflix/conductor/dao/MetadataDAO.java
+index b7e39cf3a..2d9a79f3a 100644
+--- a/core/src/main/java/com/netflix/conductor/dao/MetadataDAO.java
++++ b/core/src/main/java/com/netflix/conductor/dao/MetadataDAO.java
+@@ -81,9 +81,4 @@ public interface MetadataDAO {
+      * @return List of all the workflow definitions
+      */
+     List<WorkflowDef> getAllWorkflowDefs();
+-
+-    /**
+-     * @return List the latest versions of the workflow definitions
+-     */
+-    List<WorkflowDef> getAllWorkflowDefsLatestVersions();
+ }
+diff --git a/core/src/main/java/com/netflix/conductor/service/MetadataService.java b/core/src/main/java/com/netflix/conductor/service/MetadataService.java
+index 701055ef8..913245c64 100644
+--- a/core/src/main/java/com/netflix/conductor/service/MetadataService.java
++++ b/core/src/main/java/com/netflix/conductor/service/MetadataService.java
+@@ -154,6 +154,4 @@ public interface MetadataService {
+     List<EventHandler> getEventHandlersForEvent(
+             @NotEmpty(message = "EventName cannot be null or empty") String event,
+             boolean activeOnly);
+-
+-    List<WorkflowDef> getWorkflowDefsLatestVersions();
+ }
+diff --git a/core/src/main/java/com/netflix/conductor/service/MetadataServiceImpl.java b/core/src/main/java/com/netflix/conductor/service/MetadataServiceImpl.java
+index 7326ab62d..5cb0c4809 100644
+--- a/core/src/main/java/com/netflix/conductor/service/MetadataServiceImpl.java
++++ b/core/src/main/java/com/netflix/conductor/service/MetadataServiceImpl.java
+@@ -218,11 +218,6 @@ public class MetadataServiceImpl implements MetadataService {
+         return eventHandlerDAO.getEventHandlersForEvent(event, activeOnly);
+     }
+ 
+-    @Override
+-    public List<WorkflowDef> getWorkflowDefsLatestVersions() {
+-        return metadataDAO.getAllWorkflowDefsLatestVersions();
+-    }
+-
+     public Map<String, ? extends Iterable<WorkflowDefSummary>> getWorkflowNamesAndVersions() {
+         List<WorkflowDef> workflowDefs = metadataDAO.getAllWorkflowDefs();
+ 
+diff --git a/dependencies.gradle b/dependencies.gradle
+index 5f44fb740..fa71f80a3 100644
+--- a/dependencies.gradle
++++ b/dependencies.gradle
+@@ -43,7 +43,7 @@ ext {
+     revOpenapi = '1.6.+'
+     revOrkesQueues = '1.0.3'
+     revPowerMock = '2.0.9'
+-    revProtoBuf = '3.21.7'
++    revProtoBuf = '3.13.0'
+     revProtogenAnnotations = '1.0.0'
+     revProtogenCodegen = '1.4.0'
+     revRarefiedRedis = '0.0.17'
+diff --git a/docker/server/Dockerfile b/docker/server/Dockerfile
+index 80017603a..3230f6345 100644
+--- a/docker/server/Dockerfile
++++ b/docker/server/Dockerfile
+@@ -5,7 +5,7 @@
+ # ===========================================================================================================
+ # 0. Builder stage
+ # ===========================================================================================================
+-FROM eclipse-temurin:11-jdk-jammy AS builder
++FROM eclipse-temurin:11-jdk-focal AS builder
+ 
+ LABEL maintainer="Netflix OSS <conductor@netflix.com>"
+ 
+@@ -19,7 +19,7 @@ RUN ./gradlew build -x test --stacktrace
+ # ===========================================================================================================
+ # 1. Bin stage
+ # ===========================================================================================================
+-FROM eclipse-temurin:11-jre-jammy 
++FROM eclipse-temurin:11-jre-focal 
+ 
+ LABEL maintainer="Netflix OSS <conductor@netflix.com>"
+ 
+diff --git a/docker/ui/Dockerfile b/docker/ui/Dockerfile
+index a79aef3b0..02a87f498 100644
+--- a/docker/ui/Dockerfile
++++ b/docker/ui/Dockerfile
+@@ -1,7 +1,7 @@
+ #
+ # conductor:ui - Netflix Conductor UI
+ #
+-FROM node:16-alpine
++FROM node:14-alpine
+ LABEL maintainer="Netflix OSS <conductor@netflix.com>"
+ 
+ # Install the required packages for the node build
+diff --git a/es6-persistence/dependencies.lock b/es6-persistence/dependencies.lock
+index f5bd8cea5..5ffd97d14 100644
+--- a/es6-persistence/dependencies.lock
++++ b/es6-persistence/dependencies.lock
+@@ -92,7 +92,7 @@
+                 "com.netflix.conductor:conductor-common",
+                 "com.netflix.conductor:conductor-core"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+@@ -318,7 +318,7 @@
+                 "com.netflix.conductor:conductor-common",
+                 "com.netflix.conductor:conductor-core"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+diff --git a/grpc-client/dependencies.lock b/grpc-client/dependencies.lock
+index 12c2d80a9..8e2051a91 100644
+--- a/grpc-client/dependencies.lock
++++ b/grpc-client/dependencies.lock
+@@ -9,7 +9,7 @@
+             "locked": "30.0-jre"
+         },
+         "com.google.protobuf:protobuf-java": {
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.netflix.conductor:conductor-common": {
+             "project": true
+@@ -18,13 +18,13 @@
+             "project": true
+         },
+         "io.grpc:grpc-netty": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-protobuf": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-stub": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "org.apache.commons:commons-lang3": {
+             "locked": "3.12.0"
+@@ -75,7 +75,7 @@
+                 "com.netflix.conductor:conductor-common",
+                 "com.netflix.conductor:conductor-grpc"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.netflix.conductor:conductor-annotations": {
+             "firstLevelTransitive": [
+@@ -93,19 +93,19 @@
+             "project": true
+         },
+         "io.grpc:grpc-netty": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-protobuf": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-grpc"
+             ],
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-stub": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-grpc"
+             ],
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "javax.annotation:javax.annotation-api": {
+             "firstLevelTransitive": [
+@@ -174,7 +174,7 @@
+             "locked": "30.0-jre"
+         },
+         "com.google.protobuf:protobuf-java": {
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.netflix.conductor:conductor-common": {
+             "project": true
+@@ -183,13 +183,13 @@
+             "project": true
+         },
+         "io.grpc:grpc-netty": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-protobuf": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-stub": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "junit:junit": {
+             "locked": "4.13.2"
+@@ -252,7 +252,7 @@
+                 "com.netflix.conductor:conductor-common",
+                 "com.netflix.conductor:conductor-grpc"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.netflix.conductor:conductor-annotations": {
+             "firstLevelTransitive": [
+@@ -270,19 +270,19 @@
+             "project": true
+         },
+         "io.grpc:grpc-netty": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-protobuf": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-grpc"
+             ],
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-stub": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-grpc"
+             ],
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "javax.annotation:javax.annotation-api": {
+             "firstLevelTransitive": [
+diff --git a/grpc-server/dependencies.lock b/grpc-server/dependencies.lock
+index 2d6461195..6f9c8fdb1 100644
+--- a/grpc-server/dependencies.lock
++++ b/grpc-server/dependencies.lock
+@@ -15,10 +15,10 @@
+             "project": true
+         },
+         "io.grpc:grpc-netty": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-services": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "org.apache.commons:commons-lang3": {
+             "locked": "3.12.0"
+@@ -81,7 +81,7 @@
+                 "com.netflix.conductor:conductor-core",
+                 "com.netflix.conductor:conductor-grpc"
+             ],
+-            "locked": "3.22.3"
++            "locked": "3.21.7"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+@@ -127,22 +127,22 @@
+             "locked": "2.7"
+         },
+         "io.grpc:grpc-netty": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-protobuf": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-grpc"
+             ],
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-services": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-stub": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-grpc"
+             ],
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.reactivex:rxjava": {
+             "firstLevelTransitive": [
+@@ -239,13 +239,13 @@
+             "project": true
+         },
+         "io.grpc:grpc-netty": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-services": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-testing": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "junit:junit": {
+             "locked": "4.13.2"
+@@ -320,7 +320,7 @@
+                 "com.netflix.conductor:conductor-core",
+                 "com.netflix.conductor:conductor-grpc"
+             ],
+-            "locked": "3.22.3"
++            "locked": "3.21.7"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+@@ -366,25 +366,25 @@
+             "locked": "2.7"
+         },
+         "io.grpc:grpc-netty": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-protobuf": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-grpc"
+             ],
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-services": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-stub": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-grpc"
+             ],
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-testing": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.reactivex:rxjava": {
+             "firstLevelTransitive": [
+diff --git a/grpc/build.gradle b/grpc/build.gradle
+index 6286e2a0f..db778a83b 100644
+--- a/grpc/build.gradle
++++ b/grpc/build.gradle
+@@ -39,13 +39,13 @@ dependencies {
+ def artifactName = 'com.google.protobuf:protoc:3.14.0:osx-x86_64'
+ switch (org.gradle.internal.os.OperatingSystem.current()) {
+     case org.gradle.internal.os.OperatingSystem.LINUX:
+-        artifactName = "com.google.protobuf:protoc:3.21.7"
++        artifactName = "com.google.protobuf:protoc:3.13.0"
+         break;
+     case org.gradle.internal.os.OperatingSystem.MAC_OS:
+         artifactName = "com.google.protobuf:protoc:3.14.0:osx-x86_64"
+         break;
+     case org.gradle.internal.os.OperatingSystem.WINDOWS:
+-        artifactName = "com.google.protobuf:protoc:3.21.7"
++        artifactName = "com.google.protobuf:protoc:3.13.0"
+         break;
+ }
+ 
+diff --git a/grpc/dependencies.lock b/grpc/dependencies.lock
+index a3677ba43..ea9b7f63f 100644
+--- a/grpc/dependencies.lock
++++ b/grpc/dependencies.lock
+@@ -6,16 +6,16 @@
+     },
+     "compileClasspath": {
+         "com.google.protobuf:protobuf-java": {
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.netflix.conductor:conductor-common": {
+             "project": true
+         },
+         "io.grpc:grpc-protobuf": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-stub": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "javax.annotation:javax.annotation-api": {
+             "locked": "1.3.2"
+@@ -59,7 +59,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-common"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.netflix.conductor:conductor-annotations": {
+             "firstLevelTransitive": [
+@@ -71,10 +71,10 @@
+             "project": true
+         },
+         "io.grpc:grpc-protobuf": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-stub": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "javax.annotation:javax.annotation-api": {
+             "locked": "1.3.2"
+@@ -129,12 +129,12 @@
+     },
+     "protobufToolsLocator_grpc": {
+         "io.grpc:protoc-gen-grpc-java": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         }
+     },
+     "protobufToolsLocator_protoc": {
+         "com.google.protobuf:protoc": {
+-            "locked": "3.14.0"
++            "locked": "3.13.0"
+         }
+     },
+     "runtimeClasspath": {
+@@ -160,7 +160,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-common"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.netflix.conductor:conductor-annotations": {
+             "firstLevelTransitive": [
+@@ -172,10 +172,10 @@
+             "project": true
+         },
+         "io.grpc:grpc-protobuf": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-stub": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "javax.annotation:javax.annotation-api": {
+             "locked": "1.3.2"
+@@ -230,16 +230,16 @@
+     },
+     "testCompileClasspath": {
+         "com.google.protobuf:protobuf-java": {
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.netflix.conductor:conductor-common": {
+             "project": true
+         },
+         "io.grpc:grpc-protobuf": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-stub": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "javax.annotation:javax.annotation-api": {
+             "locked": "1.3.2"
+@@ -295,7 +295,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-common"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.netflix.conductor:conductor-annotations": {
+             "firstLevelTransitive": [
+@@ -307,10 +307,10 @@
+             "project": true
+         },
+         "io.grpc:grpc-protobuf": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-stub": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "javax.annotation:javax.annotation-api": {
+             "locked": "1.3.2"
+@@ -398,7 +398,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-common"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.netflix.conductor:conductor-annotations": {
+             "firstLevelTransitive": [
+@@ -410,10 +410,10 @@
+             "project": true
+         },
+         "io.grpc:grpc-protobuf": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-stub": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "javax.annotation:javax.annotation-api": {
+             "locked": "1.3.2"
+diff --git a/http-task/dependencies.lock b/http-task/dependencies.lock
+index 81c8fb8c4..e27ab945c 100644
+--- a/http-task/dependencies.lock
++++ b/http-task/dependencies.lock
+@@ -74,7 +74,7 @@
+                 "com.netflix.conductor:conductor-common",
+                 "com.netflix.conductor:conductor-core"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+@@ -276,7 +276,7 @@
+                 "com.netflix.conductor:conductor-common",
+                 "com.netflix.conductor:conductor-core"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+diff --git a/java-sdk/dependencies.lock b/java-sdk/dependencies.lock
+index 94d552316..6bfd9a441 100644
+--- a/java-sdk/dependencies.lock
++++ b/java-sdk/dependencies.lock
+@@ -92,7 +92,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-common"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.netflix.conductor:conductor-annotations": {
+             "firstLevelTransitive": [
+@@ -134,9 +134,6 @@
+             "locked": "2.7"
+         },
+         "javax.ws.rs:javax.ws.rs-api": {
+-            "firstLevelTransitive": [
+-                "com.netflix.conductor:conductor-client"
+-            ],
+             "locked": "2.1.1"
+         },
+         "org.apache.bval:bval-jsr": {
+@@ -193,9 +190,6 @@
+             "locked": "2.17.2"
+         },
+         "org.glassfish.jersey.core:jersey-common": {
+-            "firstLevelTransitive": [
+-                "com.netflix.conductor:conductor-client"
+-            ],
+             "locked": "2.22.2"
+         },
+         "org.slf4j:slf4j-api": {
+@@ -323,7 +317,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-common"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.netflix.conductor:conductor-annotations": {
+             "firstLevelTransitive": [
+@@ -365,9 +359,6 @@
+             "locked": "2.7"
+         },
+         "javax.ws.rs:javax.ws.rs-api": {
+-            "firstLevelTransitive": [
+-                "com.netflix.conductor:conductor-client"
+-            ],
+             "locked": "2.1.1"
+         },
+         "junit:junit": {
+@@ -430,9 +421,6 @@
+             "locked": "2.5.13"
+         },
+         "org.glassfish.jersey.core:jersey-common": {
+-            "firstLevelTransitive": [
+-                "com.netflix.conductor:conductor-client"
+-            ],
+             "locked": "2.22.2"
+         },
+         "org.junit.vintage:junit-vintage-engine": {
+diff --git a/json-jq-task/dependencies.lock b/json-jq-task/dependencies.lock
+index c56ba7e14..04f6a77d5 100644
+--- a/json-jq-task/dependencies.lock
++++ b/json-jq-task/dependencies.lock
+@@ -74,7 +74,7 @@
+                 "com.netflix.conductor:conductor-common",
+                 "com.netflix.conductor:conductor-core"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+@@ -270,7 +270,7 @@
+                 "com.netflix.conductor:conductor-common",
+                 "com.netflix.conductor:conductor-core"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+diff --git a/redis-concurrency-limit/dependencies.lock b/redis-concurrency-limit/dependencies.lock
+index fd32c1a20..9e9267242 100644
+--- a/redis-concurrency-limit/dependencies.lock
++++ b/redis-concurrency-limit/dependencies.lock
+@@ -77,7 +77,7 @@
+                 "com.netflix.conductor:conductor-common",
+                 "com.netflix.conductor:conductor-core"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+@@ -196,7 +196,7 @@
+     },
+     "testCompileClasspath": {
+         "com.google.protobuf:protobuf-java": {
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.netflix.conductor:conductor-common": {
+             "project": true
+@@ -294,7 +294,7 @@
+                 "com.netflix.conductor:conductor-common",
+                 "com.netflix.conductor:conductor-core"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+diff --git a/redis-lock/dependencies.lock b/redis-lock/dependencies.lock
+index f560bc2a3..9838d626a 100644
+--- a/redis-lock/dependencies.lock
++++ b/redis-lock/dependencies.lock
+@@ -71,7 +71,7 @@
+                 "com.netflix.conductor:conductor-common",
+                 "com.netflix.conductor:conductor-core"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+@@ -270,7 +270,7 @@
+                 "com.netflix.conductor:conductor-common",
+                 "com.netflix.conductor:conductor-core"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+diff --git a/redis-persistence/dependencies.lock b/redis-persistence/dependencies.lock
+index 99abce8a9..f4022ab6c 100644
+--- a/redis-persistence/dependencies.lock
++++ b/redis-persistence/dependencies.lock
+@@ -15,7 +15,7 @@
+             "locked": "2.0.20"
+         },
+         "com.thoughtworks.xstream:xstream": {
+-            "locked": "1.4.20"
++            "locked": "1.4.19"
+         },
+         "org.apache.logging.log4j:log4j-api": {
+             "locked": "2.17.2"
+@@ -80,7 +80,7 @@
+                 "com.netflix.conductor:conductor-common",
+                 "com.netflix.conductor:conductor-core"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+@@ -119,7 +119,7 @@
+             "locked": "0.3.3"
+         },
+         "com.thoughtworks.xstream:xstream": {
+-            "locked": "1.4.20"
++            "locked": "1.4.19"
+         },
+         "commons-io:commons-io": {
+             "firstLevelTransitive": [
+@@ -217,7 +217,7 @@
+             "locked": "2.0.20"
+         },
+         "com.thoughtworks.xstream:xstream": {
+-            "locked": "1.4.20"
++            "locked": "1.4.19"
+         },
+         "junit:junit": {
+             "locked": "4.13.2"
+@@ -291,7 +291,7 @@
+                 "com.netflix.conductor:conductor-common",
+                 "com.netflix.conductor:conductor-core"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+@@ -330,7 +330,7 @@
+             "locked": "0.3.3"
+         },
+         "com.thoughtworks.xstream:xstream": {
+-            "locked": "1.4.20"
++            "locked": "1.4.19"
+         },
+         "commons-io:commons-io": {
+             "firstLevelTransitive": [
+diff --git a/redis-persistence/src/main/java/com/netflix/conductor/redis/dao/RedisMetadataDAO.java b/redis-persistence/src/main/java/com/netflix/conductor/redis/dao/RedisMetadataDAO.java
+index f7951c1e3..d8009b618 100644
+--- a/redis-persistence/src/main/java/com/netflix/conductor/redis/dao/RedisMetadataDAO.java
++++ b/redis-persistence/src/main/java/com/netflix/conductor/redis/dao/RedisMetadataDAO.java
+@@ -299,27 +299,6 @@ public class RedisMetadataDAO extends BaseDynoDAO implements MetadataDAO {
+         return workflows;
+     }
+ 
+-    @Override
+-    public List<WorkflowDef> getAllWorkflowDefsLatestVersions() {
+-        List<WorkflowDef> workflows = new LinkedList<>();
+-
+-        // Get all definitions latest versions from WORKFLOW_DEF_NAMES
+-        recordRedisDaoRequests("getAllWorkflowLatestVersionsDefs");
+-        Set<String> wfNames = jedisProxy.smembers(nsKey(WORKFLOW_DEF_NAMES));
+-        int size = 0;
+-        // Place all workflows into the Priority Queue. The PQ will allow us to grab the latest
+-        // version of the workflows.
+-        for (String wfName : wfNames) {
+-            WorkflowDef def = getLatestWorkflowDef(wfName).orElse(null);
+-            if (def != null) {
+-                workflows.add(def);
+-                size += def.toString().length();
+-            }
+-        }
+-        recordRedisDaoPayloadSize("getAllWorkflowLatestVersionsDefs", size, "n/a", "n/a");
+-        return workflows;
+-    }
+-
+     private void _createOrUpdate(WorkflowDef workflowDef) {
+         // First set the workflow def
+         jedisProxy.hset(
+diff --git a/redis-persistence/src/test/java/com/netflix/conductor/redis/dao/RedisMetadataDAOTest.java b/redis-persistence/src/test/java/com/netflix/conductor/redis/dao/RedisMetadataDAOTest.java
+index fd9119162..ef630a0ff 100644
+--- a/redis-persistence/src/test/java/com/netflix/conductor/redis/dao/RedisMetadataDAOTest.java
++++ b/redis-persistence/src/test/java/com/netflix/conductor/redis/dao/RedisMetadataDAOTest.java
+@@ -15,11 +15,9 @@ package com.netflix.conductor.redis.dao;
+ import java.time.Duration;
+ import java.util.Arrays;
+ import java.util.List;
+-import java.util.Map;
+ import java.util.Optional;
+ import java.util.Set;
+ import java.util.UUID;
+-import java.util.function.Function;
+ import java.util.stream.Collectors;
+ 
+ import org.junit.Before;
+@@ -162,45 +160,6 @@ public class RedisMetadataDAOTest {
+         assertEquals(workflow.getVersion(), 3);
+     }
+ 
+-    @Test
+-    public void testGetAllWorkflowDefsLatestVersions() {
+-        WorkflowDef def = new WorkflowDef();
+-        def.setName("test1");
+-        def.setVersion(1);
+-        def.setDescription("description");
+-        def.setCreatedBy("unit_test");
+-        def.setCreateTime(1L);
+-        def.setOwnerApp("ownerApp");
+-        def.setUpdatedBy("unit_test2");
+-        def.setUpdateTime(2L);
+-        redisMetadataDAO.createWorkflowDef(def);
+-
+-        def.setName("test2");
+-        redisMetadataDAO.createWorkflowDef(def);
+-        def.setVersion(2);
+-        redisMetadataDAO.createWorkflowDef(def);
+-
+-        def.setName("test3");
+-        def.setVersion(1);
+-        redisMetadataDAO.createWorkflowDef(def);
+-        def.setVersion(2);
+-        redisMetadataDAO.createWorkflowDef(def);
+-        def.setVersion(3);
+-        redisMetadataDAO.createWorkflowDef(def);
+-
+-        // Placed the values in a map because they might not be stored in order of defName.
+-        // To test, needed to confirm that the versions are correct for the definitions.
+-        Map<String, WorkflowDef> allMap =
+-                redisMetadataDAO.getAllWorkflowDefsLatestVersions().stream()
+-                        .collect(Collectors.toMap(WorkflowDef::getName, Function.identity()));
+-
+-        assertNotNull(allMap);
+-        assertEquals(3, allMap.size());
+-        assertEquals(1, allMap.get("test1").getVersion());
+-        assertEquals(2, allMap.get("test2").getVersion());
+-        assertEquals(3, allMap.get("test3").getVersion());
+-    }
+-
+     @Test(expected = NotFoundException.class)
+     public void removeInvalidWorkflowDef() {
+         redisMetadataDAO.removeWorkflowDef("hello", 1);
+diff --git a/rest/dependencies.lock b/rest/dependencies.lock
+index b522aab64..ae8a47173 100644
+--- a/rest/dependencies.lock
++++ b/rest/dependencies.lock
+@@ -30,7 +30,7 @@
+             "locked": "2.17.2"
+         },
+         "org.springdoc:springdoc-openapi-ui": {
+-            "locked": "1.6.15"
++            "locked": "1.6.12"
+         },
+         "org.springframework.boot:spring-boot-starter-web": {
+             "locked": "2.7.3"
+@@ -74,7 +74,7 @@
+                 "com.netflix.conductor:conductor-common",
+                 "com.netflix.conductor:conductor-core"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+@@ -191,7 +191,7 @@
+             "locked": "2.17.2"
+         },
+         "org.springdoc:springdoc-openapi-ui": {
+-            "locked": "1.6.15"
++            "locked": "1.6.12"
+         },
+         "org.springframework.boot:spring-boot-starter-web": {
+             "locked": "2.7.3"
+@@ -229,7 +229,7 @@
+             "locked": "5.8.2"
+         },
+         "org.springdoc:springdoc-openapi-ui": {
+-            "locked": "1.6.15"
++            "locked": "1.6.12"
+         },
+         "org.springframework.boot:spring-boot-starter-log4j2": {
+             "locked": "2.7.3"
+@@ -279,7 +279,7 @@
+                 "com.netflix.conductor:conductor-common",
+                 "com.netflix.conductor:conductor-core"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+@@ -402,7 +402,7 @@
+             "locked": "5.8.2"
+         },
+         "org.springdoc:springdoc-openapi-ui": {
+-            "locked": "1.6.15"
++            "locked": "1.6.12"
+         },
+         "org.springframework.boot:spring-boot-starter-log4j2": {
+             "locked": "2.7.3"
+diff --git a/rest/src/main/java/com/netflix/conductor/rest/controllers/MetadataResource.java b/rest/src/main/java/com/netflix/conductor/rest/controllers/MetadataResource.java
+index 023ed2b57..a1062f64b 100644
+--- a/rest/src/main/java/com/netflix/conductor/rest/controllers/MetadataResource.java
++++ b/rest/src/main/java/com/netflix/conductor/rest/controllers/MetadataResource.java
+@@ -83,12 +83,6 @@ public class MetadataResource {
+         return metadataService.getWorkflowNamesAndVersions();
+     }
+ 
+-    @Operation(summary = "Returns only the latest version of all workflow definitions")
+-    @GetMapping("/workflow/latest-versions")
+-    public List<WorkflowDef> getAllWorkflowsWithLatestVersions() {
+-        return metadataService.getWorkflowDefsLatestVersions();
+-    }
+-
+     @DeleteMapping("/workflow/{name}/{version}")
+     @Operation(
+             summary =
+diff --git a/rest/src/test/java/com/netflix/conductor/rest/controllers/MetadataResourceTest.java b/rest/src/test/java/com/netflix/conductor/rest/controllers/MetadataResourceTest.java
+index 36d5b6e70..eadf68e8b 100644
+--- a/rest/src/test/java/com/netflix/conductor/rest/controllers/MetadataResourceTest.java
++++ b/rest/src/test/java/com/netflix/conductor/rest/controllers/MetadataResourceTest.java
+@@ -91,20 +91,6 @@ public class MetadataResourceTest {
+         assertEquals(listOfWorkflowDef, metadataResource.getAll());
+     }
+ 
+-    @Test
+-    public void testGetAllWorkflowDefLatestVersions() {
+-        WorkflowDef workflowDef = new WorkflowDef();
+-        workflowDef.setName("test");
+-        workflowDef.setVersion(1);
+-        workflowDef.setDescription("test");
+-
+-        List<WorkflowDef> listOfWorkflowDef = new ArrayList<>();
+-        listOfWorkflowDef.add(workflowDef);
+-
+-        when(mockMetadataService.getWorkflowDefsLatestVersions()).thenReturn(listOfWorkflowDef);
+-        assertEquals(listOfWorkflowDef, metadataResource.getAllWorkflowsWithLatestVersions());
+-    }
+-
+     @Test
+     public void testUnregisterWorkflowDef() throws Exception {
+         metadataResource.unregisterWorkflowDef("test", 1);
+diff --git a/server/dependencies.lock b/server/dependencies.lock
+index 57e924ad0..35f8f6d26 100644
+--- a/server/dependencies.lock
++++ b/server/dependencies.lock
+@@ -41,9 +41,6 @@
+         "com.netflix.conductor:conductor-rest": {
+             "project": true
+         },
+-        "io.orkes.queues:orkes-conductor-queues": {
+-            "locked": "1.0.3"
+-        },
+         "org.apache.logging.log4j:log4j-api": {
+             "locked": "2.17.2"
+         },
+@@ -60,7 +57,7 @@
+             "locked": "2.17.2"
+         },
+         "org.springdoc:springdoc-openapi-ui": {
+-            "locked": "1.6.15"
++            "locked": "1.6.12"
+         },
+         "org.springframework.boot:spring-boot-starter": {
+             "locked": "2.7.3"
+@@ -138,7 +135,7 @@
+                 "com.netflix.conductor:conductor-awssqs-event-queue",
+                 "com.netflix.conductor:conductor-es6-persistence"
+             ],
+-            "locked": "31.1-jre"
++            "locked": "31.1-android"
+         },
+         "com.google.protobuf:protobuf-java": {
+             "firstLevelTransitive": [
+@@ -146,7 +143,7 @@
+                 "com.netflix.conductor:conductor-core",
+                 "com.netflix.conductor:conductor-grpc"
+             ],
+-            "locked": "3.22.3"
++            "locked": "3.21.7"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+@@ -260,7 +257,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-redis-persistence"
+             ],
+-            "locked": "1.4.20"
++            "locked": "1.4.19"
+         },
+         "commons-io:commons-io": {
+             "firstLevelTransitive": [
+@@ -273,28 +270,25 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-grpc-server"
+             ],
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-protobuf": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-grpc"
+             ],
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-services": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-grpc-server"
+             ],
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-stub": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-grpc"
+             ],
+-            "locked": "1.56.1"
+-        },
+-        "io.orkes.queues:orkes-conductor-queues": {
+-            "locked": "1.0.3"
++            "locked": "1.50.2"
+         },
+         "io.reactivex:rxjava": {
+             "firstLevelTransitive": [
+@@ -491,7 +485,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-rest"
+             ],
+-            "locked": "1.6.15"
++            "locked": "1.6.12"
+         },
+         "org.springframework.boot:spring-boot-starter": {
+             "locked": "2.7.3"
+@@ -579,7 +573,7 @@
+                 "com.netflix.conductor:conductor-awssqs-event-queue",
+                 "com.netflix.conductor:conductor-es6-persistence"
+             ],
+-            "locked": "31.1-jre"
++            "locked": "31.1-android"
+         },
+         "com.google.protobuf:protobuf-java": {
+             "firstLevelTransitive": [
+@@ -587,7 +581,7 @@
+                 "com.netflix.conductor:conductor-core",
+                 "com.netflix.conductor:conductor-grpc"
+             ],
+-            "locked": "3.22.3"
++            "locked": "3.21.7"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+@@ -701,7 +695,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-redis-persistence"
+             ],
+-            "locked": "1.4.20"
++            "locked": "1.4.19"
+         },
+         "commons-io:commons-io": {
+             "firstLevelTransitive": [
+@@ -714,28 +708,25 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-grpc-server"
+             ],
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-protobuf": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-grpc"
+             ],
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-services": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-grpc-server"
+             ],
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-stub": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-grpc"
+             ],
+-            "locked": "1.56.1"
+-        },
+-        "io.orkes.queues:orkes-conductor-queues": {
+-            "locked": "1.0.3"
++            "locked": "1.50.2"
+         },
+         "io.reactivex:rxjava": {
+             "firstLevelTransitive": [
+@@ -932,7 +923,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-rest"
+             ],
+-            "locked": "1.6.15"
++            "locked": "1.6.12"
+         },
+         "org.springframework.boot:spring-boot-starter": {
+             "locked": "2.7.3"
+@@ -965,7 +956,7 @@
+     },
+     "testCompileClasspath": {
+         "com.google.protobuf:protobuf-java": {
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.netflix.conductor:conductor-awss3-storage": {
+             "project": true
+@@ -1007,16 +998,13 @@
+             "project": true
+         },
+         "io.grpc:grpc-protobuf": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-stub": {
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-testing": {
+-            "locked": "1.56.1"
+-        },
+-        "io.orkes.queues:orkes-conductor-queues": {
+-            "locked": "1.0.3"
++            "locked": "1.50.2"
+         },
+         "junit:junit": {
+             "locked": "4.13.2"
+@@ -1040,7 +1028,7 @@
+             "locked": "5.8.2"
+         },
+         "org.springdoc:springdoc-openapi-ui": {
+-            "locked": "1.6.15"
++            "locked": "1.6.12"
+         },
+         "org.springframework.boot:spring-boot-starter": {
+             "locked": "2.7.3"
+@@ -1121,7 +1109,7 @@
+                 "com.netflix.conductor:conductor-awssqs-event-queue",
+                 "com.netflix.conductor:conductor-es6-persistence"
+             ],
+-            "locked": "31.1-jre"
++            "locked": "31.1-android"
+         },
+         "com.google.protobuf:protobuf-java": {
+             "firstLevelTransitive": [
+@@ -1129,7 +1117,7 @@
+                 "com.netflix.conductor:conductor-core",
+                 "com.netflix.conductor:conductor-grpc"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+@@ -1243,7 +1231,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-redis-persistence"
+             ],
+-            "locked": "1.4.20"
++            "locked": "1.4.19"
+         },
+         "commons-io:commons-io": {
+             "firstLevelTransitive": [
+@@ -1256,31 +1244,28 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-grpc-server"
+             ],
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-protobuf": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-grpc"
+             ],
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-services": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-grpc-server"
+             ],
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-stub": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-grpc"
+             ],
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-testing": {
+-            "locked": "1.56.1"
+-        },
+-        "io.orkes.queues:orkes-conductor-queues": {
+-            "locked": "1.0.3"
++            "locked": "1.50.2"
+         },
+         "io.reactivex:rxjava": {
+             "firstLevelTransitive": [
+@@ -1483,7 +1468,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-rest"
+             ],
+-            "locked": "1.6.15"
++            "locked": "1.6.12"
+         },
+         "org.springframework.boot:spring-boot-starter": {
+             "locked": "2.7.3"
+diff --git a/test-harness/dependencies.lock b/test-harness/dependencies.lock
+index f08ccf99f..c2524cc81 100644
+--- a/test-harness/dependencies.lock
++++ b/test-harness/dependencies.lock
+@@ -49,7 +49,7 @@
+             "locked": "30.0-jre"
+         },
+         "com.google.protobuf:protobuf-java": {
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.netflix.conductor:conductor-cassandra-persistence": {
+             "project": true
+@@ -239,7 +239,7 @@
+                 "com.netflix.conductor:conductor-grpc",
+                 "com.netflix.conductor:conductor-grpc-client"
+             ],
+-            "locked": "3.21.7"
++            "locked": "3.13.0"
+         },
+         "com.jayway.jsonpath:json-path": {
+             "firstLevelTransitive": [
+@@ -412,7 +412,7 @@
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-redis-persistence"
+             ],
+-            "locked": "1.4.20"
++            "locked": "1.4.19"
+         },
+         "commons-io:commons-io": {
+             "firstLevelTransitive": [
+@@ -427,33 +427,27 @@
+                 "com.netflix.conductor:conductor-grpc-client",
+                 "com.netflix.conductor:conductor-grpc-server"
+             ],
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-protobuf": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-grpc",
+                 "com.netflix.conductor:conductor-grpc-client"
+             ],
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-services": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-grpc-server"
+             ],
+-            "locked": "1.56.1"
++            "locked": "1.50.2"
+         },
+         "io.grpc:grpc-stub": {
+             "firstLevelTransitive": [
+                 "com.netflix.conductor:conductor-grpc",
+                 "com.netflix.conductor:conductor-grpc-client"
+             ],
+-            "locked": "1.56.1"
+-        },
+-        "io.orkes.queues:orkes-conductor-queues": {
+-            "firstLevelTransitive": [
+-                "com.netflix.conductor:conductor-server"
+-            ],
+-            "locked": "1.0.3"
++            "locked": "1.50.2"
+         },
+         "io.reactivex:rxjava": {
+             "firstLevelTransitive": [
+@@ -481,9 +475,6 @@
+             "locked": "1.3.2"
+         },
+         "javax.ws.rs:javax.ws.rs-api": {
+-            "firstLevelTransitive": [
+-                "com.netflix.conductor:conductor-client"
+-            ],
+             "locked": "2.1.1"
+         },
+         "javax.ws.rs:jsr311-api": {
+@@ -667,9 +658,6 @@
+             "locked": "2.3.6"
+         },
+         "org.glassfish.jersey.core:jersey-common": {
+-            "firstLevelTransitive": [
+-                "com.netflix.conductor:conductor-client"
+-            ],
+             "locked": "2.22.2"
+         },
+         "org.junit.vintage:junit-vintage-engine": {
+@@ -705,7 +693,7 @@
+                 "com.netflix.conductor:conductor-rest",
+                 "com.netflix.conductor:conductor-server"
+             ],
+-            "locked": "1.6.15"
++            "locked": "1.6.12"
+         },
+         "org.springframework.boot:spring-boot-starter": {
+             "firstLevelTransitive": [
+diff --git a/ui/src/components/diagram/WorkflowDAG.js b/ui/src/components/diagram/WorkflowDAG.js
+index cabf35fa0..f7982950b 100644
+--- a/ui/src/components/diagram/WorkflowDAG.js
++++ b/ui/src/components/diagram/WorkflowDAG.js
+@@ -254,81 +254,6 @@ export default class WorkflowDAG {
+     }
+   }
+ 
+-  getRefTaskChilds(task) {
+-    switch (task.type) {
+-      case "FORK_JOIN": {
+-        const outerForkTasks = task.forkTasks || [];
+-        return _.flatten(
+-          outerForkTasks.map((innerForkTasks) =>
+-            innerForkTasks.map((tasks) => tasks)
+-          )
+-        );
+-      }
+-
+-      case "FORK_JOIN_DYNAMIC": {
+-        const dfTaskResult = this.getLastTaskResult(task.taskReferenceName);
+-        const forkedTasks = _.get(dfTaskResult, "inputData.forkedTaskDefs");
+-        const forkedTasksCount = _.get(forkedTasks, "length");
+-
+-        if (!forkedTasksCount) {
+-          const placeholderRef =
+-            task.taskReferenceName + "_DF_EMPTY_PLACEHOLDER";
+-          const placeholderTask = {
+-            name: placeholderRef, // will be overwritten if results available
+-            taskReferenceName: placeholderRef, // will be overwritten if results available
+-            type: "DF_EMPTY_PLACEHOLDER",
+-          };
+-          return [placeholderTask];
+-        } else {
+-          return dfTaskResult.inputData.forkedTaskDefs;
+-        }
+-      }
+-
+-      case "DECISION": // DECISION is deprecated and will be removed in a future release
+-      case "SWITCH": {
+-        const retval = [];
+-        if (!_.isEmpty(task.defaultCase)) {
+-          retval.push(...this.getRefTask(task.defaultCase));
+-        }
+-        retval.push(
+-          ..._.flatten(
+-            Object.entries(task.decisionCases).map(([caseValue, tasks]) => {
+-              return tasks;
+-            })
+-          )
+-        );
+-        return retval;
+-      }
+-
+-      case "DO_WHILE": {
+-        return task.loopOver;
+-      }
+-
+-      /*
+-      case "TERMINATE": 
+-      case "JOIN": 
+-      case "TERMINAL":
+-      case "EVENT":
+-      case "SUB_WORKFLOW":
+-      case "EXCLUSIVE_JOIN":
+-      */
+-      default: {
+-        return [];
+-      }
+-    }
+-  }
+-
+-  getRefTask(task) {
+-    const taskRefs = this.getRefTaskChilds(task)
+-      .map((t) => {
+-        return this.getRefTask(t);
+-      })
+-      .reduce((r, tasks) => {
+-        return r.concat(tasks);
+-      }, []);
+-    return [task].concat(taskRefs);
+-  }
+-
+   processDoWhileTask(doWhileTask, antecedents) {
+     console.assert(Array.isArray(antecedents));
+ 
+@@ -347,7 +272,7 @@ export default class WorkflowDAG {
+       aliasForRef: doWhileTask.taskReferenceName,
+     };
+ 
+-    const loopOverRefPrefixes = this.getRefTask(doWhileTask).map(
++    const loopOverRefPrefixes = doWhileTask.loopOver.map(
+       (t) => t.taskReferenceName
+     );
+     if (hasDoWhileExecuted) {

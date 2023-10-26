@@ -6,7 +6,7 @@ class XMLReader:
 
     def get_github_url(self, xml_file):
         xmldoc = minidom.parse(xml_file)
-        url_tags = xmldoc.getElementsByTagName('url')
+        url_tags = xmldoc.getElementsByTagName('url')   # sometimes github urls may be insert into other tags
         gh_urls = []
         try:
             for tag in url_tags:
@@ -14,7 +14,7 @@ class XMLReader:
                     gh_urls.append(tag.firstChild.nodeValue)
                     #print(tag.firstChild.nodeValue)
         except BaseException as be:
-            msg = "Error while looking for tags in the POM file. Not every pom file is correctly compiled"
+            msg = "Error while looking for tags in the POM file. Syntax error?"
             raise MyException(msg)
         return gh_urls
 

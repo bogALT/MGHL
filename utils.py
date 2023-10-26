@@ -1,20 +1,25 @@
-import json
-import os.path
+from prettytable import PrettyTable
 
-import requests
-from bs4 import BeautifulSoup
-from git import Repo
+def print_report():
+    x = PrettyTable()
+    x.field_names = ["Metric", "Result"]
 
-from GitManager import GitManager
+    for key in report:
+        x.add_row([key, report[key]])
+        #f"{key}: {report[key]}"
+    x.align = "l"
+    print(x)
 
+def terminate_app(e):
+    print("\n--------- E N D   W I T H   E R R O R ---------\n")
+    #print(e)
+    print_report()
 
-def clone_repository(url, dir):
-    """
-        This method checks if the repo does exist in local and if not
-        clones the repository and save it in local
-    """
-    if os.path.exists(dir):
-        print(f"Already exists: {dir}, stopping cloning")
-    else:
-        print(f"Cloning {url} to {dir}")
-        Repo.clone_from(url, dir)
+    exit(1)
+
+def separator(type=None):
+    if type == None:
+        print("\n"+"-"*80)
+    elif type == "results":
+        print("-" * 80)
+        print("-" * 80)

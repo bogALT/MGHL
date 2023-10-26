@@ -8,7 +8,7 @@ class Setup:
     '''
     def crete_folders(self):
         # create folders
-        dirs = ["gh_repos", "HTML_Reports", "packages", "pom_jar", "json_reports"]
+        dirs = ["gh_repos", "HTML_Reports", "packages", "pom_jar", "data"]
         for dir in dirs:
             if not os.path.exists(dir):
                 try:

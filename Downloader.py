@@ -6,8 +6,6 @@ from MyException import MyException
 class Downlaoder:
     def __init__(self):
         self.base = "https://repo1.maven.org/maven2/"   # base url
-        self.exceptions = []
-        self.exceptions.append("Maven Downloader: --------------------------------")
 
 # -----------------------------------------------------------------------------
     def download(self, g, a, v, extension="jar"):
@@ -36,7 +34,6 @@ class Downlaoder:
                 raise MyException(e)
         else:
             msg = f"The url = {url} is not a downloadable URL"
-            self.exceptions.append(msg)
             raise MyException(msg)
 
 # -----------------------------------------------------------------------------
@@ -71,7 +68,6 @@ class Downlaoder:
         except Exception as e:
             msg = f"Something went wrong while downloading: {url} and the following exception was raised: {e}. "
             f"This operation is mandatory, "
-            self.exceptions.append(msg)
             raise MyException(msg)
         return filename
 
@@ -90,7 +86,9 @@ class Downlaoder:
         if "text/xml" in content_type.lower() or "application/java-archive" in content_type.lower():
             return True
         else:
-            msg = f"this url= {url} doesn't point nor to a POM file neighter to a JAR file but to a {content_type.lower()}"
-            self.exceptions.append(msg)
+            msg = f"The url = {url} doesn't point nor to a POM file neighter to a JAR file but to a {content_type.lower()}. \
+                    This may be due to a 404 Error: the file is missing from MVN repository! \
+                    Comparing is impossible"
+
             raise MyException(msg)
             return False

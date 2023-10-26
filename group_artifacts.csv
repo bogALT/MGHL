@@ -37,7 +37,7 @@ com.liferay:com.liferay.portal.scripting.groovy
 com.liferay:com.liferay.portal.settings.authentication.ldap.web
 com.liferay:com.liferay.portal.store.s3
 com.liferay:com.liferay.portal.template.freemarker
-com.linecorp.armeria:armeria			// has only one github version
+com.linecorp.armeria:armeria			// has only one github version (296 bag)
 com.linecorp.centraldogma:centraldogma-server
 com.linkedin.azkaban:azkaban-common
 com.manydesigns:portofino-core

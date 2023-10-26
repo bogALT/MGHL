@@ -6,8 +6,7 @@ from XMLReader import XMLReader
 
 class MavenRepositorySearcher:
     def __init__(self):
-        self.exceptions = []
-        self.exceptions.append("Maven Repos Search: --------------------------------")
+        self.gav = None
 
     def do_request(self, url):
         '''
@@ -90,7 +89,8 @@ class MavenRepositorySearcher:
         '''
         if g == "" or a == "" or v == "":
             raise MyException("You did not specify all of GAV values, one or more are missing. This is the GAV i got {g} : {a} : {v}")
-
+        else: 
+            self.gav = f"{g}_{a}_{v}.xml"
         # create search url
         search_url = "https://search.maven.org/solrsearch/select?q="
         search_parameters = f"g:{g}&a:{a}&v:{v}&core=gav&start=0&wt=jso"
@@ -100,20 +100,17 @@ class MavenRepositorySearcher:
             data = self.do_request(search_url+search_parameters)
         except BaseException as be:
             msg = f"Error while querying the maven repository. Exception: {be}. "\
-                  f"The error is often caused by the maven server which returns a 503 error due to outage."\
-                  f"Last data received from the server: {data}"
-            #self.exceptions.append(msg)
+                  f"The error is often caused by the maven server which returns a 503 error due to outage."
+
             raise MyException(msg)
-        #print("Data = ", data)
 
         # get the number of pages
         try:
             pages_number = math.ceil(int(self.get_total_number_of_versions(data))/20)
             print(f"Searching among {pages_number} pages. This may take more than {pages_number} seconds according to your internet speed and maven central server status.")
         except BaseException as be:
-            msg = f"I wasn't able to retrive versions from maven server at url = {search_url+search_parameters}, the following exception was raised: {be}. "\
+            msg = f"I wasn't able to retrive versions from maven server, the following exception was raised: {be}. "\
                 f"This may be caused by a Maven server malfunction (or not). The server returned an error: {data}. \nThis point is mandatory, "
-            #self.exceptions.append(msg)
             raise MyException(msg)
         # retrieve all versions available reading every page
         versions = []
@@ -136,10 +133,18 @@ class MavenRepositorySearcher:
 
         if len(versions) > 1:   # manually sort versions UPDATE THE SORTING ALG
             versions.sort()
-
+            try:
+                v = versions[versions.index(v)-1]
+                return v
+            except Exception as e:
+                msg = f"Version {v} has not been found on MVN. Available versions are : {versions}"
+                raise MyException(msg)
+        else:
+            msg = f"I wasn't able to retrieve versions from MVN repo server!"
+            raise MyException(msg)
+            return -1
         #print("Versions found = ",len(versions))
         #print("MVN----> ", versions)
-        return versions[versions.index(v)-1]
 
     def read_xml(self, data):
         '''
@@ -149,10 +154,13 @@ class MavenRepositorySearcher:
         :return: vector containing read versions from XML
         '''
 
-        xml_file = "test2.xml"
+        if self.gav != None:
+            xml_file = self.gav
+        else:
+            xml_file = "versions.xml"
         xr = XMLReader()
         #print("Writting to XML = ", data)
-        f = xr.data_to_xml_file(data, "versions.xml")
+        f = xr.data_to_xml_file(data, "xml_files/"+xml_file)
         versions = xr.get_versions_of_artefact(f)
         #print(versions)
         return versions
