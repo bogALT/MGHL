@@ -34,16 +34,23 @@ The application is executed through a command-line interface, and goes through a
 
 ## Installation
 
+### Install dependencies:
+```console
+sudo apt install git
+```
+```console
+pip3 install lizard gytpython javalang prettytable
+```
+
+### Clone the repository
 Download the project from the GitHub page and enter into it with the terminal. 
 Clone repository:
 ```console
     git clone https://github.com/bogALT/mvn.git
 ```
 and cd into the downloaded project's folder.
-Install the components in `requirements.txt`. No more installations are required.
 
-
-## Usage
+### Usage
 
 ```python
 usage: main.py [-h] [-gav GAV] [-slimit SLIMIT]
