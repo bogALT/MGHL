@@ -33,11 +33,14 @@ The application is executed through a command-line interface, and goes through a
 7. Data Summarizing
 
 ## Installation
+This installation is based on TACAS 23 Artifact Evaluation VM - Ubuntu 22.04 LTS from [here](https://zenodo.org/records/7113223)
 
 ### Install dependencies:
+Install Git on the system:
 ```console
 sudo apt install git
 ```
+Install python packages needed:
 ```console
 pip3 install lizard gytpython javalang prettytable
 ```
