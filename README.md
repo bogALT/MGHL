@@ -124,7 +124,7 @@ Output:
     GitHub Nr. commits             | 5
 ```
 ## Conclusion
-Here we see the final oputput digested in a table. We also have a `JSON` saved in the folder `data`.
+Here we see the final oputput digested in a table. We also have a `JSON` saved in the folder `data`. If the file name  of the report in `data` directory starts with `ERROR_` then it mans that the `GAV` under exame has èroduced an error.
 ## Example of execution that terminates with an error
 Let's analyze here an example of execution that does not get until the end. In this case, we are unable to match Maven's repository and GitHub repository because we did not find any github link in the POM file on Maven's repository.
 
