@@ -34,8 +34,9 @@ The application is executed through a command-line interface, and goes through a
 The installation is very straight forward and requires no specific effort.
 ### Clone repository
 It is very easy to clone the repository with
-
+```python
     git clone https://github.com/bogALT/mvn.git
+```
 Then lets `cd` in the directory just downloaded. From now on we can start working.
 # Examples
 I will provide two illustrative examples to demonstrate the performance of the software. One of these examples showcase efficient execution, while the second example exposes an error, highlighting a scenario where the software encounters an issue.
@@ -44,11 +45,12 @@ The first example I will show is the package com.clever-cloud:biscuit-java:2.2.1
 
 ### How to
 The application is autonomous, just start it and will do everything automatically: In the terminal we type: 
-
+```python
     python3 main.py -slimit 0.1 -gav com.clever-cloud:biscuit-java:2.2.1
+```
 From now on the execution will be automatic:
 Output: 
-
+```console
     Starting the program for GAV =  com.clever-cloud:biscuit-java:2.2.1
     Slimit the program for GAV =  0.1
 
@@ -95,16 +97,17 @@ Output:
     Code Churn                     | 5
     GitHub Nr. changed files       | 4
     GitHub Nr. commits             | 5
-
+```
 ## Example of execution that terminates with an error
 Let's analyze here an example of execution that does not get until the end. In this case, we are unable to match Maven's repository and GitHub repository because we did not find any github link in the POM file on Maven's repository.
 
 In the terminal we type: 
-
+```python
     python3 main.py -slimit 0.1 -gav com.mitchellbosecke:pebble:2.4.0
+```
 From now on the execution will be automatic:
 Output: 
-
+```console
         Starting the program for GAV =  com.mitchellbosecke:pebble:2.4.0
     Slimit the program for GAV =  0.1
     
@@ -170,7 +173,7 @@ Output:
     
         Error Message thet raised the Exception:
         I did not find any valid Github url in the POM file!
-
+```
 As you can see we have a "half-report" which contains only a subset of metrics.
 Consider that this is only one of the errors that may occur. For example:
 1. The GAV passed as input is not present on Maven's repository, 
@@ -180,3 +183,7 @@ Consider that this is only one of the errors that may occur. For example:
 ## Where are the outputs
 The outputs are in `JSON` format in the folder `data`
 
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
