@@ -1,5 +1,4 @@
 # My Objects:
-import getopt
 import json
 
 from CyclomaticComplexityAnalyzer import CyclomaticComplexityAnalyzer
@@ -15,7 +14,6 @@ from Setup import Setup
 from prettytable import PrettyTable
 from Setup import Setup
 
-from HTMLCreator import HTMLPage
 from MyException import MyException
 from XMLReader import XMLReader
 
@@ -52,7 +50,7 @@ def export_json(gav):
 def terminate_app(e):
     print("\n--------- E N D E D   W I T H    E R R O R ---------\n")
     print(f"Error Message thet raised the Exception:\n {e} \n")
-    report["Exception"] = str(e)
+    #report["Exception"] = str(e)
     create_report()
     exit(1)
 
