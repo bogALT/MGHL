@@ -1,0 +1,11 @@
++---------------------------+-------------------------------+
+| Key                       | Value                         |
++---------------------------+-------------------------------+
+| GAV                       | com.h2database : h2 : 2.2.220 |
+| AVG Cyclomatic Complexity | 48.67                         |
+| AVG LOCs per method       | 24.54                         |
+| Precedent version         | 2.1.214                       |
+| Code Churn                | 2455                          |
+| GitHub Nr. changed files  | 1655                          |
+| GitHub Nr. commits        | 268                           |
++---------------------------+-------------------------------+

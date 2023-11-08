@@ -1,0 +1,12 @@
++---------------------------+------------------------------------------------------+
+| Key                       | Value                                                |
++---------------------------+------------------------------------------------------+
+| GAV                       | org.craftercms : crafter-engine : v2.5.0-Beta9       |
+| AVG Cyclomatic Complexity | 8.3                                                  |
+| AVG LOCs per method       | 7.53                                                 |
+| Precedent version         | v2.5.0-Beta8                                         |
+| Code Churn                | NA - Not Analyzed                                    |
+| GitHub Nr. changed files  | NA - Not Analyzed                                    |
+| GitHub Nr. commits        | NA - Not Analyzed                                    |
+| Exception                 | I did not find any valid Github url in the POM file! |
++---------------------------+------------------------------------------------------+

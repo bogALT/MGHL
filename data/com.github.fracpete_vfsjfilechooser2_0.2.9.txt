@@ -1,0 +1,11 @@
++---------------------------+------------------------------------------------+
+| Key                       | Value                                          |
++---------------------------+------------------------------------------------+
+| GAV                       | com.github.fracpete : vfsjfilechooser2 : 0.2.9 |
+| AVG Cyclomatic Complexity | 49.29                                          |
+| AVG LOCs per method       | 20.95                                          |
+| Precedent version         | 0.2.8                                          |
+| Code Churn                | 5                                              |
+| GitHub Nr. changed files  | 4                                              |
+| GitHub Nr. commits        | 5                                              |
++---------------------------+------------------------------------------------+

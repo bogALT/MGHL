@@ -1,0 +1,11 @@
++---------------------------+-------------------------------------------------+
+| Key                       | Value                                           |
++---------------------------+-------------------------------------------------+
+| GAV                       | com.netflix.conductor : conductor-core : 3.13.8 |
+| AVG Cyclomatic Complexity | 16.13                                           |
+| AVG LOCs per method       | 13.9                                            |
+| Precedent version         | 3.13.7                                          |
+| Code Churn                | 95                                              |
+| GitHub Nr. changed files  | 66                                              |
+| GitHub Nr. commits        | 51                                              |
++---------------------------+-------------------------------------------------+

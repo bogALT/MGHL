@@ -1,0 +1,12 @@
++---------------------------+------------------------------------------------------+
+| Key                       | Value                                                |
++---------------------------+------------------------------------------------------+
+| GAV                       | org.apache.calcite : calcite-core : 1.9.0            |
+| AVG Cyclomatic Complexity | 36.58                                                |
+| AVG LOCs per method       | 24.65                                                |
+| Precedent version         | 1.8.0                                                |
+| Code Churn                | NA - Not Analyzed                                    |
+| GitHub Nr. changed files  | NA - Not Analyzed                                    |
+| GitHub Nr. commits        | NA - Not Analyzed                                    |
+| Exception                 | I did not find any valid Github url in the POM file! |
++---------------------------+------------------------------------------------------+

@@ -1,0 +1,12 @@
++---------------------------+-----------------------------------------------------------+
+| Key                       | Value                                                     |
++---------------------------+-----------------------------------------------------------+
+| GAV                       | org.apache.nifi.registry : nifi-registry-web-api : 1.23.2 |
+| AVG Cyclomatic Complexity | 11.99                                                     |
+| AVG LOCs per method       | 20.04                                                     |
+| Precedent version         | 1.23.1                                                    |
+| Code Churn                | NA - Not Analyzed                                         |
+| GitHub Nr. changed files  | NA - Not Analyzed                                         |
+| GitHub Nr. commits        | NA - Not Analyzed                                         |
+| Exception                 | I did not find any valid Github url in the POM file!      |
++---------------------------+-----------------------------------------------------------+

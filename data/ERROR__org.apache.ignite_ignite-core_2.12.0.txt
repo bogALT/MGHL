@@ -1,0 +1,12 @@
++---------------------------+------------------------------------------------------+
+| Key                       | Value                                                |
++---------------------------+------------------------------------------------------+
+| GAV                       | org.apache.ignite : ignite-core : 2.12.0             |
+| AVG Cyclomatic Complexity | 24.75                                                |
+| AVG LOCs per method       | 32.73                                                |
+| Precedent version         | 2.11.1                                               |
+| Code Churn                | NA - Not Analyzed                                    |
+| GitHub Nr. changed files  | NA - Not Analyzed                                    |
+| GitHub Nr. commits        | NA - Not Analyzed                                    |
+| Exception                 | I did not find any valid Github url in the POM file! |
++---------------------------+------------------------------------------------------+

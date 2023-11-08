@@ -1,0 +1,11 @@
++---------------------------+---------------------------------------+
+| Key                       | Value                                 |
++---------------------------+---------------------------------------+
+| GAV                       | com.hubspot.jinjava : jinjava : 2.7.1 |
+| AVG Cyclomatic Complexity | 10.72                                 |
+| AVG LOCs per method       | 17.69                                 |
+| Precedent version         | 2.7.0                                 |
+| Code Churn                | 787                                   |
+| GitHub Nr. changed files  | 237                                   |
+| GitHub Nr. commits        | 202                                   |
++---------------------------+---------------------------------------+

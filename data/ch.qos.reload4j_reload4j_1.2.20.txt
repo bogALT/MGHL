@@ -1,0 +1,11 @@
++---------------------------+-------------------------------------+
+| Key                       | Value                               |
++---------------------------+-------------------------------------+
+| GAV                       | ch.qos.reload4j : reload4j : 1.2.20 |
+| AVG Cyclomatic Complexity | 20.55                               |
+| AVG LOCs per method       | 20.67                               |
+| Precedent version         | 1.2.19                              |
+| Code Churn                | 0                                   |
+| GitHub Nr. changed files  | 10                                  |
+| GitHub Nr. commits        | 6                                   |
++---------------------------+-------------------------------------+

@@ -1,0 +1,11 @@
++---------------------------+----------------------------+
+| Key                       | Value                      |
++---------------------------+----------------------------+
+| GAV                       | net.sf.mpxj : mpxj : 9.8.3 |
+| AVG Cyclomatic Complexity | 28.6                       |
+| AVG LOCs per method       | 24.78                      |
+| Precedent version         | 9.8.2                      |
+| Code Churn                | 1977                       |
+| GitHub Nr. changed files  | 1973                       |
+| GitHub Nr. commits        | 4                          |
++---------------------------+----------------------------+

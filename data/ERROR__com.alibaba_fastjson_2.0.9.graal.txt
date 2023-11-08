@@ -1,0 +1,11 @@
++---------------------------+--------------------------------------+
+| Key                       | Value                                |
++---------------------------+--------------------------------------+
+| GAV                       | com.alibaba : fastjson : 2.0.9.graal |
+| AVG Cyclomatic Complexity | 16.92                                |
+| AVG LOCs per method       | 18.58                                |
+| Precedent version         | 2.0.9.android                        |
+| Code Churn                | 101                                  |
+| GitHub Nr. changed files  | 37                                   |
+| GitHub Nr. commits        | 2                                    |
++---------------------------+--------------------------------------+

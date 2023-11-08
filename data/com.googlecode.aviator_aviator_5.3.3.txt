@@ -1,0 +1,11 @@
++---------------------------+------------------------------------------+
+| Key                       | Value                                    |
++---------------------------+------------------------------------------+
+| GAV                       | com.googlecode.aviator : aviator : 5.3.3 |
+| AVG Cyclomatic Complexity | 25.78                                    |
+| AVG LOCs per method       | 24.5                                     |
+| Precedent version         | 5.3.2                                    |
+| Code Churn                | 21                                       |
+| GitHub Nr. changed files  | 17                                       |
+| GitHub Nr. commits        | 9                                        |
++---------------------------+------------------------------------------+

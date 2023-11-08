@@ -1,0 +1,11 @@
++---------------------------+------------------------------------+
+| Key                       | Value                              |
++---------------------------+------------------------------------+
+| GAV                       | com.github.jnr : jnr-posix : 3.1.7 |
+| AVG Cyclomatic Complexity | 21.25                              |
+| AVG LOCs per method       | 12.59                              |
+| Precedent version         | 3.1.6                              |
+| Code Churn                | 5                                  |
+| GitHub Nr. changed files  | 4                                  |
+| GitHub Nr. commits        | 5                                  |
++---------------------------+------------------------------------+

@@ -1,0 +1,11 @@
++---------------------------+-----------------------------------------+
+| Key                       | Value                                   |
++---------------------------+-----------------------------------------+
+| GAV                       | com.mikesamuel : json-sanitizer : 1.2.3 |
+| AVG Cyclomatic Complexity | 152.0                                   |
+| AVG LOCs per method       | 38.82                                   |
+| Precedent version         | 1.2.2                                   |
+| Code Churn                | 12                                      |
+| GitHub Nr. changed files  | 7                                       |
+| GitHub Nr. commits        | 10                                      |
++---------------------------+-----------------------------------------+

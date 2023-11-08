@@ -1,0 +1,12 @@
++---------------------------+------------------------------------------------------+
+| Key                       | Value                                                |
++---------------------------+------------------------------------------------------+
+| GAV                       | com.github.jnr : jnr-posix : 3.1.9                   |
+| AVG Cyclomatic Complexity | 21.26                                                |
+| AVG LOCs per method       | 12.62                                                |
+| Precedent version         | 3.1.8                                                |
+| Code Churn                | NA - Not Analyzed                                    |
+| GitHub Nr. changed files  | NA - Not Analyzed                                    |
+| GitHub Nr. commits        | NA - Not Analyzed                                    |
+| Exception                 | I did not find any valid Github url in the POM file! |
++---------------------------+------------------------------------------------------+

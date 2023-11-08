@@ -1,0 +1,12 @@
++---------------------------+------------------------------------------------------+
+| Key                       | Value                                                |
++---------------------------+------------------------------------------------------+
+| GAV                       | com.alibaba.nacos : nacos-api : 2.2.4                |
+| AVG Cyclomatic Complexity | 7.5                                                  |
+| AVG LOCs per method       | 7.1                                                  |
+| Precedent version         | 2.2.3                                                |
+| Code Churn                | NA - Not Analyzed                                    |
+| GitHub Nr. changed files  | NA - Not Analyzed                                    |
+| GitHub Nr. commits        | NA - Not Analyzed                                    |
+| Exception                 | I did not find any valid Github url in the POM file! |
++---------------------------+------------------------------------------------------+

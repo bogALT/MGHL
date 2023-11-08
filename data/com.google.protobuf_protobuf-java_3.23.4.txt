@@ -1,0 +1,11 @@
++---------------------------+----------------------------------------------+
+| Key                       | Value                                        |
++---------------------------+----------------------------------------------+
+| GAV                       | com.google.protobuf : protobuf-java : 3.23.4 |
+| AVG Cyclomatic Complexity | 113.93                                       |
+| AVG LOCs per method       | 31.2                                         |
+| Precedent version         | 3.23.3                                       |
+| Code Churn                | 12146                                        |
+| GitHub Nr. changed files  | 12108                                        |
+| GitHub Nr. commits        | 54                                           |
++---------------------------+----------------------------------------------+

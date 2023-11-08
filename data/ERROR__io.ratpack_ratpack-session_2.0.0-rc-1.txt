@@ -1,0 +1,11 @@
++---------------------------+-------------------------------------------+
+| Key                       | Value                                     |
++---------------------------+-------------------------------------------+
+| GAV                       | io.ratpack : ratpack-session : 2.0.0-rc-1 |
+| AVG Cyclomatic Complexity | 8.53                                      |
+| AVG LOCs per method       | 14.36                                     |
+| Precedent version         | 1.9.0-rc-2                                |
+| Code Churn                | 2643                                      |
+| GitHub Nr. changed files  | 2172                                      |
+| GitHub Nr. commits        | 197                                       |
++---------------------------+-------------------------------------------+

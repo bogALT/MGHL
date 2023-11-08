@@ -1,0 +1,11 @@
++---------------------------+-----------------------------------------+
+| Key                       | Value                                   |
++---------------------------+-----------------------------------------+
+| GAV                       | com.linecorp.armeria : armeria : 1.24.3 |
+| AVG Cyclomatic Complexity | 17.05                                   |
+| AVG LOCs per method       | 26.63                                   |
+| Precedent version         | 1.24.2                                  |
+| Code Churn                | 77                                      |
+| GitHub Nr. changed files  | 75                                      |
+| GitHub Nr. commits        | 7                                       |
++---------------------------+-----------------------------------------+

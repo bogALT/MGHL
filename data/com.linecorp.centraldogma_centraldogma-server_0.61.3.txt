@@ -1,0 +1,12 @@
++---------------------------+----------------------------------------------------------+
+| Key                       | Value                                                    |
++---------------------------+----------------------------------------------------------+
+| GAV                       | com.linecorp.centraldogma : centraldogma-server : 0.61.3 |
+| AVG Cyclomatic Complexity | 13.22                                                    |
+| AVG LOCs per method       | 18.09                                                    |
+| Precedent version         | 0.61.2                                                   |
+| GitHub repository         | /line/centraldogma                                       |
+| Code Churn                | 1                                                        |
+| GitHub Nr. changed files  | 1                                                        |
+| GitHub Nr. commits        | 1                                                        |
++---------------------------+----------------------------------------------------------+

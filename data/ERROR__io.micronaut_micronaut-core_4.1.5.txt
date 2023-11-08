@@ -1,0 +1,12 @@
++---------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+| Key                       | Value                                                                                                                                    |
++---------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+| GAV                       | io.micronaut : micronaut-core : 4.1.5                                                                                                    |
+| AVG Cyclomatic Complexity | NA - Not Analyzed                                                                                                                        |
+| AVG LOCs per method       | NA - Not Analyzed                                                                                                                        |
+| Precedent version         | NA - Not Analyzed                                                                                                                        |
+| Code Churn                | NA - Not Analyzed                                                                                                                        |
+| GitHub Nr. changed files  | NA - Not Analyzed                                                                                                                        |
+| GitHub Nr. commits        | NA - Not Analyzed                                                                                                                        |
+| Exception                 | ('Exception while reading methods = ', UnboundLocalError("cannot access local variable 'tree' where it is not associated with a value")) |
++---------------------------+------------------------------------------------------------------------------------------------------------------------------------------+

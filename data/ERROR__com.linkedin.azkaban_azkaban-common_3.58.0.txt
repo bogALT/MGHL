@@ -1,0 +1,12 @@
++---------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Key                       | Value                                                                                                                                                                               |
++---------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| GAV                       | com.linkedin.azkaban : azkaban-common : 3.58.0                                                                                                                                      |
+| AVG Cyclomatic Complexity | 18.81                                                                                                                                                                               |
+| AVG LOCs per method       | 12.66                                                                                                                                                                               |
+| Precedent version         | 3.50.3                                                                                                                                                                              |
+| Code Churn                | NA - Not Analyzed                                                                                                                                                                   |
+| GitHub Nr. changed files  | NA - Not Analyzed                                                                                                                                                                   |
+| GitHub Nr. commits        | NA - Not Analyzed                                                                                                                                                                   |
+| Exception                 | I wasn't able to find any version of the project on GitHub!                     Sometimes you encounter empty repos (0 releses and 0 packages) and there are no info to fetch from! |
++---------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+

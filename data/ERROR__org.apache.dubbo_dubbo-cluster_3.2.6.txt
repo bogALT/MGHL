@@ -1,0 +1,12 @@
++---------------------------+------------------------------------------------------+
+| Key                       | Value                                                |
++---------------------------+------------------------------------------------------+
+| GAV                       | org.apache.dubbo : dubbo-cluster : 3.2.6             |
+| AVG Cyclomatic Complexity | 11.3                                                 |
+| AVG LOCs per method       | 11.34                                                |
+| Precedent version         | 3.2.5                                                |
+| Code Churn                | NA - Not Analyzed                                    |
+| GitHub Nr. changed files  | NA - Not Analyzed                                    |
+| GitHub Nr. commits        | NA - Not Analyzed                                    |
+| Exception                 | I did not find any valid Github url in the POM file! |
++---------------------------+------------------------------------------------------+

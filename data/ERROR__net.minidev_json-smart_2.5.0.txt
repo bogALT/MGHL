@@ -1,0 +1,11 @@
++---------------------------+----------------------------------+
+| Key                       | Value                            |
++---------------------------+----------------------------------+
+| GAV                       | net.minidev : json-smart : 2.5.0 |
+| AVG Cyclomatic Complexity | 31.02                            |
+| AVG LOCs per method       | 19.51                            |
+| Precedent version         | 2.4.9                            |
+| Code Churn                | 42                               |
+| GitHub Nr. changed files  | 10                               |
+| GitHub Nr. commits        | 31                               |
++---------------------------+----------------------------------+
