@@ -42,9 +42,7 @@ class GitUser:
                 logins.extend(more_pages)
                 page_number += 1
         except BaseException as be:
-            msg = f"Something went wrong while quering github at url: {url} "\
-                  f"and the following exception was raised: {be}. "\
-                  f"This operation is mandatory, "
+            msg = f"Something went wrong while quering github at url: {url} and the following exception was raised: {be}."
             raise MyException(msg)
         
         result_array = [[l['login'], l['contributions']] for l in logins]
@@ -97,9 +95,7 @@ class GitUser:
                 response = requests.get(url).text
                 print(response)
         except BaseException as be:
-            msg = f"Something went wrong while quering github at url: {url} "\
-                  f"and the following exception was raised: {be}. "\
-                  f"This operation is mandatory, "
+            msg = f"Something went wrong while quering github at url: {url} and the following exception was raised: {be}."
             raise MyException(msg)
         
         # return 0, not using this function now

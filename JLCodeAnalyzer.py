@@ -105,12 +105,12 @@ class JLCodeAnalyzer:
         '''
 
         java_files = self.get_java_files(self.code_path)
-        #print(f"Collecting Java files from directory =  {self.code_path}. This may take a while. Limit size = {file_size_limit}")
         methods = {}
         avg_locs = 0
         exceptions_count = 0
         analized_files_count = 0
 
+        # open each java file and compute its method length (skip files with size bigger than "slimit" -> file_size_limit)
         for target_file in java_files:
             with open(target_file, 'r') as r:
                 start = timeit.default_timer()
@@ -122,20 +122,16 @@ class JLCodeAnalyzer:
                 if file_size > float(file_size_limit):
                     print(f"     Current file =  {target_file} may take a lot time. ({file_size} MB) -> Skipping File!")
                     continue
-                #else:
-                #    print(f"     Current file =  {target_file}")
+
                 try:
                     tree = javalang.parse.parse(code_text)
                     
                 except Exception as e:
-                    msg = f"\Error when parsing {(target_file)}: Exception Type = {type(e)}, Containg = {e}\n"\
-                          f"This error is caused when reading a java interface file (Empirically tested).\n"\
-                          f"This is not a fatal error: Going On!"
+                    msg = f"\Error when parsing {(target_file)}: Exception Type = {type(e)}, Containg = {e}. This error is caused when reading a java interface file (Empirically tested)."
                     exceptions_count += 1
 
                 avg_locs = 0
                 try:
-                    #print(f"\nCunting methods in {target_file}:")
                     for _, method_node in tree.filter(javalang.tree.MethodDeclaration): # sometimes this may generate a parsing  error
                         startpos, endpos, startline, endline = self.get_method_start_end(method_node, tree)
 
@@ -147,14 +143,11 @@ class JLCodeAnalyzer:
                         method_text, startline, endline, lex = self.get_method_text(startpos, endpos, startline, endline, lex, codelines, tree)
 
                         if empty_method:
-                            #print(f"{method_node.name} has 2 locs")
                             self.codelines += 2
                             methods[method_node.name] = 2
                         else:
-                            #print(f"{method_node.name} has {endline - startline} locs")
                             methods[method_node.name] = endline - startline
                             self.codelines += endline-startline
-                        #print('|', end='')
                 except BaseException as be:
                     msg = "Exception while reading methods = ", be
                     #self.exceptions.append(msg)
@@ -164,6 +157,7 @@ class JLCodeAnalyzer:
                 p_time = round((stop - start), 3)
             analized_files_count += 1
 
+        # we accept a maximum of <10% erorr rate
         if exceptions_count > 0 and len(java_files) / exceptions_count < 10:
             msg = f"Too many exceptions: {exceptions_count} amoung {len(java_files)} java files!"
             raise MyException(msg)
@@ -172,11 +166,7 @@ class JLCodeAnalyzer:
         try:
             avg_locs = self.codelines/len(methods.items())
         except ZeroDivisionError as e:
-            msg = f"\Error when calculating cyclomatic complexity: Exception = {e}\n"\
-                  f"Probably the package downloaded has no java files. \n"\
-                  f"This is mandatory so I cannot continue execution."
-            #self.exceptions.append(msg)
+            msg = f"\Error when calculating AVG methond LOCs: Exception = {e}. Probably the package downloaded has no java files."
             raise MyException(msg)
             
-        #print(f"Number of methods = {len(methods.items())}, Total LOCS = {self.codelines}")
         return round(avg_locs, 2)

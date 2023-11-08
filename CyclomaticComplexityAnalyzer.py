@@ -35,8 +35,7 @@ class CyclomaticComplexityAnalyzer:
         for jf in jfs:
             analyzed_files = lizard.analyze_file(jf)
             avg_ccn_for_file += round(analyzed_files.CCN, 2)
-            #print(f"Whole file: {os.path.basename(jf)} has CCN = {analyzed_files.CCN}, and his methods:")
-
+            
         try:
             avg_ccn = round(avg_ccn_for_file / len(jfs),2)
             self.result = avg_ccn

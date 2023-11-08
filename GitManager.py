@@ -51,13 +51,11 @@ class GitManager:
             except MyException as me:
                 raise MyException(me)
         else:
-            msg = f"{self.current_v} and/or {self.precedent_v} not found amoung repository's versions!"
-            msg = "I wasn't able to find any version of the project on GitHub! \
-                    Sometimes you encounter empty repos (0 releses and 0 packages) and there are no info to fetch from!"
-            #print(msg)
+            msg = f"Version(s) {self.current_v} and/or {self.precedent_v} are not listed in the repository's versions list!"
+            msg = "I wasn't able to find any version of the project on GitHub! Sometimes you encounter empty repos (0 releses and 0 packages) and there are no info to fetch!"
             raise MyException(msg)
 
-        # time to try compute code churn
+        # try to compute code churn
         try:
             code_churn = gr.get_code_churn(self.current_v, self.precedent_v)
             if code_churn != -1:
@@ -65,8 +63,9 @@ class GitManager:
         except MyException as me:
             raise MyException(me)
 
-        gu = GitUser() 
-        res = gu.get_users_and_contributions_of_repo(gr.repo_path)
+        # experimental: retrieve more information about a repo or user
+        #gu = GitUser() 
+        #res = gu.get_users_and_contributions_of_repo(gr.repo_path)
        
         return self.code_churn, self.changed_files, self.commits
         

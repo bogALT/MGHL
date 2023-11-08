@@ -38,7 +38,7 @@ def unzip(fileName):
             process = subprocess.Popen(command, shell=True)
             status  = os.waitpid(process.pid, 0)[1]
         except BaseException as be:
-            msg = f"An error ocured while executing subprocess.Popen({command}, shell=True):\n{be}"
+            msg = f"An error ocured while executing subprocess.Popen({command}, shell=True): {be}"
             raise MyException(f"Error while extracting files from the jar: {fileName}. Error: {msg}")
 
     return oDir # return the directory

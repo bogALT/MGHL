@@ -19,8 +19,7 @@ class MavenRepositorySearcher:
             response = requests.get(url)
             data = response.content.decode("utf-8")
         except BaseException as be:
-            msg = f"Something went wrong when searching on maven for url = {url} the following exception was raised: {be}. "\
-                  f"This point is mandatory, "
+            msg = f"Something went wrong when searching on maven for url = {url} the following exception was raised: {be}."
             #self.exceptions.append(msg)
             raise MyException(msg)
         return data
@@ -99,8 +98,7 @@ class MavenRepositorySearcher:
         try:
             data = self.do_request(search_url+search_parameters)
         except BaseException as be:
-            msg = f"Error while querying the maven repository. Exception: {be}. "\
-                  f"The error is often caused by the maven server which returns a 503 error due to outage."
+            msg = f"Error while querying the maven repository. Exception: {be}. The error is often caused by the maven server which returns a 503 error due to outage."
 
             raise MyException(msg)
 
@@ -109,8 +107,7 @@ class MavenRepositorySearcher:
             pages_number = math.ceil(int(self.get_total_number_of_versions(data))/20)
             print(f"Searching among {pages_number} pages. This may take more than {pages_number} seconds according to your internet speed and maven central server status.")
         except BaseException as be:
-            msg = f"I wasn't able to retrive versions from maven server, the following exception was raised: {be}. "\
-                f"This may be caused by a Maven server malfunction (or not). The server returned an error: {data}. \nThis point is mandatory, "
+            msg = f"I wasn't able to retrive versions from maven server, the following exception was raised: {be}. This may be caused by a Maven server malfunction (or not). The server returned an error: {data}."
             raise MyException(msg)
         # retrieve all versions available reading every page
         versions = []
