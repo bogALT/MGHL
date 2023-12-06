@@ -1,4 +1,4 @@
-# MVN Packages Analyzer
+# MVN-GitHub Linker & Packages Analyzer
 
 
 The software industry evolves continually, demanding fresh and innovative approaches for assessing code quality. Recently, there's been increased interest in using code and project metrics to gauge software quality and security. As the industry expands, developers increasingly rely on extensive open-source code reuse, potentially introducing vulnerabilities.
