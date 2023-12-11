@@ -12,7 +12,16 @@ class JLCodeAnalyzer:
     '''
     def __init__(self, directory):
         self.code_path = directory + "/"
-        self.codelines = 0           # not sure why I need this
+        self.maxLOCsLenMethod = 0           # longest method found in terms of number of LOCs
+        self.codelines = 0
+    
+    def get_max_locs_len(self):
+        '''
+        This method returns the value of self.maxLOCsLenMethod = 0 
+        '''
+        print("Returning MAX LEN = ", self.maxLOCsLenMethod)
+
+        return self.maxLOCsLenMethod
 
     def get_method_start_end(self, method_node, tree):
         '''
@@ -113,7 +122,7 @@ class JLCodeAnalyzer:
         # open each java file and compute its method length (skip files with size bigger than "slimit" -> file_size_limit)
         for target_file in java_files:
             with open(target_file, 'r') as r:
-                start = timeit.default_timer()
+                #start = timeit.default_timer()
                 codelines = r.readlines()
                 code_text = ''.join(codelines)
                 lex = None
@@ -148,13 +157,18 @@ class JLCodeAnalyzer:
                         else:
                             methods[method_node.name] = endline - startline
                             self.codelines += endline-startline
+
+                            # check id this method is longer than the current longest method and eventually save it as new longest method
+                            if(self.maxLOCsLenMethod < (endline-startline)):
+                                self.maxLOCsLenMethod = endline-startline
+                                
                 except BaseException as be:
                     msg = "Exception while reading methods = ", be
                     #self.exceptions.append(msg)
                     raise MyException(msg)
 
-                stop = timeit.default_timer()
-                p_time = round((stop - start), 3)
+                #stop = timeit.default_timer()
+                #p_time = round((stop - start), 3)
             analized_files_count += 1
 
         # we accept a maximum of <10% erorr rate

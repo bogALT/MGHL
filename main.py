@@ -23,6 +23,7 @@ report = {
         "GAV"                       : "ND - Not Defined",  # ND = Not Defined
         "AVG Cyclomatic Complexity" : "NA - Not Analyzed", # NA = Not Analyzed
         "AVG LOCs per method"       : "NA - Not Analyzed",
+        "Max Len LOCs method"       : "NA - Not Analyzed",
         "Precedent version"         : "NA - Not Analyzed",
         "Code Churn"                : "NA - Not Analyzed",
         "GitHub Nr. changed files"  : "NA - Not Analyzed",
@@ -98,11 +99,14 @@ def start(gav=None, slimit=None):
         print(oDir)
         jlca = JLCodeAnalyzer(oDir)
         avg_locs_per_method = jlca.start(slimit)
+        longest_method = jlca.get_max_locs_len()
+        print("Longest_method = ",longest_method)
     except MyException as me:
         terminate_app(me)
-    print(f"On average we have {avg_locs_per_method} locs per method\n")
+    print(f"On average we have {avg_locs_per_method} locs per method.\n")
 
     report["AVG LOCs per method"] = avg_locs_per_method
+    report["Max Len LOCs method"] = longest_method
 
     separator()
     print("\nCyclomatic complexity analysis:")
