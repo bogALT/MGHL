@@ -8,7 +8,7 @@ class Downlaoder:
         self.base = "https://repo1.maven.org/maven2/"   # base url
 
 # -----------------------------------------------------------------------------
-    def download(self, g, a, v, extension="jar"):
+    def download(self, g, a, v, extension="pom"):
         '''
         This method will manage the different parts of the downloading process
         :param g: groupID
@@ -23,9 +23,13 @@ class Downlaoder:
         self.a = a
         self.v = v
 
-        url = self.gav_to_url(g, a, v, extension)   # create the url from the GAV format
-        url = url.replace(".jar", "-sources.jar")   # specify to download the source files
-        print("     download url = ", url)
+        gid = g.replace(".", "/")
+        url = self.base + gid + "/" + a + "/" + v + "/" + a + "-" + v + "." + "pom"
+        url = f"{self.base}{gid}/{a}/{str(v)}/{a}"
+
+        #url = self.gav_to_url(g, a, v, "pom")   # create the url from the GAV format
+        #url = url.replace(".jar", "-sources.jar")   # specify to download the source files
+        print("DOWNLOAD URL = ", url)
         if self.is_downloadable(url):
             try:
                 file = self.perform_download(url)       #return the downloaded file
@@ -33,7 +37,7 @@ class Downlaoder:
             except Exception as e:
                 raise MyException(e)
         else:
-            msg = f"There is nothing to download at: {url}"
+            msg = f"The url = {url} is not a downloadable URL"
             raise MyException(msg)
 
 # -----------------------------------------------------------------------------
@@ -49,8 +53,9 @@ class Downlaoder:
         '''
 
         gid = g.replace(".", "/")
-        ret_url = self.base + gid + "/" + a + "/" + v + "/" + a + "-" + v + "." + ext
-        #print(f"g = {g}, \na= {a}, \nv = {v}, \ngid = {gid}, \nurl = {ret_url}")
+        ret_url = self.base + gid + "/" + a + "/" + v + "/" + a + "-" + v + "." + "pom"
+        #print(f"GAV TO URL:\ng = {g}, \na= {a}, \nv = {v}, \ngid = {gid}, \nurl = {ret_url}")
+
         return self.base + gid + "/" + a + "/" + v + "/" + a + "-" + v + "." + ext
 
 # -----------------------------------------------------------------------------
@@ -63,10 +68,12 @@ class Downlaoder:
 
         filename = url.split("/")[-1]
         try:
+            print("DOWNLOADING = ", url)
             response = requests.get(url, allow_redirects=True)
-            open("pom_jar/"+filename, "wb").write(response.content)    # overwritting file in case it exists
+            open("pom/"+filename, "wb").write(response.content)    # overwritting file in case it exists
         except Exception as e:
-            msg = f"Something went wrong while downloading: {url} and the following exception was raised: {e}."
+            msg = f"Something went wrong while downloading: {url} and the following exception was raised: {e}. "
+            f"This operation is mandatory, "
             raise MyException(msg)
         return filename
 
@@ -85,7 +92,9 @@ class Downlaoder:
         if "text/xml" in content_type.lower() or "application/java-archive" in content_type.lower():
             return True
         else:
-            msg = f"The url = {url} doesn't point nor to a POM file neighter to a JAR file but to a {content_type.lower()}. This may be due to a 404 Error: the file is missing from MVN repository! Comparing is impossible"
+            msg = f"The url = {url} doesn't point nor to a POM file neighter to a JAR file but to a {content_type.lower()}. \
+                    This may be due to a 404 Error: the file is missing from MVN repository! \
+                    Comparing is impossible"
 
             raise MyException(msg)
             return False
