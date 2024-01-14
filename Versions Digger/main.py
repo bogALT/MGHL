@@ -7,14 +7,13 @@ from Downloader import Downlaoder
 # base url for maven search
 base = "https://repo1.maven.org/maven2/"
 
-# "versions/" directory contains one file for each GgoupID and AnchorID (syntax: GroupID_AnchorID.txt)
+# "versions/" directory contains one file for each GroupID and ArtefactID (syntax: GroupID_ArtefactID.txt)
 # which contains a list of versions for that G:A as published on maven repository (may be many).
 # From each file, read all the versions available, construct a GAV link to the POM file on maven
 # download it and search inside for github links 
 files_list = os.listdir("versions/")
-#files_list.sort()
 
-# create a downloader
+# create a downloader which will download files from maven server (maven repository)
 dl = Downlaoder()
 
 # create loggers
@@ -28,7 +27,7 @@ for f_gav in files_list:
     except BaseException as be:
         print(f"Trying to read {f_gav} and got error: {be}")
     
-    # read versions of f_gav and order them (newer first)
+    # read versions of f_gav and order them (newer first), Note: versions retrived from MVN server are not sorted
     versions = []
     try:
         versions = file.readlines()
@@ -43,7 +42,6 @@ for f_gav in files_list:
 
     # get the filename
     file_name = os.path.basename(f_gav).replace('_', '/').replace('.txt', '/').replace('.', '/')
-
     print(f"Analyzing: {g} : {a} ...")
 
     # init the counter: a G:A will be signed as not found only when all versions have been processed 
@@ -52,7 +50,6 @@ for f_gav in files_list:
 
     # start iterating on all G:A's versions until a github link is found, then breake
     for v in versions:
-
         count += 1
 
         # some formating on url
@@ -62,16 +59,17 @@ for f_gav in files_list:
             # query
             response = requests.get(url, allow_redirects=True)
             if b"github.com" in response.content:
-                #open("pom/"+f_gav+"_"+v, "wb").write(response.content)
+                # open("pom/"+f_gav+"_"+v, "wb").write(response.content)
                 # found "github.com", sign as found and break the cycle to start wit the next G:A
+                # yes, only the first occrence is considered
                 found.write(g+","+a+","+v)
-                print(f"    - Found {g} : {a} : {v}")
+                print(f" |-> Found: {g} : {a} : {v}")
                 break
             else:
-                #open("pom/_"+f_gav+"_"+v, "wb").write(response.content)
-                # last version examinated and didn't find "github.com": insert the G:A amount not found
+                # open("pom/_"+f_gav+"_"+v, "wb").write(response.content)
+                # last version examinated and didn't find "github.com": insert the G:A amoung not found
                 if count >= len(versions):
-                    print(f"Adding to not found: {g}:{a}")
+                    print(f" |->  Not found: {g}:{a}")
                     not_found.write(g+","+a+",NONE")          
         except Exception as e:
             print("UPS: {e}")
