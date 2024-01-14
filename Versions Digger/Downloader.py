@@ -66,9 +66,11 @@ class Downlaoder:
         :return:  downloaded file
         '''
 
+        # split the filename from the url
         filename = url.split("/")[-1]
+
         try:
-            print("DOWNLOADING = ", url)
+            print("DOWNLOADING ", url)
             response = requests.get(url, allow_redirects=True)
             open("pom/"+filename, "wb").write(response.content)    # overwritting file in case it exists
         except Exception as e:
