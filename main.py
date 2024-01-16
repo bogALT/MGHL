@@ -1,80 +1,203 @@
-import os
-import re
+# My Objects:
+import json
 
-import requests
+from CyclomaticComplexityAnalyzer import CyclomaticComplexityAnalyzer
 from Downloader import Downlaoder
+from FolderComparator import FolderComparator
+from GitManager import GitManager
+from JARExtractor import JARExtractor
+from JLCodeAnalyzer import JLCodeAnalyzer
+from MavenRepositorySearcher import MavenRepositorySearcher
+import csv
+import argparse
+from Setup import Setup
+from prettytable import PrettyTable
+from Setup import Setup
 
-# base url for maven search
-base = "https://repo1.maven.org/maven2/"
+from MyException import MyException
+from XMLReader import XMLReader
 
-# "versions/" directory contains one file for each GgoupID and AnchorID (syntax: GroupID_AnchorID.txt)
-# which contains a list of versions for that G:A as published on maven repository (may be many).
-# From each file, read all the versions available, construct a GAV link to the POM file on maven
-# download it and search inside for github links 
-files_list = os.listdir("versions/")
-#files_list.sort()
 
-# create a downloader
-dl = Downlaoder()
 
-# create loggers
-found = open("found.csv", "w")
-not_found = open("not_found.csv", "w")
+report = {
+        "GAV"                       : "ND - Not Defined",  # ND = Not Defined
+        "AVG Cyclomatic Complexity" : "NA - Not Analyzed", # NA = Not Analyzed
+        "AVG LOCs per method"       : "NA - Not Analyzed",
+        "Max Len LOCs method"       : "NA - Not Analyzed",
+        "Precedent version"         : "NA - Not Analyzed",
+        "Code Churn"                : "NA - Not Analyzed",
+        "GitHub Nr. changed files"  : "NA - Not Analyzed",
+        "GitHub Nr. commits"        : "NA - Not Analyzed"
+    }
 
-# start opening GA files
-for f_gav in files_list:
-    try: 
-        file = open("versions/" + f_gav, 'r')
-    except BaseException as be:
-        print(f"Trying to read {f_gav} and got error: {be}")
-    
-    # read versions of f_gav and order them (newer first)
-    versions = []
+def create_report():
+    x = PrettyTable()
+    x.field_names = ["Metric", "Result"]
+
+    for key in report:
+        x.add_row([key, report[key]])
+        #f"{key}: {report[key]}"
+    x.align = "l"
+    gav[0] = "ERROR__"+gav[0]
+    export_json(gav)
+    print(x)
+
+def export_json(gav):
+    json_report = json.dumps(report)
+    jsonFile = open(f"data/{gav[0]}_{gav[1]}_{gav[2]}.json", "w")
+    jsonFile.write(json_report)
+    jsonFile.close()
+
+def terminate_app(e):
+    print("\n--------- E N D E D   W I T H    E R R O R ---------\n")
+    print(f"Error Message thet raised the Exception:\n {e} \n")
+    #report["Exception"] = str(e)
+    create_report()
+    exit(1)
+
+def separator():
+    print("\n" + "-" * 80)
+
+
+def start(gav=None, slimit=None):
+    if gav != None:
+        g = gav[0]
+        a = gav[1]
+        v = gav[2]
+
+    if slimit == None:
+        slimit = 1.0
+
+    setup = Setup()
+    setup.crete_folders()
+    mrs = MavenRepositorySearcher()
+
+    # download the JAR and POM files of the specific GAV
+    text = f"I am downloading the JAR source file {g} : {a} : {v} from MVN"
+    text += f"\nI am downloading the POM file for {g} : {a} : {v} from MVN"
+
+    report["GAV"] = f"{g} : {a} : {v}"
+    dl = Downlaoder()
     try:
-        versions = file.readlines()
-        versions.sort(reverse=True)
-    except BaseException as be:
-        print(f"Trying to read versions from {f_gav} and got error: {be}")
-
-    # format GroupID and ArtefactID 
-    gav = os.path.basename(f_gav).replace('.txt', '').split('_')
-    g = gav[0]
-    a = gav[1]
-
-    # get the filename
-    file_name = os.path.basename(f_gav).replace('_', '/').replace('.txt', '/').replace('.', '/')
-
-    print(f"Analyzing: {g} : {a} ...")
-
-    # init the counter: a G:A will be signed as not found only when all versions have been processed 
-    # and no gh links were found
-    count = 0
-
-    # start iterating on all G:A's versions until a github link is found, then breake
-    for v in versions:
-
-        count += 1
-
-        # some formating on url
-        gid = g.replace(".", "/")
-        url = re.sub(r'\n', '', (base + gid + "/" + a + "/" + v + "/" + a + "-" + v + "." + "pom")) 
-        try:
-            # query
-            response = requests.get(url, allow_redirects=True)
-            if b"github.com" in response.content:
-                #open("pom/"+f_gav+"_"+v, "wb").write(response.content)
-                # found "github.com", sign as found and break the cycle to start wit the next G:A
-                found.write(g+","+a+","+v)
-                print(f"    - Found {g} : {a} : {v}")
-                break
-            else:
-                #open("pom/_"+f_gav+"_"+v, "wb").write(response.content)
-                # last version examinated and didn't find "github.com": insert the G:A amount not found
-                if count >= len(versions):
-                    print(f"Adding to not found: {g}:{a}")
-                    not_found.write(g+","+a+",NONE")          
-        except Exception as e:
-            print("UPS: {e}")
-
-            
+        jar_file = dl.download(g, a, v)
+        pom_file_name = dl.download(g, a, v, "pom")
+    except MyException as me:
+        terminate_app(me)
         
+    separator()
+    # Extract java files from JAR to oDir
+    try:
+        je = JARExtractor()
+        oDir = je.extract(jar_file)
+        print(jar_file)
+    except MyException as me:
+        terminate_app(me)
+
+    separator()
+    # count LOCs per method
+    try:
+        print(oDir)
+        jlca = JLCodeAnalyzer(oDir)
+        avg_locs_per_method = jlca.start(slimit)
+        longest_method = jlca.get_max_locs_len()
+        print("Longest_method = ",longest_method)
+    except MyException as me:
+        terminate_app(me)
+    print(f"On average we have {avg_locs_per_method} locs per method.\n")
+
+    report["AVG LOCs per method"] = avg_locs_per_method
+    report["Max Len LOCs method"] = longest_method
+
+    separator()
+    print("\nCyclomatic complexity analysis:")
+    try:
+        cca = CyclomaticComplexityAnalyzer(oDir)
+        complexity = cca.start()
+    except MyException as me:
+        terminate_app(me)
+    print(f"AVG CCN per file = {complexity}. ")
+    report["AVG Cyclomatic Complexity"] = complexity
+
+    separator()
+    # search the Maven Repository for version - 1
+    print("Searching for version precedent to ", v)
+    try:
+        precedent = mrs.search_GAV(g, a, v)  # check what to do when incomplete parameters are set
+    except MyException as me:
+        terminate_app(me)
+
+    report["Precedent version"] = precedent
+    print("Found v = ", precedent)
+
+    separator()
+    # download the precedent version
+    # download the JAR file (version -1) from MVN repository
+    # dl = Downlaoder()
+    try:
+        jar_file = dl.download(g, a, precedent)
+    except MyException as me:
+        terminate_app(me)
+
+    # Extract java files from JAR to oDir
+    # je = JARExtractor()
+    try:
+        oDir_precedent = je.extract(jar_file)
+        text += f"saving in directory: {oDir_precedent}"
+    except MyException as me:
+        terminate_app(me)
+
+    separator()
+
+    # create Directory comparator
+    try:
+        comparator = FolderComparator(oDir, oDir_precedent)
+        num_different_files, num_files_examined = comparator.count_different_files()
+    except MyException as me:
+        terminate_app(me)
+
+    #report["Number files examined"]     = num_files_examined
+    #report["Number of changed files"]   = num_different_files
+
+    # XML Reader -> return github url contained in the POM file
+    urls = []
+    try:
+        xr = XMLReader()
+        pom_file_name = "pom_jar/" + pom_file_name
+        urls = xr.get_github_url(pom_file_name)
+        print ("Analyzing possible GitHub URLs...")
+
+        # start net github manager -------------------------------------------------
+        try:
+            gm = GitManager(urls, v, precedent)
+            report["Code Churn"], report["GitHub Nr. changed files"], report["GitHub Nr. commits"] = gm.start()
+        except MyException as me:
+            terminate_app(me)
+        # --------------------------------------------------------------------------
+
+    except MyException as me:
+        terminate_app(me)
+        
+    # if urls has links, start github research and analysis
+    
+
+    create_report()
+    export_json(gav)
+    
+
+if __name__ == '__main__':
+    # get GAV trom CL
+    try:
+        parser = argparse.ArgumentParser(description="MVN repo anlayzer",
+                                        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+        parser.add_argument("-gav", help="insert group artefact and version")
+        parser.add_argument("-slimit", help="files bigger than this will not be examined")
+        args = parser.parse_args()
+        slimit = args.slimit
+        gav = (args.gav).split(":")
+    except BaseException as be:
+        print("Correct Usage: usage: main.py [-h] [-gav GAV] [-slimit SLIMIT]")
+        exit(1)
+    print("Starting the program for GAV = ", args.gav)
+    print("Slimit the program for GAV = ", args.slimit)
+    
+    start(gav, slimit)
