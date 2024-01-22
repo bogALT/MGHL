@@ -3,8 +3,18 @@ from xml.dom import minidom
 from MyException import MyException
 
 class XMLReader:
+    '''
+    This object takes in input a file XML (the POM file downloaded from Maven repository)
+    and looks for a github link into it 
+    '''
 
     def get_github_url(self, xml_file):
+        ''''
+        This method will retrun a list of GH urls found in the POM file taken in input
+        :param xml_file: the POM file to be analysed
+        :return: list of GH urls
+        '''
+
         xmldoc = minidom.parse(xml_file)
         url_tags = xmldoc.getElementsByTagName('url')   # sometimes github urls may be insert into other tags
         gh_urls = []
@@ -19,6 +29,11 @@ class XMLReader:
         return gh_urls
 
     def data_to_xml_file(self, data, file_name="data_to_xml.xml"):
+        '''
+        Write XML data to a file
+        :param data: data to be written into the file
+        :return: the file created
+        '''
         try:
             file = open(file_name, "w")
             try:
@@ -40,7 +55,7 @@ class XMLReader:
         Returns: list of versions
 
         '''
-        #print("Reading XML = ", file.name)
+        
         try:
             xmldoc = minidom.parse(file.name)
             strs = xmldoc.getElementsByTagName('str')

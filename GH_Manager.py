@@ -1,4 +1,6 @@
-    if len(urls) > 0:
+# useless file ??    
+
+if len(urls) > 0:
         # create github manager object
         separator()
         print("Creating GitManager")

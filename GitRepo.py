@@ -9,6 +9,10 @@ from MyException import MyException
 
 
 class GitRepo:
+    '''
+    This object retrieves the data about reopositories on GH like number of commits, code churn,
+    changed files, clone a repository
+    '''
     def __init__(self):
         print(f"\nGit Repo manager created --------------\n")
         self.versions = []
@@ -27,7 +31,7 @@ class GitRepo:
             #print("Examinating = ", url)
             url = url[:-1] if url.endswith('/') else url                # get rid of the ending "/"
             if self.is_valid_github_url(url):
-                print(f"{url} looks to be a valid gh repo url. Returning!")
+                print(f"{url} looks to be a valid gh repo url.")
                 return url
             else:
                 #print(f"{url} is not a valid repo url")
@@ -143,8 +147,7 @@ class GitRepo:
         # code churn for entire history
         #command_old = "git config merge.renameLimit 999999 && set -e && git log --all -M -C --name-only --format='format:' \"$@\" | sort | grep -v '^$' | uniq -c | sort -n"
         
-        # code churn between two releases
-        print("in code churn fx")
+        # code churn 
         try:
             command = f"git config merge.renameLimit 999999 && set -e && git log {current}...{precedent} -M -C --name-only --format='format:' | sort | grep -v '^$' | uniq -c | sort -n"
             task = subprocess.Popen(command, shell=True, cwd=self.dir, stdout=subprocess.PIPE)

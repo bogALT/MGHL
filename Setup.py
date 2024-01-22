@@ -4,7 +4,7 @@ from MyException import MyException
 
 class Setup:
     '''
-        This class will initialize some basic data like directories and data structures
+        This class will initialize some basic data like directories and data eventually structures
     '''
     def crete_folders(self):
         # create folders
