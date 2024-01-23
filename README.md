@@ -133,6 +133,8 @@ Output:
     Code Churn                     | 5
     GitHub Nr. changed files       | 4
     GitHub Nr. commits             | 5
+    Nr. of contributors            | 5
+    AVG contributions per user     | 5
 ```
 ## Conclusion
 Here we see the final oputput digested in a table. We also have a `JSON` saved in the folder `data`. If the file name  of the report in `data` directory starts with `ERROR_` then it mans that the `GAV` under exame has èroduced an error.
