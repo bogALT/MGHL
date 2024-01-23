@@ -6,9 +6,25 @@ from MyException import MyException
 
 
 class GitUser:
+    '''
+    This object is in charge of retriving information about GitHub Users
+    Givven two versions of a repository, it will return:
+    - A list of users that committed between version1 and version2
+    - A list containing information about the contributions of the user in form of: (login, contributions)
+    '''
+
+    #---------------------------------------------------------------------------------------------------------------------
+    
     def get_commits_users_list_between_versions(self, repo_dir, version1, version2):
         """
-            This method will produce the number of commits between two versions
+        This method retrieves the list of authors (users) who made commits
+        between two specified versions in a Git repository.
+
+        :param repo_dir: The directory path of the Git repository.
+        :param version1: The starting version.
+        :param version2: The ending version.
+        :return: A list of authors who made commits between the specified versions.
+        
         """
         try:
             repo = git.Repo(repo_dir)
@@ -16,7 +32,7 @@ class GitUser:
             commits = list(repo.iter_commits(f'{version1}..{version2}'))
             for c in commits:
                 #print(git.util.get_user_id())
-                users.append(c.author)
+                users.append(c.author)  
 
             return users
         except Exception as e:
@@ -75,14 +91,6 @@ class GitUser:
         "site_admin":false,
         "contributions":654
         '''
-
-    #---------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
 
     #---------------------------------------------------------------------------------------------------------------------
 

@@ -5,10 +5,15 @@ import subprocess
 from MyException import MyException
 
 class JARExtractor():
+    '''
+    This object extracts java files from JAR-sources downloaded from maven repository
+    '''
 
 # -----------------------------------------------------------------------------
     def extract(self, jar_file):
-        errorMessages = []
+        '''
+        This function perform the extraction from the JAR archive
+        '''
         if not isArchive(jar_file):           
             raise MyException(f"{jar_file} is not a valid jar archive")
 
@@ -20,12 +25,17 @@ class JARExtractor():
         return oDir
 
 #-----------------------------------------------------------------------------
+
+# Auxiliary functions for JARExtractor (maybe I should move it into the JARExtractor Object)
 def unzip(fileName):
+ 
+    # Create the destination Directory and extract files
+
     #oDir = getExpandedDirName(fileName) # original
     oDir = "packages/" + fileName.replace(".jar", "")
     fileName = "pom_jar/" + fileName
     if os.path.exists(oDir):
-        print(f"     Directory {oDir} already exists. Skipping extraction of {fileName}.")
+        print(f"Directory {oDir} already exists. Skipping extraction of {fileName}.")
     else:
         try:
             os.makedirs(oDir)
@@ -33,7 +43,7 @@ def unzip(fileName):
             raise MyException(f"Error while extracting files from the jar: {fileName}. Exceprion: {be}")
 
         try:
-            #print(f"     Processing {fileName} into {oDir}")
+            # extract files
             command = "unzip %s -d %s" % (fileName, oDir)
             process = subprocess.Popen(command, shell=True)
             status  = os.waitpid(process.pid, 0)[1]
@@ -63,6 +73,8 @@ def getExpandedDirName(fileName):
 
 #-----------------------------------------------------------------------------
 def isArchive(fileName):
+
+    # check if fileName is a valid archive: zip or jar
     ext = fileName[-4:]
 
     if ext in [".zip", ".jar"]: return True

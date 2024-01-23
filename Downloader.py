@@ -16,7 +16,7 @@ class Downlaoder:
         :param v: artefact version
         :param ext: set pom if you want to create a link for the pom file,
                     set jar if you want to create a link for the jar file
-        :return:
+        :return file: contains the file downloaded
         '''
 
         self.g = g
@@ -25,7 +25,7 @@ class Downlaoder:
 
         url = self.gav_to_url(g, a, v, extension)   # create the url from the GAV format
         url = url.replace(".jar", "-sources.jar")   # specify to download the source files
-        print("     download url = ", url)
+        print("Download url = ", url)
         if self.is_downloadable(url):
             try:
                 file = self.perform_download(url)       #return the downloaded file
@@ -49,14 +49,13 @@ class Downlaoder:
         '''
 
         gid = g.replace(".", "/")
-        ret_url = self.base + gid + "/" + a + "/" + v + "/" + a + "-" + v + "." + ext
-        #print(f"g = {g}, \na= {a}, \nv = {v}, \ngid = {gid}, \nurl = {ret_url}")
+      #  ret_url = self.base + gid + "/" + a + "/" + v + "/" + a + "-" + v + "." + ext
         return self.base + gid + "/" + a + "/" + v + "/" + a + "-" + v + "." + ext
 
 # -----------------------------------------------------------------------------
     def perform_download(self, url):
         '''
-        Do the downlaod of the file
+        Downlaod of the file
         :param url: url of the file to be downloaded
         :return:  downloaded file
         '''
