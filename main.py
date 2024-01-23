@@ -28,7 +28,8 @@ report = {
         "GitHub Nr. changed files"  : "Not Analyzed",   # Nr. of changed files according to GH
         "GitHub Nr. commits"        : "Not Analyzed",   # Nr. of commits according to GH between vers. N and N-1
         "Nr. of contributors"       : "Not Analyzed",   # Nuber of contributors for the repo under analysis
-        "AVG Contributions/user"    : "Not Analyzed"    # AVG contributions per contributor of a repository
+        "AVG Contributions/user"    : "Not Analyzed"    # AVG contributions per contributor of a repository, 
+                                                        # may be used as an AVG seniority of contributors for the repo
     }
 
 def create_report():
@@ -214,8 +215,16 @@ def start(gav=None, slimit=None):
         # start github manager
         try:
             gm = GitManager(urls, v, precedent)
-            # self.code_churn, self.changed_files, self.commits, self.avg_contributions, self.number_of_contributors
-            report["Code Churn"], report["GitHub Nr. changed files"], report["GitHub Nr. commits"], report["AVG Contributions/user"], report["Nr. of contributors"] = gm.start()
+            # DEPRECATED: get data from the GH repository, maybe this is not very human readable, consider implemnting it differently
+            #report["Code Churn"], report["GitHub Nr. changed files"], report["GitHub Nr. commits"], report["AVG Contributions/user"], report["Nr. of contributors"] = gm.start()
+            
+            # if Github Manager successed retrieving information about the repository: put it in the report table
+            if gm.start():
+                report["Code Churn"]                = gm.get_code_churn()
+                report["GitHub Nr. changed files"]  = gm.get_changed_files()
+                report["GitHub Nr. commits"]        = gm.get_commits()
+                report["AVG Contributions/user"]    = gm.get_avg_contributions()
+                report["Nr. of contributors"]       = gm.get_nr_contributors()
         except MyException as me:
             terminate_app(me)
         # --------------------------------------------------------------------------

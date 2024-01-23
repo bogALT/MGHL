@@ -24,6 +24,25 @@ class GitManager:
         self.number_of_contributors = -1
         self.avg_contrubutions      = -1
        
+    #-----------------------------------------------------------------------------------
+    # following methods only return datas sored in this object after computing GH parameters
+        
+    def get_code_churn(self):
+        return self.code_churn
+    
+    def get_changed_files(self):
+        return self.changed_files
+    
+    def get_commits(self):
+        return self.commits
+    
+    def get_avg_contributions(self):
+        return self.avg_contributions
+    
+    def get_nr_contributors(self):
+        return self.number_of_contributors
+    
+    #-------------------------------------------------------------------------------STOP
 
     def start(self):
         print(f"Starting GH manager operations")
@@ -82,5 +101,7 @@ class GitManager:
         self.number_of_contributors = len(res)
         self.avg_contributions = round(sum(res) / self.number_of_contributors, 2)
 
-        return self.code_churn, self.changed_files, self.commits, self.avg_contributions, self.number_of_contributors
+        return True
+
+        # return self.code_churn, self.changed_files, self.commits, self.avg_contributions, self.number_of_contributors
         
