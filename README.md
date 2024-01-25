@@ -128,7 +128,7 @@ Output:
     GAV                            |  com.clever-cloud : biscuit-java : 2.2.1
     AVG Cyclomatic Complexity      | 96.96
     AVG LOCs per method            | 29.92
-    Max Len LOCs method            | 90
+    Max Len LOCs method            | 216
     Precedent version              | 2.2.0
     Code Churn                     | 5
     GitHub Nr. changed files       | 4
